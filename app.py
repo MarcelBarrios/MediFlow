@@ -34,6 +34,10 @@ def index():
 def appointment():
     pass
 
+@app.route("/")
+def patient_appointment():
+    pass
+
 @app.route("/", methods=["GET"])
 def all_patients():
     pass
