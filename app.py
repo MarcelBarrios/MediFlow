@@ -30,6 +30,10 @@ def index():
     pass
     # return render_template()
 
+@app.route("/")
+def appointment():
+    pass
+
 @app.route("/", methods=["GET"])
 def all_patients():
     pass
