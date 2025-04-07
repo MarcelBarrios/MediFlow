@@ -30,17 +30,26 @@ def index():
     pass
     # return render_template()
 
+
 @app.route("/")
 def appointment():
     pass
+
 
 @app.route("/")
 def patient_appointment():
     pass
 
+
 @app.route("/", methods=["GET"])
 def all_patients():
     pass
+
+
+@app.route("/", methods=["GET"])
+def patient_procedures():
+    pass
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
