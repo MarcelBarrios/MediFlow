@@ -18,7 +18,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 # Configure MongoDB with Flask-PyMongo
 app.config["MONGO_URI"] = os.getenv(
-    "MONGO_URI", "mongodb://localhost:27017/tenant_app")
+    "MONGO_URI", "mongodb://localhost:27017/mediflow")
 mongo = PyMongo(app)
 
 # Collections
