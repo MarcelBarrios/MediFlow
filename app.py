@@ -25,9 +25,9 @@ mongo = PyMongo(app)
 # tenants_collection = mongo.db.tenants
 
 
-@app.route("/")
-def index():
-    pass
+# @app.route("/")
+# def index():
+#     pass
     # return render_template()
 
 
@@ -43,7 +43,7 @@ def patient_appointment():
 
 @app.route("/", methods=["GET"])
 def all_patients():
-    pass
+    return render_template("all_patients.html")
 
 
 @app.route("/", methods=["GET"])
