@@ -25,14 +25,14 @@ mongo = PyMongo(app)
 # tenants_collection = mongo.db.tenants
 
 
-@app.route("/")
-def index():
-    pass
+# @app.route("/")
+# def index():
+#     pass
     # return render_template()
 
 @app.route("/", methods=["GET"])
 def all_patients():
-    pass
+    return render_template("all_patients.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
