@@ -18,7 +18,7 @@ app.secret_key = os.getenv("SECRET_KEY")
 
 # Configure MongoDB with Flask-PyMongo
 app.config["MONGO_URI"] = os.getenv(
-    "MONGO_URI", "mongodb://localhost:27017/tenant_app")
+    "MONGO_URI", "mongodb://localhost:27017/mediflow")
 mongo = PyMongo(app)
 
 # Collections
@@ -26,21 +26,29 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-def index():
-    pass
-    # return render_template()
+def base():
+    return render_template("base.html")
 
-@app.route("/")
-def appointment():
-    pass
 
-@app.route("/")
-def patient_appointment():
-    pass
+@app.route("/appointments", methods=["GET"])
+def appointments():
+    return render_template("appointments.html")
 
-@app.route("/", methods=["GET"])
+
+# @app.route("/")
+# def patient_appointment():
+#     pass
+
+
+@app.route("/all_patients", methods=["GET"])
 def all_patients():
-    pass
+    return render_template("all_patients.html")
+
+
+# @app.route("/", methods=["GET"])
+# def patient_procedures():
+#     pass
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
