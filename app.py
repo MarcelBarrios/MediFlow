@@ -30,9 +30,9 @@ def base():
     return render_template("base.html")
 
 
-# @app.route("/")
-# def appointment():
-#     pass
+@app.route("/appointments", methods=["GET"])
+def appointments():
+    return render_template("appointments.html")
 
 
 # @app.route("/")
