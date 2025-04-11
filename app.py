@@ -49,6 +49,10 @@ def all_patients():
 # def patient_procedures():
 #     pass
 
+@app.route("/patient", methods=["GET"])
+def patient():
+    return render_template("patient.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
