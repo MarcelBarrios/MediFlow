@@ -35,9 +35,9 @@ def appointments():
     return render_template("appointments.html")
 
 
-# @app.route("/")
-# def patient_appointment():
-#     pass
+@app.route("/patient_appointment", methods=["GET"])
+def patient_appointment():
+    return render_template("patient_appointment.html")
 
 
 @app.route("/all_patients", methods=["GET"])
