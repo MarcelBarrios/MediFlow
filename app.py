@@ -45,10 +45,6 @@ def all_patients():
     return render_template("all_patients.html")
 
 
-# @app.route("/", methods=["GET"])
-# def patient_procedures():
-#     pass
-
 @app.route("/patient", methods=["GET"])
 def patient():
     return render_template("patient.html")
