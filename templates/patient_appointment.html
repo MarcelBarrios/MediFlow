@@ -14,23 +14,24 @@
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex flex-col md:flex-row">
                     
-                    <div class="md:w-1/4 w-full flex justify-center items-start mb-4 md:mb-0">
+                    <div class="w-full md:w-1/4 flex flex-col items-center mb-4">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                        alt="Patient Photo" class="rounded-full w-24 h-24 object-cover" />
+                        alt="Patient Photo" class="rounded-full w-24 h-24 object-cover mb-2" />   
+                        
+                        <h2 class="text-xl font-bold">John Doe</h2>
+        
+                        <div class="flex flex-col text-sm text-gray-500">
+                            <span>Age: 45</span>
+                            <span>D.O.B: May 30, 1980</span>
+                            <span>MRN: 23847109	</span>
+                        </div>
                     </div>
 
                     <div class="md:w-3/4 w-full md:pl-4 h-[70vh] overflow-y-auto pr-4 pl-4">
-                        
-                        <h2 class="text-xl font-bold">John Doe</h2>
 
-                        <div class="flex justify-between mb-1 text-sm text-gray-500">
-                            <span>Age: 45</span>
-                            <span>D.O.B: May 30, 1980</span>
-                        </div>
-
-                        <div class="text-gray-700 mb-2 text-sm">
-                            <p><span class="font-semibold">Appointment:</span>8:15am</p>
-                            <p><span class="font-semibold">Reason:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
+                        <div class="text-gray-700 mb-2 text-md">
+                            <p><span class="font-semibold text-gray-700">Appointment Time: </span>8:15am</p>
+                            <p><span class="font-semibold text-gray-700">Reason:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
                         </div>
 
                         <div class="mt-3">
@@ -51,18 +52,10 @@
                         <!-- Doctor's Note Taking Section -->
                         <div class="mt-6">
                             <h3 class="font-semibold text-gray-700">Doctor's Notes:</h3>
-                            <textarea class="w-full h-32 p-2 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
+                            <textarea class="w-full h-52 p-2 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
                         </div>
 
-                        <!-- AI Notes Section -->
-                        <div class="mt-6">
-                            <h3 class="font-semibold text-gray-700">AI Notes:</h3>
-                            <div id="ai-notes" class="bg-gray-100 p-2 rounded-md mt-2">
-                                <p class="text-gray-500">AI can add notes here based on the conversation or diagnostics. </p>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 flex justify-between">
+                        <div class="mt-2 flex justify-between">
                             <button type="button" onclick="window.print()" class="bg-blue-500 text-white p-2 rounded-md">
                                 Print
                             </button>
