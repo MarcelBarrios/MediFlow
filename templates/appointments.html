@@ -16,17 +16,47 @@
             <col style="width: 45%;">   <!-- Patient Details (biggest column) -->
         </colgroup>
         <thead class="bg-blue-700 text-white">
-        <tr>
-            <th class="border border-gray-400 px-4 py-2 text-center">Date/Time</th>
-            <th class="border border-gray-400 px-4 py-2 text-center">MRN</th>
-            <th class="border border-gray-400 px-4 py-2 text-center">Patient Name</th>
-            <th class="border border-gray-400 px-4 py-2 text-center">Age</th>
-            <th class="border border-gray-400 px-4 py-2 text-center">Checked In</th>
-            <th class="border border-gray-400 px-4 py-2 text-center">Patient Details</th>
-        </tr>
+            <tr>
+                <!-- Date/Time -->
+                <th class="border border-gray-400 px-4 py-2 text-center">
+                    <div class="flex items-center justify-center space-x-1">
+                        <span>Date/Time</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </th>
+    
+                <!-- MRN -->
+                <th class="border border-gray-400 px-4 py-2 text-center">
+                    <div class="flex items-center justify-center space-x-1">
+                        <span>MRN</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </th>
+    
+                <!-- Patient Name -->
+                <th class="border border-gray-400 px-4 py-2 text-center">
+                    <div class="flex items-center justify-center space-x-1">
+                        <span>Patient Name</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+                </th>
+    
+                <!-- Age -->
+                <th class="border border-gray-400 px-4 py-2 text-center">Age</th>
+                <!-- Checked In -->
+                <th class="border border-gray-400 px-4 py-2 text-center">Checked In</th>
+                <!-- Patient Details -->
+                <th class="border border-gray-400 px-4 py-2 text-center">Patient Details</th>
+            </tr>
         </thead>
-        <tbody>
-        <tr class="">
+        <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 11:00AM</td>
             <td class="border border-gray-400 px-4 py-2">23847109</td>
             <td class="border border-gray-400 px-4 py-2">John Doe</td>
@@ -34,7 +64,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">❌</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Persistent cough, chest tightness, and patient starting to worry.</td>
         </tr>
-        <tr class="bg-gray-200">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 10:00AM</td>
             <td class="border border-gray-400 px-4 py-2">90428374</td>
             <td class="border border-gray-400 px-4 py-2">Mary Johnson</td>
@@ -42,7 +72,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Experiencing really bad cramps and irregular bleeding with my periods, and I'd like to figure out what's going on.</td>
         </tr>
-        <tr class="">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 9:00AM</td>
             <td class="border border-gray-400 px-4 py-2">18739204</td>
             <td class="border border-gray-400 px-4 py-2">James Smith</td>
@@ -50,7 +80,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Annual physical. Ensure cholesterol and blood pressure are still in a healthy range.</td>
         </tr>
-        <tr class="bg-gray-200">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 9:00AM</td>
             <td class="border border-gray-400 px-4 py-2">56283017</td>
             <td class="border border-gray-400 px-4 py-2">Jennifer Brown</td>
@@ -58,7 +88,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Trouble sleeping, and experiencing hot flashes, and patient believe it’s related to menopause.</td>
         </tr>
-        <tr class="">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 8:00AM</td>
             <td class="border border-gray-400 px-4 py-2">73019485</td>
             <td class="border border-gray-400 px-4 py-2">Robert Williams</td>
@@ -66,7 +96,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Swelling in my ankles, concerned about my heart and kidney health.</td>
         </tr>
-        <tr class="bg-gray-200">
+        <tr class="">
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:45AM</td>
             <td class="border border-gray-400 px-4 py-2">49172638</td>
             <td class="border border-gray-400 px-4 py-2">Emily Wilson</td>
@@ -74,7 +104,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Persistent joint pain in knees and hands for 3 weeks, accompanied by morning stiffness, and patient suspects early arthritis symptoms.</td>
         </tr>
-        <tr class="">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:30M</td>
             <td class="border border-gray-400 px-4 py-2">82034719</td>
             <td class="border border-gray-400 px-4 py-2">John Doe</td>
@@ -82,7 +112,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Recurring headaches and sensitivity to light for past month, patient reports family history of migraines.</td>
         </tr>
-        <tr class="bg-gray-200">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:00AM</td>
             <td class="border border-gray-400 px-4 py-2">12345678</td>
             <td class="border border-gray-400 px-4 py-2">Lisa Green</td>
@@ -90,8 +120,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Feeling nauseous and dizzy, suspecting it might be related to a recent flu shot.</td>
         </tr>
-            
-        <tr class="">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:00AM</td>
             <td class="border border-gray-400 px-4 py-2">87654321</td>
             <td class="border border-gray-400 px-4 py-2">Michael Taylor</td>
@@ -99,8 +128,7 @@
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Annual checkup to monitor blood sugar levels and check for early signs of diabetes.</td>
         </tr>
-            
-        <tr class="bg-gray-200">
+        <tr>
             <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 6:45AM</td>
             <td class="border border-gray-400 px-4 py-2">45678901</td>
             <td class="border border-gray-400 px-4 py-2">Sarah Miller</td>

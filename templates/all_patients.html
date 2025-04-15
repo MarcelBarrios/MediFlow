@@ -23,19 +23,50 @@
   </button>
 </form>
 
-
 <div class="mt-10">
-  <table class="table-auto border-collapse border border-gray-400 shadow-md w-full">
-    <thead class="bg-gray-100">
+  <table class="table-auto border-collapse border border-gray-400 shadow-xl w-full rounded-lg overflow-hidden">
+    <thead class="bg-blue-700 text-white">
       <tr>
-        <th class="border border-gray-400 px-4 py-2">MRN</th>
-        <th class="border border-gray-400 px-4 py-2">First Name</th>
-        <th class="border border-gray-400 px-4 py-2">Last Name</th>
-        <th class="border border-gray-400 px-4 py-2">Age</th>
-        <th class="border border-gray-400 px-4 py-2">Birthday</th>
-      </tr>
+        <!-- MRN  -->
+        <th class="border border-gray-400 px-4 py-2 text-center" onclick="sortTable(0)">
+          <div class="flex items-center justify-center space-x-1">
+            <span>MRN</span>
+            <div class="flex flex-col items-center ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </th>
+
+        <!-- First Name -->
+        <th class="border border-gray-400 px-4 py-2 text-center" onclick="sortTable(1)">
+          <div class="flex items-center justify-center space-x-1">
+            <span>First Name</span>
+            <div class="flex flex-col items-center ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </th>
+
+        <!-- Last Name -->
+        <th class="border border-gray-400 px-4 py-2 text-center" onclick="sortTable(2)">
+          <div class="flex items-center justify-center space-x-1">
+            <span>Last Name</span>
+            <div class="flex flex-col items-center ml-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
+        </th>
+        <th class="border border-gray-400 px-4 py-2 text-center">Age</th>
+        <th class="border border-gray-400 px-4 py-2 text-center">Birthday</th>
+      </tr> 
     </thead>
-    <tbody>
+    <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
       <tr>
         <td class="border border-gray-400 px-4 py-2">83472910</td>
         <td class="border border-gray-400 px-4 py-2">Clara</td>
@@ -109,7 +140,5 @@
     </tbody>
   </table>
 </div>
-
-
 
 {% endblock %}
