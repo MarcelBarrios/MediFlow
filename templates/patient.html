@@ -3,168 +3,219 @@
 {% block title %}Patient Details{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4 flex justify-center mt-10">Patient Details</h1>
-
-<div class="flex flex-wrap mx-4">
-    <!-- First Column - Filters -->
-    <div class="w-full md:w-1/4 px-2 mb-4">
-        <div class="bg-white p-4 rounded-lg shadow-md">
-            <h2 class="font-bold text-lg mb-3">Filters</h2>
-
-            <div class="mb-4">
-                <h3 class="font-semibold mb-2">Category</h3>
-                <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input id="lab-tests" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="lab-tests" class="ml-2 text-sm font-medium text-gray-900">🩺 Lab Tests</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="imaging" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="imaging" class="ml-2 text-sm font-medium text-gray-900">🏥 Imaging & Scans</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="surgeries" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="surgeries" class="ml-2 text-sm font-medium text-gray-900">🔪 Surgeries</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="medications" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="medications" class="ml-2 text-sm font-medium text-gray-900">💊 Medications &
-                            Treatments</label>
-                    </div>
-                </div>
+<!-- Fixed Patient Info Card that appears below navbar when navbar is visible -->
+<div class="sticky top-[0px] bg-white shadow-md z-10 border-b border-gray-200">
+    <div class="container mx-auto px-4 py-2">
+        <div class="flex flex-wrap">
+            <div class="w-1/6 flex justify-center items-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
+                    alt="Patient Photo" class="rounded-full mx-auto h-16 w-24" />
             </div>
-
-            <div>
-                <h3 class="font-semibold mb-2">Status</h3>
-                <div class="space-y-2">
-                    <div class="flex items-center">
-                        <input id="pending" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="pending" class="ml-2 text-sm font-medium text-gray-900">⏳ Pending</label>
+            <div class="w-5/6 pl-4">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold">John Doe, 45</h2>
+                    <span class="text-gray-500">MRN: 23847109</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <!-- <span class="text-gray-500">Age: 45</span> -->
+                    <span class="text-gray-500">D.O.B: May 30, 1980</span>
+                    <span class="text-gray-500">Appointment Time: 8:15am</span>
+                </div>
+                <div class="text-gray-700 text-sm flex">
+                    <div class="mr-4">
+                        <span class="font-semibold">Reason:</span> Persistent cough, chest tightness
                     </div>
-                    <div class="flex items-center">
-                        <input id="completed" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="completed" class="ml-2 text-sm font-medium text-gray-900">✅ Completed</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="cancelled" type="checkbox"
-                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="cancelled" class="ml-2 text-sm font-medium text-gray-900">❌ Cancelled</label>
+                    <div class="flex-1">
+                        <span class="font-semibold">Notes:</span>
+                        <span class="text-xs">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Second and Third Column - Patient Info and Medical Records -->
-    <div class="w-full md:w-2/4 px-2">
-        <!-- Patient Info Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex flex-wrap">
-                <div class="w-1/4 flex justify-center items-center">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                        alt="Patient Photo" class="rounded-full mx-auto" />
+<!-- Main content with appropriate padding to account for the sticky header -->
+<div class="pt-4 pb-4">
+    <h1 class="text-2xl font-bold mb-4 flex justify-center">Patient Records</h1>
+
+    <div class="flex flex-wrap mx-4">
+        <!-- First Column - Fixed Filters -->
+        <div class="w-full md:w-1/4 px-2">
+            <div class="sticky top-[184px] w-full pr-4">
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <h2 class="font-bold text-lg mb-3">Filters</h2>
+
+                    <div class="mb-4">
+                        <h3 class="font-semibold mb-2">Category</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="lab-tests" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="lab-tests" class="ml-2 text-sm font-medium text-gray-900">🩺 Lab
+                                    Tests</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="imaging" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="imaging" class="ml-2 text-sm font-medium text-gray-900">🏥 Imaging &
+                                    Scans</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="surgeries" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="surgeries" class="ml-2 text-sm font-medium text-gray-900">🔪
+                                    Surgeries</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="medications" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="medications" class="ml-2 text-sm font-medium text-gray-900">💊 Medications &
+                                    Treatments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold mb-2">Status</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="pending" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="pending" class="ml-2 text-sm font-medium text-gray-900">⏳ Pending</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="completed" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="completed" class="ml-2 text-sm font-medium text-gray-900">✅
+                                    Completed</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="cancelled" type="checkbox"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="cancelled" class="ml-2 text-sm font-medium text-gray-900">❌
+                                    Cancelled</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-3/4 pl-4">
-                    <h2 class="text-xl font-bold">John Doe</h2>
-                    <div class="flex justify-between mb-1">
-                        <span class="text-gray-500">Age: 45</span>
-                        <span class="text-gray-500">D.O.B: May 30, 1980</span>
-                    </div>
-                    <div class="text-gray-700 mb-2">
-                        <span class="text-gray-500">MRN: 23847109</span>
-                        <p><span class="font-semibold">Appointment:</span> 8:15am</p>
-                        <p><span class="font-semibold">Reason:</span> Persistent cough, chest tightness, and patient
-                            starting to worry.</p>
-                    </div>
-                    <div class="mt-3">
-                        <h3 class="font-semibold text-gray-700">Patient Notes:</h3>
-                        <ul class="list-disc pl-5 text-gray-600 text-sm">
-                            <li>Has asthma</li>
-                            <li>Allergies include: pollen, dust, seafood, nuts</li>
-                            <li>High blood pressure</li>
-                        </ul>
-                    </div>
+            </div>
+        </div>
+
+        <!-- Second Column - Medical Records -->
+        <div class="w-full md:w-2/4 px-2">
+            <!-- Medical Records Cards -->
+            <!-- Lab Test Card -->
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold">1. Comprehensive Metabolic Panel (CMP)</h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
+                        Completed</span>
+                </div>
+                <div class="mt-2">
+                    <p><span class="font-medium text-gray-700">Category:</span> 🩺 Lab Test</p>
+                    <p><span class="font-medium text-gray-700">Date:</span> March 20, 2025</p>
+                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
+                    </p>
+                    <p><span class="font-medium text-gray-700">Results:</span> Normal except for slightly elevated
+                        glucose
+                    </p>
+                    <p><span class="font-medium text-gray-700">Notes:</span> Patient advised to monitor diet and retest
+                        in 3
+                        months</p>
+                </div>
+            </div>
+
+            <!-- Imaging Card -->
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold">2. MRI Brain Scan</h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
+                        Completed</span>
+                </div>
+                <div class="mt-2">
+                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
+                    <p><span class="font-medium text-gray-700">Date:</span> March 15, 2025</p>
+                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. James Rodriguez (Neurology)</p>
+                    <p><span class="font-medium text-gray-700">Findings:</span> No signs of stroke, mild white matter
+                        changes consistent with age</p>
+                    <p><span class="font-medium text-gray-700">Notes:</span> Follow-up in 6 months if symptoms persist
+                    </p>
+                </div>
+            </div>
+
+            <!-- Surgery Card -->
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold">3. Laparoscopic Cholecystectomy</h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
+                        Completed</span>
+                </div>
+                <div class="mt-2">
+                    <p><span class="font-medium text-gray-700">Category:</span> 🔪 Surgery</p>
+                    <p><span class="font-medium text-gray-700">Date:</span> February 28, 2025</p>
+                    <p><span class="font-medium text-gray-700">Surgeon:</span> Dr. Aisha Patel (General Surgery)</p>
+                    <p><span class="font-medium text-gray-700">Outcome:</span> Successful, no complications</p>
+                    <p><span class="font-medium text-gray-700">Post-Op Instructions:</span> Avoid fatty foods, follow up
+                        in
+                        2 weeks</p>
+                </div>
+            </div>
+
+            <!-- Medication Card -->
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold">4. IV Antibiotic Therapy (Vancomycin)</h3>
+                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
+                        Completed</span>
+                </div>
+                <div class="mt-2">
+                    <p><span class="font-medium text-gray-700">Category:</span> 💊 Medications & Treatments</p>
+                    <p><span class="font-medium text-gray-700">Date:</span> March 10-14, 2025</p>
+                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Michael Lee (Infectious Diseases)
+                    </p>
+                    <p><span class="font-medium text-gray-700">Indication:</span> Severe MRSA infection</p>
+                    <p><span class="font-medium text-gray-700">Outcome:</span> Infection cleared, no adverse reactions
+                    </p>
+                </div>
+            </div>
+
+            <!-- Additional procedures for scrolling test -->
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold">5. Chest X-Ray</h3>
+                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">⏳
+                        Pending</span>
+                </div>
+                <div class="mt-2">
+                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
+                    <p><span class="font-medium text-gray-700">Date:</span> Scheduled for April 18, 2025</p>
+                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
+                    </p>
+                    <p><span class="font-medium text-gray-700">Reason:</span> To investigate persistent cough</p>
                 </div>
             </div>
         </div>
 
-        <!-- Medical Records Cards -->
-        <!-- Lab Test Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex justify-between items-start">
-                <h3 class="font-bold">1. Comprehensive Metabolic Panel (CMP)</h3>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅ Completed</span>
+        <!-- Third Column - AI Chatbox -->
+        <div class="w-full md:w-1/4 px-2">
+            <div class="sticky top-[184px] bg-gray-100 p-4 rounded-lg shadow-md">
+                <h3 class="font-bold mb-2">AI Assistant</h3>
+                <div class="bg-white rounded-lg p-3 h-64 overflow-y-auto mb-2">
+                    <p class="text-gray-500 text-center">AI conversation will appear here</p>
+                </div>
+                <div class="flex">
+                    <input type="text" placeholder="Ask a question..."
+                        class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button class="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <div class="mt-2">
-                <p><span class="font-medium text-gray-700">Category:</span> 🩺 Lab Test</p>
-                <p><span class="font-medium text-gray-700">Date:</span> March 20, 2025</p>
-                <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)</p>
-                <p><span class="font-medium text-gray-700">Results:</span> Normal except for slightly elevated glucose
-                </p>
-                <p><span class="font-medium text-gray-700">Notes:</span> Patient advised to monitor diet and retest in 3
-                    months</p>
-            </div>
-        </div>
-
-        <!-- Imaging Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex justify-between items-start">
-                <h3 class="font-bold">2. MRI Brain Scan</h3>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅ Completed</span>
-            </div>
-            <div class="mt-2">
-                <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
-                <p><span class="font-medium text-gray-700">Date:</span> March 15, 2025</p>
-                <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. James Rodriguez (Neurology)</p>
-                <p><span class="font-medium text-gray-700">Findings:</span> No signs of stroke, mild white matter
-                    changes consistent with age</p>
-                <p><span class="font-medium text-gray-700">Notes:</span> Follow-up in 6 months if symptoms persist</p>
-            </div>
-        </div>
-
-        <!-- Surgery Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex justify-between items-start">
-                <h3 class="font-bold">3. Laparoscopic Cholecystectomy</h3>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅ Completed</span>
-            </div>
-            <div class="mt-2">
-                <p><span class="font-medium text-gray-700">Category:</span> 🔪 Surgery</p>
-                <p><span class="font-medium text-gray-700">Date:</span> February 28, 2025</p>
-                <p><span class="font-medium text-gray-700">Surgeon:</span> Dr. Aisha Patel (General Surgery)</p>
-                <p><span class="font-medium text-gray-700">Outcome:</span> Successful, no complications</p>
-                <p><span class="font-medium text-gray-700">Post-Op Instructions:</span> Avoid fatty foods, follow up in
-                    2 weeks</p>
-            </div>
-        </div>
-
-        <!-- Medication Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-            <div class="flex justify-between items-start">
-                <h3 class="font-bold">4. IV Antibiotic Therapy (Vancomycin)</h3>
-                <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅ Completed</span>
-            </div>
-            <div class="mt-2">
-                <p><span class="font-medium text-gray-700">Category:</span> 💊 Medications & Treatments</p>
-                <p><span class="font-medium text-gray-700">Date:</span> March 10-14, 2025</p>
-                <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Michael Lee (Infectious Diseases)</p>
-                <p><span class="font-medium text-gray-700">Indication:</span> Severe MRSA infection</p>
-                <p><span class="font-medium text-gray-700">Outcome:</span> Infection cleared, no adverse reactions</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fourth Column - Reserved for AI Chatbox -->
-    <div class="w-full md:w-1/4 px-2">
-        <!-- This space is intentionally left empty for future AI chatbox implementation -->
-        <div class="bg-gray-100 p-4 rounded-lg shadow-md h-full flex items-center justify-center">
-            <p class="text-gray-500 text-center">AI Chatbox will be added here</p>
         </div>
     </div>
 </div>
