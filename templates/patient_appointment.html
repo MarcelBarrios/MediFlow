@@ -4,79 +4,166 @@
 
 {% block content %}
 
-<h1 class="text-2xl font-bold mb-2 flex justify-center mt-2">Patient Appointment</h1>
+<div class="min-h-screen p-1">
+    <header class="mb-1">
+        <h1 class="text-2xl font-bold text-left">Patient Appointment</h1>
+    </header>
 
-<div class="flex flex-wrap mx-4">
-    
-    <div class="w-full md:w-3/4 px-2">
-        <div class="h-[calc(100vh-150px)] overflow-y-auto pr-2">
-
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-                <div class="flex flex-col md:flex-row">
-                    
-                    <div class="w-full md:w-1/4 flex flex-col items-center mb-4 md:mb-0">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                        alt="Patient Photo" class="rounded-full w-24 h-24 object-cover mb-2" />
-
-                        <h2 class="text-xl font-bold">John Doe</h2>
-
-                        <div class="flex flex-col text-sm text-gray-500 text-center">
-                            <span>Age: 45</span>
-                            <span>D.O.B: May 30, 1980</span>
-                            <span>MRN: 23847109</span>
-                        </div>
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <!-- Patient Info Card -->
+         <div class="lg:col-span-1">
+            <div class="sticky top-4 bg-gray-50 rounded-lg shadow md p-4 min-h-128">
+                <div class="flex flex-col items-center mb-8 mt-8">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
+                    alt="Patient Photo" class="rounded-full w-24 h-24 object-cover mb-4" />
+                    <h2 class="text-xl font-bold mb-2">John Doe</h2>
+                    <div class="flex flex-col text-sm text-gray-500 text-center space-y-1">
+                        <span>Age: 45</span>
+                        <span>D.O.B: May 30, 1980</span>
+                        <span>MRN: 23847109</span>
                     </div>
+                </div>
 
-                    <div class="w-full md:w-3/4 md:pl-4">
-                        <div class="text-gray-700 mb-2 text-sm">
-                            <p><span class="font-semibold">Appointment:</span>8:15am</p>
-                            <p><span class="font-semibold">Reason:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
-                        </div>
+                <div class="mt-16">
+                    <h3 class="font-semibold text-gray-700 text-lg mb-4">Patient Notes:</h3>
+                    <ul class="list-disc pl-5 text-gray-600 text-sm space-y-3 mt-4">
+                        <li>Has asthma</li>
+                        <li>Allergies: pollen, dust, seafood, nuts</li>
+                        <li>High blood pressure</li>
+                        <li>History of migraines</li>
+                        <li>Cholesterol slightly elevated</li>
+                        <li>Family history of heart disease</li>
+                        <li>Diagnosed with sleep apnea in 2022</li>
+                        <li>Recently lost 10 pounds</li>
+                        <li>Plans to quit smoking this year</li>
+                        <li>Appendix taken out in 2019</li>
+                    </ul>
+                </div>
 
-                        <div class="mt-3">
-                            <h3 class="font-semibold text-gray-700">Patient Notes:</h3>
-                            <ul class="list-disc pl-5 text-gray-600 text-sm space-y-1">
-                                <li>Has asthma</li>
-                                <li>Allergies: pollen, dust, seafood, nuts</li>
-                                <li>High blood pressure</li>
-                                <li>History of migraines</li>
-                                <li>Cholesterol slightly elevated</li>
-                                <li>Family history of heart disease</li>
-                                <li>Diagnosed with sleep apnea in 2022</li>
-                                <li>Recently lost 10 pounds</li>
-                                <li>Plans to quit smoking this year</li>
-                            </ul>
-                        </div>
+                <div class="mt-16"></div>
+            </div>
+         </div>
 
-                        <!-- Doctor's Note Taking Section -->
-                        <div class="mt-6">
-                            <h3 class="font-semibold text-gray-700">Doctor's Notes:</h3>
-                            <textarea class="w-full h-32 p-2 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
-                        </div>
+         <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-4">
+            <div class="text-gray-700 mb-2 text-sm">
+                <p><span class="font-semibold">Appointment Time:</span> 8:15am</p>
+                <p><span class="font-semibold">Chief Complaint:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
+            </div>
 
-                        <div class="mt-2 flex justify-between">
-                            <button type="button" onclick="window.print()" class="bg-white text-black p-2 rounded-md border border-black">
-                                Print
-                            </button>
-
-                            <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md">
-                                Submit Notes
-                            </button>
-                        </div>
-
-                    </div>
+        <div class="mt-4">
+            <h3 class="font-semibold text-gray-700 mb-2">Patient Intake</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Weight (lbs)</label>
+                    <input type="number" name="weight" class="w-full p-2 border rounded-md" placeholder="e.g., 165">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Height (inches)</label>
+                    <input type="number" name="height" class="w-full p-2 border rounded-md" placeholder="e.g., 68">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Temperature (°F)</label>
+                    <input type="number" name="temperature" step="0.1" class="w-full p-2 border rounded-md" placeholder="e.g., 98.6">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Do you drink alcohol?</label>
+                    <select name="alcohol-use" class="w-full p-2 border rounded-md">
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">If so, how many a week?</label>
+                    <select name="alcoholUse" class="w-full p-2 border rounded-md">
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5 or more">5 or more</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Do you smoke?</label>
+                    <select name="smoking" class="w-full p-2 border rounded-md">
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">If so, how many a day?</label>
+                    <select name="smoking" class="w-full p-2 border rounded-md">
+                        <option value="">Select</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5 or more">5 or more</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Experiencing Domestic Violence?</label>
+                    <select name="domestic-violence" class="w-full p-2 border rounded-md">
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="prefer not to answer">Prefer not to Answer</option>
+                    </select>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- AI Chatbox Placeholder -->
-        <div class="w-full md:w-1/4 px-2">
-            <div class="bg-gray-100 p-4 rounded-lg shadow-md h-[67vh] flex items-center justify-center">
-                <p class="text-gray-500 text-center">AI Chatbox will be added here</p>
-            </div>
+        <div class="mt-4">
+            <h3 class="font-semibold text-gray-700">Doctor's Notes:</h3>
+            <textarea class="w-full h-56 p-2 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
         </div>
 
+        <div class="mt-4 flex justify-between">
+            <button type="button" onclick="window.print()" class="bg-white text-black p-2 rounded-md border border-black">
+                Print
+            </button>
+            <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md">
+                Submit Notes
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Chatbox Card - Fixed position -->
+    <div class="lg:col-span-1">
+        <div class="sticky top-4 bg-gray-50 rounded-lg shadow-md p-4 min-h-128">
+            <h3 class="font-bold mb-4 text-lg">AI Assistant</h3>
+            <!-- Chat history area - increased height -->
+            <div class="bg-white rounded-lg p-8 h-[500px] overflow-y-auto mb-12 mt-12 shadow-inner">
+                <p class="text-gray-500 text-center mt-48">AI conversation will appear here</p>
+            </div>
+            <!-- Input area with increased spacing -->
+            <div class="flex mt-6">
+                <input type="text" placeholder="Ask a question..."
+                    class="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button class="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-12"></div>
+        </div>
+    </div>
+        
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 lg:hidden">
+        <div class="flex">
+            <button class="flex-1 p-3 text-center text-sm font-medium">Patient Info</button>
+            <button class="flex-1 p-3 text-center text-sm font-medium">Form</button>
+            <button class="flex-1 p-3 text-center text-sm font-medium">AI Assistant</button>
+        </div>
+    </div>
 </div>
+
+
 
 {% endblock %}
