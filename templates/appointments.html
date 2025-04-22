@@ -4,8 +4,8 @@
 
 {% block content %}
 
-<h1 class="text-2xl font-bold mb-4 flex justify-center mt-10">Appointments</h1>
-<div class=" mt-10 ">
+<h1 class="text-2xl font-bold mb-4 flex justify-center mt-2">Appointments</h1>
+<div class=" mb-1 ">
     <table class="w-full table-auto border-collapse border border-gray-400 shadow-xl rounded-lg overflow-hidden">
         <colgroup>
             <col style="width: 12%;">   <!-- Date/Time -->
@@ -31,9 +31,6 @@
                 <th class="border border-gray-400 px-4 py-2 text-center">
                     <div class="flex items-center justify-center space-x-1">
                         <span>MRN</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
                     </div>
                 </th>
     
@@ -52,86 +49,186 @@
                 <!-- Checked In -->
                 <th class="border border-gray-400 px-4 py-2 text-center">Checked In</th>
                 <!-- Patient Details -->
-                <th class="border border-gray-400 px-4 py-2 text-center">Patient Details</th>
+                <th class="border border-gray-400 px-4 py-2 text-center">Chief Complaint</th>
             </tr>
         </thead>
         <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 11:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 11:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">23847109</td>
-            <td class="border border-gray-400 px-4 py-2">John Doe</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="{{ url_for('patient_appointment', mrn='23847109') }}" class="text-blue-600 hover:underline">John Doe</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">45</td>
             <td class="border border-gray-400 px-4 py-2 text-center">❌</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Persistent cough, chest tightness, and patient starting to worry.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 10:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 10:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">90428374</td>
-            <td class="border border-gray-400 px-4 py-2">Mary Johnson</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Mary Johnson</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">45</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Experiencing really bad cramps and irregular bleeding with my periods, and I'd like to figure out what's going on.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 9:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 09:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">18739204</td>
-            <td class="border border-gray-400 px-4 py-2">James Smith</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">James Smith</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">50</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Annual physical. Ensure cholesterol and blood pressure are still in a healthy range.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 9:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 09:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">56283017</td>
-            <td class="border border-gray-400 px-4 py-2">Jennifer Brown</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Jennifer Brown</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">35</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Trouble sleeping, and experiencing hot flashes, and patient believe it’s related to menopause.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 8:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 08:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">73019485</td>
-            <td class="border border-gray-400 px-4 py-2">Robert Williams</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Robert Williams</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">42</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Swelling in my ankles, concerned about my heart and kidney health.</td>
         </tr>
         <tr class="">
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:45AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 07:45AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">49172638</td>
-            <td class="border border-gray-400 px-4 py-2">Emily Wilson</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Emily Wilson</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">25</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Persistent joint pain in knees and hands for 3 weeks, accompanied by morning stiffness, and patient suspects early arthritis symptoms.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:30M</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 07:30AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">82034719</td>
-            <td class="border border-gray-400 px-4 py-2">John Doe</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Erik Doe</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">63</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Recurring headaches and sensitivity to light for past month, patient reports family history of migraines.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 07:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">12345678</td>
-            <td class="border border-gray-400 px-4 py-2">Lisa Green</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Lisa Green</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">38</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Feeling nauseous and dizzy, suspecting it might be related to a recent flu shot.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 7:00AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 07:00AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">87654321</td>
-            <td class="border border-gray-400 px-4 py-2">Michael Taylor</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Michael Taylor</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">55</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Annual checkup to monitor blood sugar levels and check for early signs of diabetes.</td>
         </tr>
         <tr>
-            <td class="border border-gray-400 px-4 py-2">Apr 2, 2025 <br> 6:45AM</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <div class="flex items-center justify-between">
+                    <span>Apr 2, 2025 <br> 06:45AM</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                    </svg>
+                </div>
+            </td>
             <td class="border border-gray-400 px-4 py-2">45678901</td>
-            <td class="border border-gray-400 px-4 py-2">Sarah Miller</td>
+            <td class="border border-gray-400 px-4 py-2">
+                <a href="#" class="text-blue-600 hover:underline">Sarah Miller</a>
+            </td>
             <td class="border border-gray-400 px-4 py-2 text-center">29</td>
             <td class="border border-gray-400 px-4 py-2 text-center">✅</td>
             <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">Severe migraines and nausea, suspecting possible hormonal imbalance.</td>
