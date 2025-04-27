@@ -25,29 +25,19 @@ mongo = PyMongo(app)
 # tenants_collection = mongo.db.tenants
 
 
-@app.route("/")
-def base():
-    return render_template("base.html")
+# --- Import and Register Blueprints ---
+from blueprints.base_routes import base_bp
+from blueprints.appointments_routes import appointments_bp
+from blueprints.patient_appointment_routes import patient_appointment_bp
+from blueprints.all_patients_routes import all_patients_bp
+from blueprints.patient_routes import patient_bp
 
-
-@app.route("/appointments", methods=["GET"])
-def appointments():
-    return render_template("appointments.html")
-
-
-@app.route("/patient_appointment", methods=["GET"])
-def patient_appointment():
-    return render_template("patient_appointment.html")
-
-
-@app.route("/all_patients", methods=["GET"])
-def all_patients():
-    return render_template("all_patients.html")
-
-
-@app.route("/patient", methods=["GET"])
-def patient():
-    return render_template("patient.html")
+# Register the blueprints with the Flask application instance
+app.register_blueprint(base_bp)
+app.register_blueprint(appointments_bp)
+app.register_blueprint(patient_appointment_bp)
+app.register_blueprint(all_patients_bp)
+app.register_blueprint(patient_bp)
 
 
 if __name__ == "__main__":

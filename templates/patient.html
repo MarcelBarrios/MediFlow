@@ -5,33 +5,53 @@
 {% block page_heading %}Patient Records{% endblock %}
 
 {% block content %}
-<!-- Fixed Patient Info Card that appears below navbar when navbar is visible -->
+<!-- Fixed Filters Card that appears below navbar when navbar is visible -->
 <div class="sticky top-[0px] bg-white shadow-md z-10 border-b border-gray-200">
-    <div class="container mx-auto px-4 py-2">
-        <div class="flex flex-wrap">
-            <div class="w-1/6 flex justify-center items-center">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                    alt="Patient Photo" class="rounded-full mx-auto h-16 w-24" />
+    <div class="container mx-auto px-24 py-3">
+        <div class="flex flex-wrap items-center justify-between">
+            <div class="flex items-center me-4">
+                <input checked id="lab-test-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-600">
+                <label for="lab-test-checkbox" class="ms-2 text-sm font-medium text-gray-900">Lab
+                    Tests</label>
             </div>
-            <div class="w-5/6 pl-4">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold">John Doe, 45</h2>
-                    <span class="text-gray-500">MRN: 23847109</span>
-                </div>
-                <div class="flex justify-between mb-1">
-                    <!-- <span class="text-gray-500">Age: 45</span> -->
-                    <span class="text-gray-500">D.O.B: May 30, 1980</span>
-                    <span class="text-gray-500">Appointment Time: 8:15am</span>
-                </div>
-                <div class="text-gray-700 text-sm flex">
-                    <div class="mr-4">
-                        <span class="font-semibold">Reason:</span> Persistent cough, chest tightness
-                    </div>
-                    <div class="flex-1">
-                        <span class="font-semibold">Notes:</span>
-                        <span class="text-xs">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
-                    </div>
-                </div>
+            <div class="flex items-center me-4">
+                <input checked id="imaging-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-green-600">
+                <label for="imaging-checkbox" class="ms-2 text-sm font-medium text-gray-900">Imaging
+                    & Scans</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="surgery-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-purple-600">
+                <label for="surgery-checkbox" class="ms-2 text-sm font-medium text-gray-900">Surgery</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="medications-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-teal-600">
+                <label for="medications-checkbox" class="ms-2 text-sm font-medium text-gray-900">Medications &
+                    Treatments</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="completed-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 rounded-sm focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-yellow-400">
+                <label for="completed-checkbox" class="ms-2 text-sm font-medium text-gray-900">Completed</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="pending-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-orange-500">
+                <label for="pending-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pending</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="cancelled-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800 dark:focus:ring-red-800 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-800">
+                <label for="cancelled-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cancelled</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input checked id="past-appointments-checkbox" type="checkbox" value=""
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-blue-600">
+                <label for="past-appointments-checkbox" class="ms-2 text-sm font-medium text-gray-900">Past
+                    Appointments</label>
             </div>
         </div>
     </div>
@@ -41,62 +61,29 @@
 <div class="pt-4 pb-4">
 
     <div class="flex flex-wrap mx-4">
-        <!-- First Column - Fixed Filters -->
+        <!-- First Column - Patient Information (moved from top) -->
         <div class="w-full md:w-1/4 px-2">
             <div class="sticky top-[184px] w-full pr-4">
                 <div class="bg-white p-4 rounded-lg shadow-md">
-                    <h2 class="font-bold text-lg mb-3">Filters</h2>
-
-                    <div class="mb-4">
-                        <h3 class="font-semibold mb-2">Category</h3>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <input id="lab-tests" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="lab-tests" class="ml-2 text-sm font-medium text-gray-900">🩺 Lab
-                                    Tests</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="imaging" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="imaging" class="ml-2 text-sm font-medium text-gray-900">🏥 Imaging &
-                                    Scans</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="surgeries" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="surgeries" class="ml-2 text-sm font-medium text-gray-900">🔪
-                                    Surgeries</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="medications" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="medications" class="ml-2 text-sm font-medium text-gray-900">💊 Medications &
-                                    Treatments</label>
-                            </div>
-                        </div>
+                    <div class="flex justify-center items-center mb-3">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
+                            alt="Patient Photo" class="rounded-full mx-auto h-20 w-28" />
                     </div>
-
-                    <div>
-                        <h3 class="font-semibold mb-2">Status</h3>
-                        <div class="space-y-2">
-                            <div class="flex items-center">
-                                <input id="pending" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="pending" class="ml-2 text-sm font-medium text-gray-900">⏳ Pending</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="completed" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="completed" class="ml-2 text-sm font-medium text-gray-900">✅
-                                    Completed</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="cancelled" type="checkbox"
-                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="cancelled" class="ml-2 text-sm font-medium text-gray-900">❌
-                                    Cancelled</label>
-                            </div>
+                    <div class="text-center mb-2">
+                        <h2 class="text-xl font-bold">John Doe, 45</h2>
+                        <span class="text-gray-500">MRN: 23847109</span>
+                    </div>
+                    <div class="mb-2">
+                        <p class="text-gray-500 text-sm">D.O.B: May 30, 1980</p>
+                        <p class="text-gray-500 text-sm">Appointment Time: 8:15am</p>
+                    </div>
+                    <div class="text-gray-700 text-sm">
+                        <div class="mb-1">
+                            <span class="font-semibold">Reason:</span> Persistent cough, chest tightness
+                        </div>
+                        <div>
+                            <span class="font-semibold">Notes:</span>
+                            <span class="text-xs">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
                         </div>
                     </div>
                 </div>
@@ -220,5 +207,7 @@
         </div>
     </div>
 </div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/patient.css') }}">
 
 {% endblock %}
