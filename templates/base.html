@@ -45,10 +45,14 @@
             <div id="dropdown"
               class="hidden z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute top-full left-0 mt-1 ">
               <ul class="py-2 text-sm text-gray-700">
-                <li><a href="{{ url_for('appointments') }}" class="block w-full px-4 py-2 hover:bg-gray-100">Appointment Feed</a></li>
-                <li><a href="{{ url_for('patient_appointment') }}" class="block w-full px-4 py-2 hover:bg-gray-100">Patient Appointment</a></li>
-                <li><a href="{{ url_for('all_patients') }}" class="block w-full px-4 py-2 hover:bg-gray-100">All Patient</a></li>
-                <li><a href="{{ url_for('patient') }}" class="block w-full px-4 py-2 hover:bg-gray-100">Patient Overview</a></li>
+                <li><a href="{{ url_for('appointments.appointments') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">Appointment Feed</a></li>
+                <li><a href="{{ url_for('patient_appointment.patient_appointment') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">Patient Appointment</a></li>
+                <li><a href="{{ url_for('all_patients.all_patients') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">All Patient</a></li>
+                <li><a href="{{ url_for('patient.patient') }}" class="block w-full px-4 py-2 hover:bg-gray-100">Patient
+                    Overview</a></li>
               </ul>
             </div>
           </div>
