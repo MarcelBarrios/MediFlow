@@ -30,25 +30,31 @@
         <div class="flex flex-col sm:flex-row sm:items-center w-full sm:max-w-2xl">
 
           <!-- Dropdown Button -->
-          <button id="dropdown-button" data-dropdown-toggle="dropdown"
-            class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none hover:bg-gray-200"
-            type="button">
-            All categories
-            <svg class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 4 4 4-4" />
-            </svg>
-          </button>
+          <div class="relative">
+            <button id="dropdown-button" data-dropdown-toggle="dropdown"
+              class="inline-flex items-center px-4 py-2.5 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-300 rounded-t-lg sm:rounded-l-lg sm:rounded-tr-none hover:bg-gray-200"
+              type="button">
+              All categories
+              <svg class="w-2.5 h-2.5 ml-2.5" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
 
-          <!-- Dropdown Menu -->
-          <div id="dropdown"
-            class="hidden z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute mt-12 sm:mt-10">
-            <ul class="py-2 text-sm text-gray-700">
-              <li><button type="button" class="w-full px-4 py-2 hover:bg-gray-100">Appointment Feed</button></li>
-              <li><button type="button" class="w-full px-4 py-2 hover:bg-gray-100">Patient Appointment</button></li>
-              <li><button type="button" class="w-full px-4 py-2 hover:bg-gray-100">All Patient</button></li>
-              <li><button type="button" class="w-full px-4 py-2 hover:bg-gray-100">Patient Overview</button></li>
-            </ul>
+            <!-- Dropdown Menu -->
+            <div id="dropdown"
+              class="hidden z-50 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute top-full left-0 mt-1 ">
+              <ul class="py-2 text-sm text-gray-700">
+                <li><a href="{{ url_for('appointments.appointments') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">Appointment Feed</a></li>
+                <li><a href="{{ url_for('patient_appointment.patient_appointment') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">Patient Appointment</a></li>
+                <li><a href="{{ url_for('all_patients.all_patients') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">All Patient</a></li>
+                <li><a href="{{ url_for('patient.patient') }}" class="block w-full px-4 py-2 hover:bg-gray-100">Patient
+                    Overview</a></li>
+              </ul>
+            </div>
           </div>
 
           <!-- Search Field -->
@@ -75,6 +81,8 @@
   <main class="px-0 py-0">
     {% block content %}{% endblock %}
   </main>
+
+  <script src="/static/script.js"></script>
 
 </body>
 
