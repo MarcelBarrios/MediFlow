@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}Patient Appointment{% endblock %}
+{% block title %}Patient In-Take{% endblock %}
 
 {% block content %}
 
 <div class="min-h-screen p-1">
-    <header class="mb-1">
-        <h1 class="text-2xl font-bold text-left">Patient Appointment</h1>
+    <header class="mb-4 text-center">
+        <h1 class="text-2xl font-bold text-center mt-1 mb-1">Patient In-Take</h1>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <!-- Patient Info Card -->
          <div class="lg:col-span-1">
-            <div class="sticky top-4 bg-gray-50 rounded-lg shadow md p-4 min-h-128">
+            <div class="sticky top-4 bg-gray-50 rounded-lg shadow md p-6 min-h-128">
                 <div class="flex flex-col items-center mb-8 mt-8">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                    alt="Patient Photo" class="rounded-full w-24 h-24 object-cover mb-4" />
-                    <h2 class="text-xl font-bold mb-2">John Doe</h2>
-                    <div class="flex flex-col text-sm text-gray-500 text-center space-y-1">
+                    alt="Patient Photo" class="rounded-full w-28 h-28 object-cover mb-4" />
+                    <h2 class="text-2xl font-bold mb-2">John Doe</h2>
+                    <div class="flex flex-col text-md text-gray-500 text-center space-y-1">
                         <span>Age: 45</span>
                         <span>D.O.B: May 30, 1980</span>
                         <span>MRN: 23847109</span>
@@ -25,8 +25,15 @@
                 </div>
 
                 <div class="mt-16">
-                    <h3 class="font-semibold text-gray-700 text-lg mb-4">Patient Notes:</h3>
-                    <ul class="list-disc pl-5 text-gray-600 text-sm space-y-3 mt-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-semibold text-gray-700 text-lg">Patient Notes:</h3>
+                        <button id="edit-notes-btn" type="button" class="text-blue-600 text-sm hover:underline">
+                            Edit
+                        </button>
+                    </div>
+                
+                    <!-- Static Notes View -->
+                    <ul id="patient-notes" class="list-disc pl-5 text-gray-600 text-sm space-y-3 mt-6">
                         <li>Has asthma</li>
                         <li>Allergies: pollen, dust, seafood, nuts</li>
                         <li>High blood pressure</li>
@@ -38,35 +45,47 @@
                         <li>Plans to quit smoking this year</li>
                         <li>Appendix taken out in 2019</li>
                     </ul>
+                
+                    <!-- Editable Textarea Hidden Initially -->
+                    <textarea id="edit-notes-area" class="w-full p-2 border rounded-md text-sm mt-4 hidden" rows="10"></textarea>
+                
+                    <!-- View Patient Record Button -->
+                    <div class="flex mt-6">
+                        <a href="/patient" class="w-full">
+                            <button type="button" class="bg-white text-black p-2 rounded-md border border-black">
+                                View Patient Record
+                            </button>
+                        </a>
+                    </div>
                 </div>
-
-                <div class="mt-16"></div>
+            
             </div>
-         </div>
 
-         <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-4">
-            <div class="text-gray-700 mb-2 text-sm">
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-8">
+            <div class="text-gray-700 mb-4 text-base">
                 <p><span class="font-semibold">Appointment Time:</span> 8:15am</p>
                 <p><span class="font-semibold">Chief Complaint:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
             </div>
 
         <div class="mt-4">
-            <h3 class="font-semibold text-gray-700 mb-2">Patient Intake</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h3 class="font-semibold text-gray-700 text-1xl mb-4">Patient In-Take</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Weight (lbs)</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Weight (lbs)</label>
                     <input type="number" name="weight" class="w-full p-2 border rounded-md" placeholder="e.g., 165">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Height (inches)</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Height (inches)</label>
                     <input type="number" name="height" class="w-full p-2 border rounded-md" placeholder="e.g., 68">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Temperature (°F)</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Temperature (°F)</label>
                     <input type="number" name="temperature" step="0.1" class="w-full p-2 border rounded-md" placeholder="e.g., 98.6">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Do you drink alcohol?</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Do you drink alcohol?</label>
                     <select name="alcohol-use" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="yes">Yes</option>
@@ -74,8 +93,8 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">If so, how many a week?</label>
-                    <select name="alcoholUse" class="w-full p-2 border rounded-md">
+                    <label class="block text-base font-medium text-gray-700 mb-1">If so, how many a week?</label>
+                    <select name="alcohol-use" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -85,7 +104,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Do you smoke?</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Do you smoke?</label>
                     <select name="smoking" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="yes">Yes</option>
@@ -93,7 +112,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">If so, how many a day?</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">If so, how many a day?</label>
                     <select name="smoking" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="1">1</option>
@@ -105,7 +124,7 @@
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Experiencing Domestic Violence?</label>
+                    <label class="block text-base font-medium text-gray-700 mb-1">Experiencing Domestic Violence?</label>
                     <select name="domestic-violence" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="yes">Yes</option>
@@ -116,17 +135,17 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <h3 class="font-semibold text-gray-700">Doctor's Notes:</h3>
-            <textarea class="w-full h-56 p-2 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
+        <div class="mt-8">
+            <h3 class="font-semibold text-gray-700 text-2xl mb-4">Doctor's Notes:</h3>
+            <textarea class="w-full h-36 p-3 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
         </div>
 
-        <div class="mt-4 flex justify-between">
+        <div class="mt-6 flex justify-between">
             <button type="button" onclick="window.print()" class="bg-white text-black p-2 rounded-md border border-black">
                 Print
             </button>
-            <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md">
-                Submit Notes
+            <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
+                Save In-Take
             </button>
         </div>
     </div>
@@ -134,13 +153,13 @@
     <!-- AI Chatbox Card - Fixed position -->
     <div class="lg:col-span-1">
         <div class="sticky top-4 bg-gray-50 rounded-lg shadow-md p-4 min-h-128">
-            <h3 class="font-bold mb-4 text-lg">AI Assistant</h3>
+            <h3 class="font-bold mb-6 text-2xl text-center">AI Assistant</h3>
             <!-- Chat history area - increased height -->
-            <div class="bg-white rounded-lg p-8 h-[500px] overflow-y-auto mb-12 mt-12 shadow-inner">
-                <p class="text-gray-500 text-center mt-48">AI conversation will appear here</p>
+            <div class="bg-white rounded-lg p-6 h-[650px] overflow-y-auto shadow-inner mb-8">
+                <p class="text-gray-400 text-center mt-40">AI conversation will appear here</p>
             </div>
             <!-- Input area with increased spacing -->
-            <div class="flex mt-6">
+            <div class="flex mt-4">
                 <input type="text" placeholder="Ask a question..."
                     class="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <button class="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700">
@@ -151,7 +170,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="mt-12"></div>
+            <!-- <div class="mt-12"></div> -->
         </div>
     </div>
         
@@ -164,6 +183,29 @@
     </div>
 </div>
 
+<!-- Javascript for edit functionality -->
+
+<script>
+    const editBtn = document.getElementById('edit-notes-btn')
+    const notesList = document.getElementById('patient-notes')
+    const editArea = document.getElementById('edit-notes-area')
+
+    editBtn.addEventListener('click', () => {
+        if (editArea.classList.contains('hidden')) {
+            const notes = Array.from(notesList.querySelectorAll('li')).map(li => li.textContent).join('\n')
+            editArea.value = notes
+            notesList.classList.add('hidden')
+            editArea.classList.remove('hidden')
+            editBtn.textContent = 'Save'
+        } else {
+            const newNotes= editArea.value.split('\n').filter(line => line.trim() !== '')
+            notesList.innerHTML = newNotes.map(note => `<li>${note}</li>`).join('')
+            notesList.classList.remove('hidden')
+            editArea.classList.add('hidden')
+            editBtn.textContent = 'Edit'
+        }
+    })
+</script>
 
 
 {% endblock %}
