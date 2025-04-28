@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}New Appointment{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4 flex justify-center mt-2">New Appointment</h1>
+<div class="mx-auto p-4 max-w-3xl">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+        <div class="bg-blue-700 text-white py-3 px-4 font-semibold">
+            Appointment Details
+        </div>
+        <form class="py-4 px-4 space-y-4">
+            <div>
+                <label for="patient_name" class="block text-gray-700 text-sm font-bold mb-2">Patient Name:</label>
+                <input type="text" id="patient_name" name="patient_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div>
+                <label for="date_time" class="block text-gray-700 text-sm font-bold mb-2">Date/Time:</label>
+                <input type="datetime-local" id="date_time" name="date_time" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+
+            <div>
+                <label for="chief_complaint" class="block text-gray-700 text-sm font-bold mb-2">Chief Complaint:</label>
+                <textarea id="chief_complaint" name="chief_complaint" rows="3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+            </div>
+
+            <div class="flex justify-end">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Create Appointment
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
