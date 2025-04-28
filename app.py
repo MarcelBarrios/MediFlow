@@ -22,7 +22,7 @@ app.config["MONGO_URI"] = os.getenv(
 mongo = PyMongo(app)
 
 # Collections
-# tenants_collection = mongo.db.tenants
+# mediflow_collection = mongo.db.mediflow
 
 
 # --- Import and Register Blueprints ---
