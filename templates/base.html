@@ -7,6 +7,7 @@
   <title>{% block title %}MediFlow{% endblock %}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/static/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 </head>
 
 <body class="bg-gray-50">
@@ -49,6 +50,8 @@
                     class="block w-full px-4 py-2 hover:bg-gray-100">Appointment Feed</a></li>
                 <li><a href="{{ url_for('appointments.new_appointment') }}"
                     class="block w-full px-4 py-2 hover:bg-gray-100">New Appointment</a></li>
+                <li><a href="{{ url_for('all_patients.create_patient') }}"
+                    class="block w-full px-4 py-2 hover:bg-gray-100">Create New Patient</a></li>
                 <li><a href="{{ url_for('patient_appointment.patient_appointment') }}"
                     class="block w-full px-4 py-2 hover:bg-gray-100">Patient Appointment</a></li>
                 <li><a href="{{ url_for('all_patients.all_patients') }}"

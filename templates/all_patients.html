@@ -23,7 +23,7 @@
   </button>
 </form>
 
-<div class="mt-10">
+<div class="mt-10 px-4 md:px-10">
   <table class="table-auto border-collapse border border-gray-400 shadow-xl w-full rounded-lg overflow-hidden">
     <thead class="bg-blue-700 text-white">
       <tr>
@@ -67,76 +67,15 @@
       </tr> 
     </thead>
     <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">83472910</td>
-        <td class="border border-gray-400 px-4 py-2">Clara</td>
-        <td class="border border-gray-400 px-4 py-2">Henderson</td>
-        <td class="border border-gray-400 px-4 py-2">34</td>
-        <td class="border border-gray-400 px-4 py-2">06/14/1990</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">72938471</td>
-        <td class="border border-gray-400 px-4 py-2">Miguel</td>
-        <td class="border border-gray-400 px-4 py-2">Alvarez</td>
-        <td class="border border-gray-400 px-4 py-2">47</td>
-        <td class="border border-gray-400 px-4 py-2">11/23/1977</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">29384756</td>
-        <td class="border border-gray-400 px-4 py-2">Priya</td>
-        <td class="border border-gray-400 px-4 py-2">Patel</td>
-        <td class="border border-gray-400 px-4 py-2">29</td>
-        <td class="border border-gray-400 px-4 py-2">01/05/1996</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">90837465</td>
-        <td class="border border-gray-400 px-4 py-2">Jason</td>
-        <td class="border border-gray-400 px-4 py-2">Nguyen</td>
-        <td class="border border-gray-400 px-4 py-2">52</td>
-        <td class="border border-gray-400 px-4 py-2">09/12/1972</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">18374629</td>
-        <td class="border border-gray-400 px-4 py-2">Aaliyah</td>
-        <td class="border border-gray-400 px-4 py-2">Brooks</td>
-        <td class="border border-gray-400 px-4 py-2">41</td>
-        <td class="border border-gray-400 px-4 py-2">04/28/1983</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">34718290</td>
-        <td class="border border-gray-400 px-4 py-2">Luca</td>
-        <td class="border border-gray-400 px-4 py-2">Romano</td>
-        <td class="border border-gray-400 px-4 py-2">38</td>
-        <td class="border border-gray-400 px-4 py-2">08/19/1986</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">56273849</td>
-        <td class="border border-gray-400 px-4 py-2">Sarah</td>
-        <td class="border border-gray-400 px-4 py-2">Thompson</td>
-        <td class="border border-gray-400 px-4 py-2">25</td>
-        <td class="border border-gray-400 px-4 py-2">03/03/2000</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">71029483</td>
-        <td class="border border-gray-400 px-4 py-2">Noah</td>
-        <td class="border border-gray-400 px-4 py-2">Kim</td>
-        <td class="border border-gray-400 px-4 py-2">31</td>
-        <td class="border border-gray-400 px-4 py-2">07/17/1993</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">84910237</td>
-        <td class="border border-gray-400 px-4 py-2">Elena</td>
-        <td class="border border-gray-400 px-4 py-2">García</td>
-        <td class="border border-gray-400 px-4 py-2">45</td>
-        <td class="border border-gray-400 px-4 py-2">10/02/1979</td>
-      </tr>
-      <tr>
-        <td class="border border-gray-400 px-4 py-2">63572841</td>
-        <td class="border border-gray-400 px-4 py-2">Daniel</td>
-        <td class="border border-gray-400 px-4 py-2">Wilson</td>
-        <td class="border border-gray-400 px-4 py-2">56</td>
-        <td class="border border-gray-400 px-4 py-2">05/11/1968</td>
-      </tr>
+      {% for patient in patients %}
+        <tr>
+          <td class="border border-gray-400 px-4 py-2">{{ patient.mrn }}</td>
+          <td class="border border-gray-400 px-4 py-2">{{ patient.first_name }}</td>
+          <td class="border border-gray-400 px-4 py-2">{{ patient.last_name }}</td>
+          <td class="border border-gray-400 px-4 py-2">{{ patient.age }}</td>
+          <td class="border border-gray-400 px-4 py-2">{{ patient.dob }}</td>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
