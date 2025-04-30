@@ -16,3 +16,29 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 });
+
+// Handles edit button on Patient Intake Page
+
+document.addEventListener("DOMContentLoaded", function () {
+  const editBtn = document.getElementById('edit-notes-btn')
+  const notesList = document.getElementById('patient-notes')
+  const editArea = document.getElementById('edit-notes-area')
+
+  if (editBtn) {
+      editBtn.addEventListener('click', () => {
+          if (editArea.classList.contains('hidden')) {
+              const notes = Array.from(notesList.querySelectorAll('li')).map(li => li.textContent).join('\n')
+              editArea.value = notes
+              notesList.classList.add('hidden')
+              editArea.classList.remove('hidden')
+              editBtn.textContent = 'Save'
+          } else {
+              const newNotes = editArea.value.split('\n').filter(line => line.trim() !== '')
+              notesList.innerHTML = newNotes.map(note => `<li>${note}</li>`).join('')
+              notesList.classList.remove('hidden')
+              editArea.classList.add('hidden')
+              editBtn.textContent = 'Edit'
+          }
+      })
+  }
+})
