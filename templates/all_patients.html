@@ -68,13 +68,13 @@
     </thead>
     <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
       {% for patient in patients %}
-        <tr>
-          <td class="border border-gray-400 px-4 py-2">{{ patient.mrn }}</td>
-          <td class="border border-gray-400 px-4 py-2">{{ patient.first_name }}</td>
-          <td class="border border-gray-400 px-4 py-2">{{ patient.last_name }}</td>
-          <td class="border border-gray-400 px-4 py-2">{{ patient.age }}</td>
-          <td class="border border-gray-400 px-4 py-2">{{ patient.dob }}</td>
-        </tr>
+      <tr onclick="window.location='{{ url_for('patient.patient_detail', patient_id=patient['_id']) }}';" class="cursor-pointer hover:bg-blue-100">
+        <td class="border border-gray-400 px-4 py-2 text-center">{{ patient.mrn }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-center">{{ patient.first_name }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-center">{{ patient.last_name }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-center">{{ patient.age }}</td>
+        <td class="border border-gray-400 px-4 py-2 text-center">{{ patient.dob }}</td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
