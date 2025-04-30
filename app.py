@@ -30,14 +30,14 @@ new_patients_collection = mongo.db.patients
 # --- Import and Register Blueprints ---
 from blueprints.base_routes import base_bp
 from blueprints.appointments_routes import appointments_bp
-from blueprints.patient_appointment_routes import patient_appointment_bp
+from blueprints.patient_intake_routes import patient_intake_bp
 from blueprints.all_patients_routes import all_patients_bp
 from blueprints.patient_routes import patient_bp
 
 # Register the blueprints with the Flask application instance
 app.register_blueprint(base_bp)
 app.register_blueprint(appointments_bp)
-app.register_blueprint(patient_appointment_bp)
+app.register_blueprint(patient_intake_bp)
 app.register_blueprint(all_patients_bp)
 app.register_blueprint(patient_bp)
 
