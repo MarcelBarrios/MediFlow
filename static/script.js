@@ -42,3 +42,26 @@ document.addEventListener("DOMContentLoaded", function () {
       })
   }
 })
+
+
+// All Patients Page Search Bar: Handles finding patient
+
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("searchInput");
+  const rows = document.querySelectorAll("tbody tr");
+  const noResults = document.getElementById("noResults");
+
+  searchInput.addEventListener("input", function () {
+    const query = searchInput.value.toLowerCase();
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+      const text = row.getAttribute("data-search").toLowerCase();
+      const match = text.includes(query);
+      row.style.display = match ? "" : "none";
+      if (match) visibleCount++;
+    });
+
+    noResults.classList.toggle("hidden", visibleCount > 0);
+  });
+});
