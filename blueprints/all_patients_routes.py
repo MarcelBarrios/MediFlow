@@ -1,8 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, url_for, current_app
-from .forms import CreateNewPatientForm
+from forms import CreateNewPatientForm
 from bson import ObjectId
 
-all_patients_bp = Blueprint("all_patients", __name__, template_folder="../templates")
+all_patients_bp = Blueprint(
+    "all_patients", __name__, template_folder="../templates")
+
 
 @all_patients_bp.route("/all_patients", methods=["GET"])
 def all_patients():
@@ -14,6 +16,7 @@ def all_patients():
         patient["_id"] = str(patient["_id"])
 
     return render_template("all_patients.html", patients=patients)
+
 
 @all_patients_bp.route("/create_new_patient", methods=["GET", "POST"])
 def create_patient():
