@@ -2,54 +2,60 @@
 
 {% block title %}Patient Records{% endblock %}
 
-{% block page_heading %}Patient Records{% endblock %}
+{# Remove the page heading block from here as we add it below #}
+{% block page_heading %}{% endblock %}
 
 {% block content %}
-<!-- Fixed Filters Card that appears below navbar when navbar is visible -->
-<div class="sticky top-[0px] bg-white shadow-md z-10 border-b border-gray-200">
-    <div class="container mx-auto px-24 py-3">
-        <div class="flex flex-wrap items-center justify-between">
-            <div class="flex items-center me-4">
+
+{# Add H1 heading here, above the filters #}
+<h1 class="text-2xl font-bold text-center mt-4 mb-4">Patient Records</h1>
+
+<div class="sticky top-[0px] z-10 py-3 bg-gray-50"> {# Adjusted padding #}
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8"> {# Adjusted container padding #}
+        <div class="flex flex-wrap items-center justify-center sm:justify-between gap-x-4 gap-y-2"> {# Centered on small
+            screens, space-between on larger; added gap #}
+            {# Filters remain the same internally, just swapped colors via CSS #}
+            <div class="flex items-center">
                 <input checked id="lab-test-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-600">
-                <label for="lab-test-checkbox" class="ms-2 text-sm font-medium text-gray-900">Lab
-                    Tests</label>
+                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500 accent-red-600">
+                <label for="lab-test-checkbox" class="ms-2 text-sm font-medium text-gray-900">Lab Tests</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="imaging-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-green-600">
-                <label for="imaging-checkbox" class="ms-2 text-sm font-medium text-gray-900">Imaging
-                    & Scans</label>
+                    class="w-4 h-4 text-yellow-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-yellow-500 accent-yellow-500">
+                {# Adjusted accent color to match CSS #}
+                <label for="imaging-checkbox" class="ms-2 text-sm font-medium text-gray-900">Imaging & Scans</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="surgery-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-purple-600">
+                    class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 accent-purple-600">
                 <label for="surgery-checkbox" class="ms-2 text-sm font-medium text-gray-900">Surgery</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="medications-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-teal-600">
+                    class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-teal-500 accent-teal-600">
                 <label for="medications-checkbox" class="ms-2 text-sm font-medium text-gray-900">Medications &
                     Treatments</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="completed-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 rounded-sm focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-yellow-400">
+                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500 accent-green-600">
+                {# Adjusted accent color to match CSS #}
                 <label for="completed-checkbox" class="ms-2 text-sm font-medium text-gray-900">Completed</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="pending-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-orange-500">
+                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-orange-500 accent-orange-500">
                 <label for="pending-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pending</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="cancelled-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800 dark:focus:ring-red-800 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-800">
+                    class="w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800 accent-red-800">
                 <label for="cancelled-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cancelled</label>
             </div>
-            <div class="flex items-center me-4">
+            <div class="flex items-center">
                 <input checked id="past-appointments-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-blue-600">
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 accent-blue-600">
                 <label for="past-appointments-checkbox" class="ms-2 text-sm font-medium text-gray-900">Past
                     Appointments</label>
             </div>
@@ -57,145 +63,174 @@
     </div>
 </div>
 
-<!-- Main content with appropriate padding to account for the sticky header -->
-<div class="pt-4 pb-4">
-
+<div class="pt-4 pb-4"> {# Reduced top padding #}
     <div class="flex flex-wrap mx-4">
-        <!-- First Column - Patient Information (moved from top) -->
-        <div class="w-full md:w-1/4 px-2">
-            <div class="sticky top-[184px] w-full pr-4">
+
+        <div class="w-full md:w-1/4 px-2 mb-4 md:mb-0"> {# Added bottom margin for small screens #}
+            {# Adjusted sticky top based on filters height - you might need to fine-tune this value #}
+            <div class="sticky top-[70px] w-full">
+                {# Kept shadow-md as it matches patient_intake.html examples #}
                 <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="flex justify-center items-center mb-3">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                            alt="Patient Photo" class="rounded-full mx-auto h-20 w-28" />
+                            alt="Patient Photo" class="rounded-full mx-auto h-20 w-20 object-cover" /> {# Made image
+                        square #}
                     </div>
                     <div class="text-center mb-2">
                         <h2 class="text-xl font-bold">John Doe, 45</h2>
-                        <span class="text-gray-500">MRN: 23847109</span>
+                        <span class="text-gray-500 text-sm">MRN: 23847109</span> {# Slightly smaller MRN #}
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-2 text-center sm:text-left"> {# Center text on small screens #}
                         <p class="text-gray-500 text-sm">D.O.B: May 30, 1980</p>
                         <p class="text-gray-500 text-sm">Appointment Time: 8:15am</p>
                     </div>
-                    <div class="text-gray-700 text-sm">
+                    <div class="text-gray-700 text-sm text-center sm:text-left"> {# Center text on small screens #}
                         <div class="mb-1">
-                            <span class="font-semibold">Reason:</span> Persistent cough, chest tightness
+                            <span class="font-semibold">Reason:</span> <span class="text-gray-600">Persistent cough,
+                                chest tightness</span> {# Added text-gray-600 #}
                         </div>
                         <div>
                             <span class="font-semibold">Notes:</span>
-                            <span class="text-xs">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
+                            <span class="text-gray-600">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
+                            {# Added text-gray-600 #}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Second Column - Medical Records -->
-        <div class="w-full md:w-2/4 px-2">
-            <!-- Medical Records Cards -->
-            <!-- Lab Test Card -->
+        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0"> {# Added bottom margin for small screens #}
+            {# Kept shadow-md as it matches patient_intake.html examples #}
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">1. Comprehensive Metabolic Panel (CMP)</h3>
+                    <h3 class="font-bold text-lg">1. Comprehensive Metabolic Panel (CMP)</h3> {# Slightly larger heading
+                    #}
+                    {# Status styling remains unchanged #}
                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
                         Completed</span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🩺 Lab Test</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 20, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
+                <div class="mt-2 text-sm space-y-1"> {# Applied text-sm and spacing to the container #}
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        {# Applied background color matching filter, text color, padding, rounding #}
+                        <span class="ml-1 text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded-md">🩺 Lab Test</span>
                     </p>
-                    <p><span class="font-medium text-gray-700">Results:</span> Normal except for slightly elevated
-                        glucose
-                    </p>
-                    <p><span class="font-medium text-gray-700">Notes:</span> Patient advised to monitor diet and retest
-                        in 3
-                        months</p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">March 20,
+                            2025</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">Dr.
+                            Elizabeth Carter (Primary Care)</span></p>
+                    <p><span class="font-semibold text-gray-700">Results:</span> <span class="text-gray-600">Normal
+                            except for slightly elevated glucose</span></p>
+                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">Patient
+                            advised to monitor diet and retest in 3 months</span></p>
                 </div>
             </div>
 
-            <!-- Imaging Card -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">2. MRI Brain Scan</h3>
+                    <h3 class="font-bold text-lg">2. MRI Brain Scan</h3>
                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
                         Completed</span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 15, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. James Rodriguez (Neurology)</p>
-                    <p><span class="font-medium text-gray-700">Findings:</span> No signs of stroke, mild white matter
-                        changes consistent with age</p>
-                    <p><span class="font-medium text-gray-700">Notes:</span> Follow-up in 6 months if symptoms persist
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        {# Applied background color matching filter, text color, padding, rounding #}
+                        <span class="ml-1 text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-md">🏥 Imaging &
+                            Scans</span>
                     </p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">March 15,
+                            2025</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">Dr.
+                            James Rodriguez (Neurology)</span></p>
+                    <p><span class="font-semibold text-gray-700">Findings:</span> <span class="text-gray-600">No signs
+                            of stroke, mild white matter changes consistent with age</span></p>
+                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">Follow-up in
+                            6 months if symptoms persist</span></p>
                 </div>
             </div>
 
-            <!-- Surgery Card -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">3. Laparoscopic Cholecystectomy</h3>
+                    <h3 class="font-bold text-lg">3. Laparoscopic Cholecystectomy</h3>
                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
                         Completed</span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🔪 Surgery</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> February 28, 2025</p>
-                    <p><span class="font-medium text-gray-700">Surgeon:</span> Dr. Aisha Patel (General Surgery)</p>
-                    <p><span class="font-medium text-gray-700">Outcome:</span> Successful, no complications</p>
-                    <p><span class="font-medium text-gray-700">Post-Op Instructions:</span> Avoid fatty foods, follow up
-                        in
-                        2 weeks</p>
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        {# Applied background color matching filter, text color, padding, rounding #}
+                        <span class="ml-1 text-xs bg-purple-100 text-purple-800 px-2 py-0.5 rounded-md">🔪
+                            Surgery</span>
+                    </p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">February 28,
+                            2025</span></p>
+                    <p><span class="font-semibold text-gray-700">Surgeon:</span> <span class="text-gray-600">Dr. Aisha
+                            Patel (General Surgery)</span></p>
+                    <p><span class="font-semibold text-gray-700">Outcome:</span> <span class="text-gray-600">Successful,
+                            no complications</span></p>
+                    <p><span class="font-semibold text-gray-700">Post-Op Instructions:</span> <span
+                            class="text-gray-600">Avoid fatty foods, follow up in 2 weeks</span></p>
                 </div>
             </div>
 
-            <!-- Medication Card -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">4. IV Antibiotic Therapy (Vancomycin)</h3>
+                    <h3 class="font-bold text-lg">4. IV Antibiotic Therapy (Vancomycin)</h3>
                     <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
                         Completed</span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 💊 Medications & Treatments</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 10-14, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Michael Lee (Infectious Diseases)
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        {# Applied background color matching filter, text color, padding, rounding #}
+                        <span class="ml-1 text-xs bg-teal-100 text-teal-800 px-2 py-0.5 rounded-md">💊 Medications &
+                            Treatments</span>
                     </p>
-                    <p><span class="font-medium text-gray-700">Indication:</span> Severe MRSA infection</p>
-                    <p><span class="font-medium text-gray-700">Outcome:</span> Infection cleared, no adverse reactions
-                    </p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">March 10-14,
+                            2025</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">Dr.
+                            Michael Lee (Infectious Diseases)</span></p>
+                    <p><span class="font-semibold text-gray-700">Indication:</span> <span class="text-gray-600">Severe
+                            MRSA infection</span></p>
+                    <p><span class="font-semibold text-gray-700">Outcome:</span> <span class="text-gray-600">Infection
+                            cleared, no adverse reactions</span></p>
                 </div>
             </div>
 
-            <!-- Additional procedures for scrolling test -->
             <div class="bg-white p-4 rounded-lg shadow-md mb-4">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">5. Chest X-Ray</h3>
-                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">⏳
+                    <h3 class="font-bold text-lg">5. Chest X-Ray</h3>
+                    <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded">⏳
                         Pending</span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> Scheduled for April 18, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        {# Applied background color matching filter, text color, padding, rounding - Matches Imaging
+                        filter color #}
+                        <span class="ml-1 text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded-md">🏥 Imaging &
+                            Scans</span>
                     </p>
-                    <p><span class="font-medium text-gray-700">Reason:</span> To investigate persistent cough</p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">Scheduled for
+                            April 18, 2025</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">Dr.
+                            Elizabeth Carter (Primary Care)</span></p>
+                    <p><span class="font-semibold text-gray-700">Reason:</span> <span class="text-gray-600">To
+                            investigate persistent cough</span></p>
                 </div>
             </div>
         </div>
 
-        <!-- Third Column - AI Chatbox -->
         <div class="w-full md:w-1/4 px-2">
-            <div class="sticky top-[184px] bg-gray-100 p-4 rounded-lg shadow-md">
-                <h3 class="font-bold mb-2">AI Assistant</h3>
-                <div class="bg-white rounded-lg p-3 h-64 overflow-y-auto mb-2">
-                    <p class="text-gray-500 text-center">AI conversation will appear here</p>
+            {# Adjusted sticky top value - fine-tune as needed #}
+            <div class="sticky top-[70px] bg-gray-50 rounded-lg shadow-md p-4">
+                <h3 class="font-bold mb-6 text-2xl text-center">AI Assistant</h3>
+                <div class="bg-white rounded-lg p-4 h-[500px] overflow-y-auto shadow-inner mb-4"> {# Reduced
+                    padding/margin slightly #}
+                    <p class="text-gray-400 text-center mt-20">AI conversation will appear here</p> {# Adjusted margin
+                    #}
                 </div>
                 <div class="flex">
                     <input type="text" placeholder="Ask a question..."
-                        class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700">
+                        class="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    {# Added text-sm #}
+                    <button class="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -205,9 +240,11 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
+{# Ensure the link to patient.css is correct #}
 <link rel="stylesheet" href="{{ url_for('static', filename='patient.css') }}">
 
 {% endblock %}
