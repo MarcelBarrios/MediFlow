@@ -69,7 +69,7 @@
                 <p><span class="font-semibold">Chief Complaint:</span> Persistent cough, chest tightness, and patient starting to worry.</p>
             </div>
 
-        <div class="mt-4">
+        <div class="mt-5">
             <h3 class="font-semibold text-gray-700 text-1xl mb-4">Patient In-Take</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -86,7 +86,7 @@
                 </div>
                 <div>
                     <label class="block text-base font-medium text-gray-700 mb-1">Do you drink alcohol?</label>
-                    <select name="alcohol-use" class="w-full p-2 border rounded-md">
+                    <select name="alcohol-use" class="w-full p-2 border rounded-md appearance-none">
                         <option value="">Select</option>
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
@@ -94,7 +94,7 @@
                 </div>
                 <div>
                     <label class="block text-base font-medium text-gray-700 mb-1">If so, how many a week?</label>
-                    <select name="alcohol-use" class="w-full p-2 border rounded-md">
+                    <select name="alcohol-frequency" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -113,7 +113,7 @@
                 </div>
                 <div>
                     <label class="block text-base font-medium text-gray-700 mb-1">If so, how many a day?</label>
-                    <select name="smoking" class="w-full p-2 border rounded-md">
+                    <select name="smoking-frequency" class="w-full p-2 border rounded-md">
                         <option value="">Select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -140,13 +140,18 @@
             <textarea class="w-full h-36 p-3 border rounded-md mt-2" placeholder="Write your notes here..."></textarea>
         </div>
 
-        <div class="mt-6 flex justify-between">
-            <button type="button" onclick="window.print()" class="bg-white text-black p-2 rounded-md border border-black">
-                Print
-            </button>
-            <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
-                Save In-Take
-            </button>
+        <div class="mt-4 flex justify-between">
+
+            <div class="align-top">
+                <button type="button" onclick="window.print()" class="text-blue-600 text-sm hover:underline">
+                    Print
+                </button>
+            </div>
+            <div class="justify-end">
+                <button type="button" onclick="submitNotes()" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
+                    Save In-Take
+                </button>
+            </div>
         </div>
     </div>
 
