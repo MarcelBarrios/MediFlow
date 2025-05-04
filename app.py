@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from bson.objectid import ObjectId
 from datetime import datetime
 import secrets
+import certifi
 from dotenv import load_dotenv
 
 # Load environment variables from .env
@@ -14,6 +15,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 
+
 # Set Mongo URI from environment
 mongo_uri = os.getenv("MONGO_URI")
 if not mongo_uri:
@@ -21,8 +23,9 @@ if not mongo_uri:
 
 app.config["MONGO_URI"] = mongo_uri
 
+print("Loaded MONGO_URI:", os.getenv("MONGO_URI"))
 # Initialize PyMongo
-mongo = PyMongo(app)
+mongo = PyMongo(app, tlsCAFile=certifi.where())
 app.mongo = mongo
 
 # Access collections (must go after PyMongo setup)
@@ -59,4 +62,4 @@ def test_db_connection():
 
 # Run app 
 if __name__ == "__main__":
-    app.run(debug=False, port=5002)
+    app.run(debug=False, port=5001)
