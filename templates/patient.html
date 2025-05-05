@@ -1,201 +1,247 @@
 {% extends 'base.html' %}
 
-{% block title %}Patient Records{% endblock %}
-
-{% block page_heading %}Patient Records{% endblock %}
+{% block title %}Patient Records for {{ patient.first_name }} {{ patient.last_name }}{% endblock %}
 
 {% block content %}
-<!-- Fixed Filters Card that appears below navbar when navbar is visible -->
-<div class="sticky top-[0px] bg-white shadow-md z-10 border-b border-gray-200">
-    <div class="container mx-auto px-24 py-3">
-        <div class="flex flex-wrap items-center justify-between">
-            <div class="flex items-center me-4">
-                <input checked id="lab-test-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500 dark:focus:ring-red-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-600">
-                <label for="lab-test-checkbox" class="ms-2 text-sm font-medium text-gray-900">Lab
-                    Tests</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="imaging-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-green-600">
-                <label for="imaging-checkbox" class="ms-2 text-sm font-medium text-gray-900">Imaging
-                    & Scans</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="surgery-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-purple-600">
-                <label for="surgery-checkbox" class="ms-2 text-sm font-medium text-gray-900">Surgery</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="medications-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-teal-600">
-                <label for="medications-checkbox" class="ms-2 text-sm font-medium text-gray-900">Medications &
-                    Treatments</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="completed-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-yellow-400 bg-gray-100 border-gray-300 rounded-sm focus:ring-yellow-500 dark:focus:ring-yellow-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-yellow-400">
-                <label for="completed-checkbox" class="ms-2 text-sm font-medium text-gray-900">Completed</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="pending-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-orange-500">
-                <label for="pending-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pending</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="cancelled-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800 dark:focus:ring-red-800 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-red-800">
-                <label for="cancelled-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cancelled</label>
-            </div>
-            <div class="flex items-center me-4">
-                <input checked id="past-appointments-checkbox" type="checkbox" value=""
-                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 accent-blue-600">
-                <label for="past-appointments-checkbox" class="ms-2 text-sm font-medium text-gray-900">Past
-                    Appointments</label>
+
+<style>
+    /* Custom checkbox styles for patient records page */
+    #lab-test-checkbox:checked {
+        background-color: #dc2626 !important;
+        border-color: #dc2626 !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #imaging-checkbox:checked {
+        background-color: #facc15 !important;
+        border-color: #facc15 !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #surgery-checkbox:checked {
+        background-color: #9333ea !important;
+        border-color: #9333ea !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #medications-checkbox:checked {
+        background-color: #0d9488 !important;
+        border-color: #0d9488 !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #completed-checkbox:checked {
+        background-color: #16a34a !important;
+        border-color: #16a34a !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #pending-checkbox:checked {
+        background-color: #f97316 !important;
+        border-color: #f97316 !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #cancelled-checkbox:checked {
+        background-color: #991b1b !important;
+        border-color: #991b1b !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    #past-appointments-checkbox:checked {
+        background-color: #2563eb !important;
+        border-color: #2563eb !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+</style>
+
+<h1 class="text-2xl font-bold text-center mt-4 mb-4">Patient Records</h1>
+
+<form class="sticky top-0 z-10 py-3 bg-gray-50 border-b border-gray-200" id="filter-form"
+    action="{{ url_for('patient.patient_detail', patient_id=patient._id) }}" method="GET">
+    <div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-center sm:justify-between gap-x-4 gap-y-2">
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="lab-test" id="lab-test-checkbox"
+                        class="filter-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500"
+                        {{ 'checked' if 'lab-test' in active_filters }}>
+                    <label for="lab-test-checkbox" class="ms-2 text-sm font-medium text-gray-900">Lab Tests</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="imaging" id="imaging-checkbox"
+                        class="filter-checkbox w-4 h-4 text-yellow-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-yellow-500"
+                        {{ 'checked' if 'imaging' in active_filters }}>
+                    <label for="imaging-checkbox" class="ms-2 text-sm font-medium text-gray-900">Imaging & Scans</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="surgery" id="surgery-checkbox"
+                        class="filter-checkbox w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-purple-500"
+                        {{ 'checked' if 'surgery' in active_filters }}>
+                    <label for="surgery-checkbox" class="ms-2 text-sm font-medium text-gray-900">Surgery</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="medications" id="medications-checkbox"
+                        class="filter-checkbox w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-teal-500"
+                        {{ 'checked' if 'medications' in active_filters }}>
+                    <label for="medications-checkbox" class="ms-2 text-sm font-medium text-gray-900">Medications</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="past-appointments" id="past-appointments-checkbox"
+                        class="filter-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500"
+                        {{ 'checked' if 'past-appointments' in active_filters }}>
+                    <label for="past-appointments-checkbox"
+                        class="ms-2 text-sm font-medium text-gray-900">Appointments</label>
+                </div>
+                <div class="hidden sm:block border-l border-gray-300 h-6 mx-2"></div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="completed" id="completed-checkbox"
+                        class="filter-checkbox w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500"
+                        {{ 'checked' if 'completed' in active_filters }}>
+                    <label for="completed-checkbox" class="ms-2 text-sm font-medium text-gray-900">Completed</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="pending" id="pending-checkbox"
+                        class="filter-checkbox w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded-sm focus:ring-orange-500"
+                        {{ 'checked' if 'pending' in active_filters }}>
+                    <label for="pending-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pending</label>
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="cancelled" id="cancelled-checkbox"
+                        class="filter-checkbox w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800"
+                        {{ 'checked' if 'cancelled' in active_filters }}>
+                    <label for="cancelled-checkbox" class="ms-2 text-sm font-medium text-gray-900">Cancelled</label>
+                </div>
             </div>
         </div>
     </div>
+</form>
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="container mx-auto px-4 py-2">
+    {% for category, message in messages %}
+    {% set alert_class = 'bg-blue-100 border-blue-500 text-blue-700' %}
+    {% if category == 'success' %}
+    {% set alert_class = 'bg-green-100 border-green-500 text-green-700' %}
+    {% elif category == 'warning' %}
+    {% set alert_class = 'bg-yellow-100 border-yellow-500 text-yellow-700' %}
+    {% elif category == 'danger' or category == 'error' %}
+    {% set alert_class = 'bg-red-100 border-red-500 text-red-700' %}
+    {% endif %}
+    <div class="border-l-4 p-4 {{ alert_class }}" role="alert">
+        <p class="font-bold capitalize">{{ category if category != 'message' else 'Info' }}</p>
+        <p>{{ message }}</p>
+    </div>
+    {% endfor %}
 </div>
+{% endif %}
+{% endwith %}
 
-<!-- Main content with appropriate padding to account for the sticky header -->
+
 <div class="pt-4 pb-4">
-
     <div class="flex flex-wrap mx-4">
-        <!-- First Column - Patient Information (moved from top) -->
-        <div class="w-full md:w-1/4 px-2">
-            <div class="sticky top-[184px] w-full pr-4">
+
+        <div class="w-full md:w-1/4 px-2 mb-4 md:mb-0">
+            <div class="sticky top-[90px] w-full">
                 <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="flex justify-center items-center mb-3">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpBLc9J0Jz2F69dVxaPIHuYEL1OWdlYqvZ-w&s"
-                            alt="Patient Photo" class="rounded-full mx-auto h-20 w-28" />
+                        <img src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
+                            alt="Patient Photo for {{ patient.first_name }}"
+                            class="rounded-full mx-auto h-20 w-20 object-cover" />
                     </div>
                     <div class="text-center mb-2">
-                        <h2 class="text-xl font-bold">John Doe, 45</h2>
-                        <span class="text-gray-500">MRN: 23847109</span>
+                        <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age
+                            }}</h2>
+                        <span class="text-gray-500 text-sm">MRN: {{ patient.mrn }}</span>
                     </div>
-                    <div class="mb-2">
-                        <p class="text-gray-500 text-sm">D.O.B: May 30, 1980</p>
-                        <p class="text-gray-500 text-sm">Appointment Time: 8:15am</p>
+                    <div class="mb-2 text-center sm:text-left">
+                        <p class="text-gray-500 text-sm">D.O.B: {{ patient.dob }}</p>
+                        {% if patient.appointment_time %}
+                        <p class="text-gray-500 text-sm">Appointment Time: {{ patient.appointment_time }}</p>
+                        {% endif %}
                     </div>
-                    <div class="text-gray-700 text-sm">
+                    <div class="text-gray-700 text-sm text-center sm:text-left">
+                        {% if patient.chief_complaint %}
                         <div class="mb-1">
-                            <span class="font-semibold">Reason:</span> Persistent cough, chest tightness
+                            <span class="font-semibold">Reason:</span> <span class="text-gray-600">{{
+                                patient.chief_complaint }}</span>
                         </div>
+                        {% endif %}
+                        {% if patient.notes %}
                         <div>
                             <span class="font-semibold">Notes:</span>
-                            <span class="text-xs">Asthma, Allergies (pollen, dust, seafood, nuts), High BP</span>
+                            <span class="text-gray-600">
+                                {% if patient.notes is iterable and patient.notes is not string %}
+                                {{ patient.notes | join(', ') }}
+                                {% else %}
+                                {{ patient.notes }}
+                                {% endif %}
+                            </span>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Second Column - Medical Records -->
-        <div class="w-full md:w-2/4 px-2">
-            <!-- Medical Records Cards -->
-            <!-- Lab Test Card -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0" id="records-container">
+            {% if records %}
+            {% for record in records %}
+            <div class="record-card bg-white p-4 rounded-lg shadow-md mb-4"
+                data-category="{{ record.category | lower | replace(' ', '-') | replace('&', 'and') }}"
+                data-status="{{ record.status | lower }}">
                 <div class="flex justify-between items-start">
-                    <h3 class="font-bold">1. Comprehensive Metabolic Panel (CMP)</h3>
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
-                        Completed</span>
+                    <h3 class="font-bold text-lg">{{ loop.index }}. {{ record.title | default('N/A') }}</h3>
+                    <span class="{{ record.status_style }} text-xs font-medium px-2.5 py-0.5 rounded">
+                        {% if record.status == 'Completed' %}✅{% elif record.status == 'Pending' %}⏳{% elif
+                        record.status == 'Cancelled' %}❌{% endif %}
+                        {{ record.status | default('N/A') }}
+                    </span>
                 </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🩺 Lab Test</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 20, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        <span class="ml-1 text-xs {{ record.category_style }} px-2 py-0.5 rounded-md">
+                            {% if record.category == 'Lab Test' %}🩺{% elif record.category == 'Imaging' %}🏥{% elif
+                            record.category == 'Surgery' %}🔪{% elif record.category == 'Medication' %}💊{% elif
+                            record.category == 'Appointment' %}📅{% endif %}
+                            {{ record.category | default('N/A') }}
+                        </span>
                     </p>
-                    <p><span class="font-medium text-gray-700">Results:</span> Normal except for slightly elevated
-                        glucose
-                    </p>
-                    <p><span class="font-medium text-gray-700">Notes:</span> Patient advised to monitor diet and retest
-                        in 3
-                        months</p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">{{
+                            record.formatted_date | default('N/A') }}</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">{{
+                            record.ordered_by | default('N/A') }}</span></p>
+                    {% if record.details %}
+                    <p><span class="font-semibold text-gray-700">Details:</span> <span class="text-gray-600">{{
+                            record.details }}</span></p>
+                    {% endif %}
+                    {% if record.notes %}
+                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">{{
+                            record.notes }}</span></p>
+                    {% endif %}
                 </div>
             </div>
-
-            <!-- Imaging Card -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold">2. MRI Brain Scan</h3>
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
-                        Completed</span>
-                </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 15, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. James Rodriguez (Neurology)</p>
-                    <p><span class="font-medium text-gray-700">Findings:</span> No signs of stroke, mild white matter
-                        changes consistent with age</p>
-                    <p><span class="font-medium text-gray-700">Notes:</span> Follow-up in 6 months if symptoms persist
-                    </p>
-                </div>
+            {% endfor %}
+            {% else %}
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center text-gray-500">
+                No medical records found matching the selected filters.
             </div>
-
-            <!-- Surgery Card -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold">3. Laparoscopic Cholecystectomy</h3>
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
-                        Completed</span>
-                </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🔪 Surgery</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> February 28, 2025</p>
-                    <p><span class="font-medium text-gray-700">Surgeon:</span> Dr. Aisha Patel (General Surgery)</p>
-                    <p><span class="font-medium text-gray-700">Outcome:</span> Successful, no complications</p>
-                    <p><span class="font-medium text-gray-700">Post-Op Instructions:</span> Avoid fatty foods, follow up
-                        in
-                        2 weeks</p>
-                </div>
-            </div>
-
-            <!-- Medication Card -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold">4. IV Antibiotic Therapy (Vancomycin)</h3>
-                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">✅
-                        Completed</span>
-                </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 💊 Medications & Treatments</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> March 10-14, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Michael Lee (Infectious Diseases)
-                    </p>
-                    <p><span class="font-medium text-gray-700">Indication:</span> Severe MRSA infection</p>
-                    <p><span class="font-medium text-gray-700">Outcome:</span> Infection cleared, no adverse reactions
-                    </p>
-                </div>
-            </div>
-
-            <!-- Additional procedures for scrolling test -->
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold">5. Chest X-Ray</h3>
-                    <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded">⏳
-                        Pending</span>
-                </div>
-                <div class="mt-2">
-                    <p><span class="font-medium text-gray-700">Category:</span> 🏥 Imaging & Scans</p>
-                    <p><span class="font-medium text-gray-700">Date:</span> Scheduled for April 18, 2025</p>
-                    <p><span class="font-medium text-gray-700">Ordered By:</span> Dr. Elizabeth Carter (Primary Care)
-                    </p>
-                    <p><span class="font-medium text-gray-700">Reason:</span> To investigate persistent cough</p>
-                </div>
-            </div>
+            {% endif %}
         </div>
 
-        <!-- Third Column - AI Chatbox -->
         <div class="w-full md:w-1/4 px-2">
-            <div class="sticky top-[184px] bg-gray-100 p-4 rounded-lg shadow-md">
-                <h3 class="font-bold mb-2">AI Assistant</h3>
-                <div class="bg-white rounded-lg p-3 h-64 overflow-y-auto mb-2">
-                    <p class="text-gray-500 text-center">AI conversation will appear here</p>
+            <div class="sticky top-[90px] bg-gray-50 rounded-lg shadow-md p-4">
+                <h3 class="font-bold mb-6 text-2xl text-center">AI Assistant</h3>
+                <div class="bg-white rounded-lg p-4 h-[500px] overflow-y-auto shadow-inner mb-4">
+                    <p class="text-gray-400 text-center mt-20">AI conversation will appear here</p>
                 </div>
                 <div class="flex">
                     <input type="text" placeholder="Ask a question..."
-                        class="flex-grow p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <button class="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700">
+                        class="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                    <button class="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -205,9 +251,34 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
-<link rel="stylesheet" href="{{ url_for('static', filename='patient.css') }}">
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.filter-checkbox');
+        const baseUrl = window.location.pathname;
+
+        function applyFilters() {
+            const params = new URLSearchParams();
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    params.append('filter', checkbox.value);
+                }
+            });
+
+            const newUrl = `${baseUrl}?${params.toString()}`;
+
+            window.location.replace(newUrl);
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', applyFilters);
+        });
+
+    });
+</script>
+
 
 {% endblock %}

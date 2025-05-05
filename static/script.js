@@ -1,3 +1,17 @@
+//Toggle for mobile menu
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.querySelector('[data-collapse-toggle]');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (toggleBtn && mobileMenu) {
+    toggleBtn.addEventListener('click', function () {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+});
+
+
 // Handles dropdown menu functionality.
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownButton = document.getElementById('dropdown-button');
