@@ -1,3 +1,8 @@
+from blueprints.patient_routes import patient_bp
+from blueprints.all_patients_routes import all_patients_bp
+from blueprints.patient_intake_routes import patient_intake_bp
+from blueprints.appointments_routes import appointments_bp
+from blueprints.base_routes import base_bp
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_pymongo import PyMongo
@@ -24,19 +29,16 @@ if not mongo_uri:
 app.config["MONGO_URI"] = mongo_uri
 
 print("Loaded MONGO_URI:", os.getenv("MONGO_URI"))
-# Initialize PyMongo
+# Initialize PyMongo / For deployment
 mongo = PyMongo(app, tlsCAFile=certifi.where())
+# For testing locally, if not you'll get errors.
+# mongo = PyMongo(app)
 app.mongo = mongo
 
 # Access collections (must go after PyMongo setup)
 new_patients_collection = mongo.db.patients
 
 # Register blueprints
-from blueprints.base_routes import base_bp
-from blueprints.appointments_routes import appointments_bp
-from blueprints.patient_intake_routes import patient_intake_bp
-from blueprints.all_patients_routes import all_patients_bp
-from blueprints.patient_routes import patient_bp
 
 app.register_blueprint(base_bp)
 app.register_blueprint(appointments_bp)
@@ -45,6 +47,8 @@ app.register_blueprint(all_patients_bp)
 app.register_blueprint(patient_bp)
 
 # Test route - delete before deploying
+
+
 @app.route("/test-db")
 def test_db_connection():
     try:
@@ -60,6 +64,7 @@ def test_db_connection():
             "message": str(e)
         }), 500
 
-# Run app 
+
+# Run app
 if __name__ == "__main__":
     app.run(debug=False, port=5001)

@@ -1,5 +1,3 @@
-# blueprints/patient_routes.py
-# Add redirect, url_for to the import line
 from flask import Blueprint, render_template, current_app, request, abort, redirect, url_for, flash
 from bson import ObjectId
 from datetime import datetime
@@ -7,7 +5,6 @@ from datetime import datetime
 
 patient_bp = Blueprint('patient', __name__, template_folder='../templates')
 
-# --- Keep Helper Data (STATUS_STYLES, CATEGORY_STYLES, FILTER_MAP, format_date) as before ---
 STATUS_STYLES = {
     "Completed": "bg-green-100 text-green-800",
     "Pending": "bg-orange-100 text-orange-800",
@@ -39,26 +36,20 @@ FILTER_MAP = {
 def format_date(date_obj):
     if isinstance(date_obj, datetime):
         return date_obj.strftime('%B %d, %Y')
-    # Attempt to parse if it's a string in YYYY-MM-DD format
     if isinstance(date_obj, str):
         try:
             return datetime.strptime(date_obj, '%Y-%m-%d').strftime('%B %d, %Y')
         except ValueError:
-            pass  # If parsing fails, return original string
+            pass
     return date_obj
 
 
-# --- MODIFIED Route ---
 @patient_bp.route("/patient", methods=["GET"])
 def patient_generic():
-    # Redirect user to the list of all patients
-    # Uses url_for('<blueprint_name>.<function_name>')
-    # Optional: message for user
     flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
 
-# --- Keep patient_detail route as previously defined ---
 @patient_bp.route("/patient/<patient_id>", methods=["GET"])
 def patient_detail(patient_id):
     try:
@@ -71,7 +62,6 @@ def patient_detail(patient_id):
     if not patient:
         abort(404, description="Patient not found.")
 
-    # --- Filtering Logic ---
     active_category_filters = []
     active_status_filters = []
     filter_args = request.args.getlist('filter')
@@ -87,13 +77,12 @@ def patient_detail(patient_id):
     all_records = patient.get("medical_records", [])
     filtered_records = []
 
-    # Determine if ANY filters were selected. If not, show all.
     filters_selected = bool(active_category_filters or active_status_filters)
 
     for record in all_records:
-        if not filters_selected:  # Show all if no filters are active
+        if not filters_selected:
             filtered_records.append(record)
-        else:  # Apply filters if any are active
+        else:
             category_match = (not active_category_filters or
                               record.get("category") in active_category_filters)
             status_match = (not active_status_filters or
@@ -101,12 +90,11 @@ def patient_detail(patient_id):
             if category_match and status_match:
                 filtered_records.append(record)
 
-    # --- Prepare data for template ---
     records_for_template = []
     for record in filtered_records:
         status = record.get("status", "Unknown")
         category = record.get("category", "Unknown")
-        record_copy = record.copy()  # Avoid modifying original data
+        record_copy = record.copy()
         record_copy["status_style"] = STATUS_STYLES.get(
             status, DEFAULT_STATUS_STYLE)
         record_copy["category_style"] = CATEGORY_STYLES.get(
