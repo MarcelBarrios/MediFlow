@@ -7,9 +7,11 @@
 
 <h1 class="text-2xl font-bold mb-4 flex justify-center mt-2">Appointments</h1>
 <div class="mt-10 px-4 md:px-10">
+    <!-- Appointments Table -->
     <table class="w-full table-auto border-collapse border border-gray-400 shadow-xl rounded-lg overflow-hidden">
         <colgroup>
             <col style="width: 12%;"> <col style="width: 10%;"> <col style="width: 15%;"> <col style="width: 8%;"> <col style="width: 10%;"> <col style="width: 45%;"> </colgroup>
+        <!-- Table Header -->
         <thead class="bg-blue-700 text-white">
             <tr>
                 <th class="border border-gray-400 px-4 py-2 text-center">
@@ -21,7 +23,7 @@
                         </svg>
                     </div>
                 </th>
-
+                
                 <th class="border border-gray-400 px-4 py-2 text-center">
                     <div class="flex items-center justify-center space-x-1">
                         <span>MRN</span>
@@ -43,6 +45,7 @@
                 <th class="border border-gray-400 px-4 py-2 text-center">Chief Complaint</th>
             </tr>
         </thead>
+        <!-- Table Body -->
         <tbody class="[&>tr:nth-child(even)]:bg-gray-200">
             {% for appointment in appointments %}
             <tr>
@@ -58,15 +61,28 @@
                         </svg>
                     </div>
                 </td>
+                <!-- MRN -->
                 <td class="border border-gray-400 px-4 py-2">{{ appointment.get('mrn', 'N/A') }}</td>
+                <!-- Patient name links to intake form -->
                 <td class="border border-gray-400 px-4 py-2">
                     <a href="{{ url_for('patient_intake.patient_intake', mrn=appointment.get('mrn', '')) }}"
                         class="text-blue-600 hover:underline">{{ appointment.get('patient_name', 'N/A') }}</a>
                 </td>
+                <!-- Age -->
                 <td class="border border-gray-400 px-4 py-2 text-center">{{ appointment.get('age', 'N/A') }}</td>
+                <!-- Check In logic: ✅ if already checked in, otherwise show button -->
                 <td class="border border-gray-400 px-4 py-2 text-center">
-                    {% if appointment.get('checked_in', False) %}✅{% endif %}
-                </td>
+                    {% if appointment.get('checked_in') %}
+                        ✅
+                    {% else %}
+                        <form method="POST" action="{{ url_for('appointments.check_in_appointment', appointment_id=appointment['_id']) }}">
+                            <button type="submit" class="text-black border border-black bg-white px-2 py-1 rounded hover:bg-gray-100">
+                                Check In
+                            </button>
+                        </form>
+                    {% endif %}
+                </td>    
+                <!-- Chief Complaint -->                  
                 <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">{{ appointment.get('chief_complaint', 'N/A') }}</td>
             </tr>
             {% endfor %}

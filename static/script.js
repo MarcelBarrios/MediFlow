@@ -79,3 +79,70 @@ document.addEventListener("DOMContentLoaded", function () {
     noResults.classList.toggle("hidden", visibleCount > 0);
   });
 });
+
+
+// Autocomplete for New Appointment
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Get patient data from hidden <script> tag
+  const rawData = document.getElementById('patient-data');
+  if (!rawData) return;
+
+  const appointmentPatientList = JSON.parse(rawData.textContent);
+
+  // Form elements
+  const input = document.getElementById('patient-search');
+  const results = document.getElementById('patient-results');
+  const firstNameInput = document.getElementById('patient-first-name');
+  const lastNameInput = document.getElementById('patient-last-name');
+
+  // On input, show matches
+  input.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    results.innerHTML = '';
+
+    if (!query) {
+      results.classList.add('hidden');
+      return;
+    }
+
+    const filtered = appointmentPatientList.filter(p =>
+      `${p.first_name} ${p.last_name}`.toLowerCase().includes(query)
+    );
+
+    // Show message if no match
+    if (filtered.length === 0) {
+      results.innerHTML = `
+        <li class="p-2 text-red-600">
+          No matching patient found.
+          <a href="/create_new_patient" class="text-blue-600 underline">Create New Patient</a>
+        </li>`;
+      results.classList.remove('hidden');
+    } else {
+      // Show matching patients
+      filtered.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.first_name} ${p.last_name} (MRN: ${p.mrn})`;
+        li.className = 'p-2 hover:bg-blue-100 cursor-pointer';
+
+        // On click, autofill form
+        li.addEventListener('click', () => {
+          input.value = `${p.first_name} ${p.last_name}`;
+          firstNameInput.value = p.first_name;
+          lastNameInput.value = p.last_name;
+          results.classList.add('hidden');
+        });
+
+        results.appendChild(li);
+      });
+      results.classList.remove('hidden');
+    }
+  });
+
+  // Hide dropdown if clicked outside
+  document.addEventListener('click', function (e) {
+    if (!results.contains(e.target) && e.target !== input) {
+      results.classList.add('hidden');
+    }
+  });
+});
