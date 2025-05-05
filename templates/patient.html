@@ -155,12 +155,23 @@
                     <div class="text-center mb-2">
                         <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age
                             }}</h2>
-                        <span class="text-gray-500 text-sm">MRN: {{ patient.mrn }}</span>
+                        <span class="text-gray-500 text-sm font-semibold">MRN: </span><span
+                            class="text-sm text-gray-600">{{
+                            patient.mrn }}</span>
                     </div>
-                    <div class="mb-2 text-center sm:text-left">
-                        <p class="text-gray-500 text-sm">D.O.B: {{ patient.dob }}</p>
+                    <div class="text-gray-700 text-sm text-center sm:text-left mb-2">
+                        <div>
+                            <span class="font-semibold">D.O.B:</span> <span class="text-gray-600">{{
+                                patient.dob }}</span>
+                        </div>
+
                         {% if patient.appointment_time %}
-                        <p class="text-gray-500 text-sm">Appointment Time: {{ patient.appointment_time }}</p>
+                        <div>
+                            <span class="font-semibold">Appointment Time:</span> <span class="text-gray-600">{{
+                                patient.appointment_time }}</span>
+                            </p>
+                        </div>
+
                         {% endif %}
                     </div>
                     <div class="text-gray-700 text-sm text-center sm:text-left">
