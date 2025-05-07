@@ -1,27 +1,37 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from datetime import datetime
+from bson import ObjectId
 
 # Blueprint setup
 patient_intake_bp = Blueprint('patient_intake', __name__)
 
-# Route: Show patient intake form
-@patient_intake_bp.route('/patient/<patient_id>', methods=['GET'])
+# (new) changed route to have /intake to be different from patient_routes
+@patient_intake_bp.route('/patient/<patient_id>/intake', methods=['GET'])
 def patient_intake_form(patient_id):
-    patient_collection = current_app.mongo.db.patients
-    patient = patient_collection.find_one({"mrn": patient_id})
-    
-    if not patient:
-        flash("Patient not found.", "error")
-        return redirect(url_for('appointments'))  
-
-    return render_template('patient_intake.html', patient=patient)
+    try:
+        # (new) Get patient data from patients collection (ObjectId got convereted to string)
+        patients_collection = current_app.mongo.db.patients
+        patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
+        
+        if patient:
+            # (new) Convert ObjectId to string
+            patient['_id'] = str(patient['_id'])
+            
+            return render_template('patient_intake.html', patient=patient)
+        else:
+            flash("Patient not found.", "error")
+            return redirect(url_for('all_patients.all_patients'))
+            
+    except Exception as e:
+        flash(f"Error loading patient intake form: {str(e)}", "error")
+        return redirect(url_for('all_patients.all_patients'))
 
 @patient_intake_bp.route('/patient/<patient_id>/edit_photo', methods=["GET", "POST"])
 def edit_photo(patient_id):
-    patient_collection = current_app.mongo.db.patients
-    patient = patient_collection.find_one({"mrn": patient_id})
+    patient_intake_collection = current_app.mongo.db.patients
+    patient_intake = patient_intake_collection.find_one({"_id": ObjectId(patient_id)})
 
-    if not patient:
+    if not patient_intake:
         flash("Patient not found.", "error")
         return redirect(url_for('home'))  # Adjust this based on your routing setup
 
@@ -31,8 +41,8 @@ def edit_photo(patient_id):
 
         if new_photo_url:
             # Update the patient's photo URL in the database
-            patient_collection.update_one(
-                {"mrn": patient_id},
+            patient_intake_collection.update_one(
+                {"_id": ObjectId(patient_id)},
                 {"$set": {"photo_url": new_photo_url}}
             )
             flash("Photo updated successfully!", "success")
@@ -41,7 +51,7 @@ def edit_photo(patient_id):
         flash("Please provide a valid photo URL.", "error")
 
     # Render the form to edit the photo URL
-    return render_template("edit_photo.html", patient=patient)
+    return render_template("edit_photo.html", patient_intake=patient_intake)
 
 
 # Route: Save patient intake form

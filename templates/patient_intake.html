@@ -22,7 +22,7 @@
                         class="rounded-full mx-auto h-20 w-20 object-cover" />
 
                     <!-- Edit Photo Button -->
-                    <form action="{{ url_for('patient_intake.edit_photo', patient_id=patient.mrn) }}" method="GET" class="mt-2">
+                    <form action="{{ url_for('patient_intake.edit_photo', patient_id=patient._id) }}" method="GET" class="mt-2">
                         <button type="submit" class="btn btn-primary">Edit Photo</button>
                     </form>
 
@@ -75,7 +75,7 @@
         <!-- <form id="intake-form" action="{{ url_for('patient_intake.save_intake') }}" method="POST"> -->
         <form id="intake-form" action="{{ url_for('patient_intake.save_intake') }}" method="POST">
 
-            <input type="hidden" name="patient_id" value="{{ patient.mrn }}">
+            <input type="hidden" name="patient_id" value="{{ patient._id }}">
             <div class="mt-5">
                 <h3 class="font-semibold text-gray-700 text-1xl mb-4">Patient In-Take</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

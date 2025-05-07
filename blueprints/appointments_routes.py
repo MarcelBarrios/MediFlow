@@ -11,7 +11,11 @@ def appointments():
     appointments_collection = current_app.mongo.db.appointments
     appointments_data = list(appointments_collection.find())
 
-    # Convert ObjectId to string for template rendering
+    # (new) Debug: Print first appointment structure (new add for patient_intake debug)
+    if appointments_data:
+        print("First appointment:", appointments_data[0])
+    
+    # (new) Convert ObjectId to string for template rendering
     for appointment in appointments_data:
         appointment["_id"] = str(appointment["_id"])
 
@@ -43,6 +47,8 @@ def new_appointment():
 
         if patient:
             new_appointment = {
+                # (new) added patient_id
+                "patient_id": str(patient["_id"]),
                 "date_time": form.date_time.data.strftime('%Y-%m-%d %H:%M:%S'),
                 "mrn": patient["mrn"],
                 "patient_name": f"{patient['first_name']} {patient['last_name']}",
