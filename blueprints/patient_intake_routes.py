@@ -5,17 +5,26 @@ from bson import ObjectId
 # Blueprint setup
 patient_intake_bp = Blueprint('patient_intake', __name__)
 
-# Route: Show patient intake form
-@patient_intake_bp.route('/patient/<patient_id>', methods=['GET'])
+# (new) changed route to have /intake to be different from patient_routes
+@patient_intake_bp.route('/patient/<patient_id>/intake', methods=['GET'])
 def patient_intake_form(patient_id):
-    patient_intake_collection = current_app.mongo.db.patient_intake
-    patient_intake = patient_intake_collection.find_one({"_id": ObjectId(patient_id)})
-    
-    if not patient_intake:
-        flash("Patient not found.", "error")
-        return redirect(url_for('appointments'))  
-
-    return render_template('patient_intake.html', patient_intake=patient_intake)
+    try:
+        # (new) Get patient data from patients collection (ObjectId got convereted to string)
+        patients_collection = current_app.mongo.db.patients
+        patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
+        
+        if patient:
+            # (new) Convert ObjectId to string
+            patient['_id'] = str(patient['_id'])
+            
+            return render_template('patient_intake.html', patient=patient)
+        else:
+            flash("Patient not found.", "error")
+            return redirect(url_for('all_patients.all_patients'))
+            
+    except Exception as e:
+        flash(f"Error loading patient intake form: {str(e)}", "error")
+        return redirect(url_for('all_patients.all_patients'))
 
 @patient_intake_bp.route('/patient/<patient_id>/edit_photo', methods=["GET", "POST"])
 def edit_photo(patient_id):
