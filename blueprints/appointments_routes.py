@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, current_app, redirect, url_for, re
 from bson import ObjectId
 from flask import flash
 from forms import CreateNewAppointmentForm
+from config import mongo
 
 appointments_bp = Blueprint('appointments', __name__, template_folder='../templates')
 

@@ -142,107 +142,107 @@
 
 
 <div class="pt-4 pb-4">
-    <div class="flex flex-wrap mx-4">
+    <div class="flex flex-wrap mx-4 justify-between">
 
+        <!-- Left Column: Patient Info Card -->
         <div class="w-full md:w-1/4 px-2 mb-4 md:mb-0">
             <div class="sticky top-[90px] w-full">
                 <div class="bg-white p-4 rounded-lg shadow-md">
                     <div class="flex justify-center items-center mb-3">
-                        <img src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
-                            alt="Patient Photo for {{ patient.first_name }}"
-                            class="rounded-full mx-auto h-20 w-20 object-cover" />
+                        <div id="patient-container" data-patient-id="{{ patient._id }}"></div>
+                        <!-- Patient Photo -->
+                        <div id="patient-photo-container">
+                            <img id="patient-photo" src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
+                                alt="Patient Photo for {{ patient.first_name }}"
+                                class="rounded-full mx-auto h-20 w-20 object-cover" />
+
+                            <!-- Edit Photo Button -->
+                            <button id="edit-photo-btn" class="btn btn-primary mt-2">Edit Photo</button>
+
+                            <!-- Photo URL Input (Initially Hidden) -->
+                            <div id="photo-url-input-container" style="display: none;">
+                                <input type="text" id="photo-url-input" value="{{ patient.photo_url }}" placeholder="Enter new photo URL" class="mt-2">
+                                <button id="save-photo-btn" class="btn btn-success mt-2">Save</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="text-center mb-2">
-                        <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age
-                            }}</h2>
-                        <span class="text-gray-500 text-sm font-semibold">MRN: </span><span
-                            class="text-sm text-gray-600">{{
-                            patient.mrn }}</span>
+                        <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age }}</h2>
+                        <span class="text-black-500 text-sm font-semibold">MRN: </span><span class="text-sm text-gray-600">{{ patient.mrn }}</span>
+                        <div>
+                            <span class="font-semibold">D.O.B:</span> <span class="text-gray-600">{{ patient.dob }}</span>
+                        </div>
                     </div>
                     <div class="text-gray-700 text-sm text-center sm:text-left mb-2">
-                        <div>
-                            <span class="font-semibold">D.O.B:</span> <span class="text-gray-600">{{
-                                patient.dob }}</span>
-                        </div>
-
                         {% if patient.appointment_time %}
-                        <div>
-                            <span class="font-semibold">Appointment Time:</span> <span class="text-gray-600">{{
-                                patient.appointment_time }}</span>
-                            </p>
-                        </div>
-
+                            <div>
+                                <span class="font-semibold">Appointment Time:</span> <span class="text-gray-600">{{ patient.appointment_time }}</span>
+                            </div>
                         {% endif %}
                     </div>
                     <div class="text-gray-700 text-sm text-center sm:text-left">
                         {% if patient.chief_complaint %}
-                        <div class="mb-1">
-                            <span class="font-semibold">Reason:</span> <span class="text-gray-600">{{
-                                patient.chief_complaint }}</span>
-                        </div>
+                            <div class="mb-1">
+                                <span class="font-semibold">Reason:</span> <span class="text-gray-600">{{ patient.chief_complaint }}</span>
+                            </div>
                         {% endif %}
                         {% if patient.notes %}
-                        <div>
-                            <span class="font-semibold">Notes:</span>
-                            <span class="text-gray-600">
-                                {% if patient.notes is iterable and patient.notes is not string %}
-                                {{ patient.notes | join(', ') }}
-                                {% else %}
-                                {{ patient.notes }}
-                                {% endif %}
-                            </span>
-                        </div>
+                            <div>
+                                <span class="font-semibold">Notes:</span>
+                                <span class="text-gray-600">
+                                    {% if patient.notes is iterable and patient.notes is not string %}
+                                        {{ patient.notes | join(', ') }}
+                                    {% else %}
+                                        {{ patient.notes }}
+                                    {% endif %}
+                                </span>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0" id="records-container">
+        <!-- Middle Column: Labwork, MRI Scans, Medical Records -->
+        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0">
             {% if records %}
-            {% for record in records %}
-            <div class="record-card bg-white p-4 rounded-lg shadow-md mb-4"
-                data-category="{{ record.category | lower | replace(' ', '-') | replace('&', 'and') }}"
-                data-status="{{ record.status | lower }}">
-                <div class="flex justify-between items-start">
-                    <h3 class="font-bold text-lg">{{ loop.index }}. {{ record.title | default('N/A') }}</h3>
-                    <span class="{{ record.status_style }} text-xs font-medium px-2.5 py-0.5 rounded">
-                        {% if record.status == 'Completed' %}✅{% elif record.status == 'Pending' %}⏳{% elif
-                        record.status == 'Cancelled' %}❌{% endif %}
-                        {{ record.status | default('N/A') }}
-                    </span>
+                <div class="space-y-4">
+                    {% for record in records %}
+                        <div class="record-card bg-white p-4 rounded-lg shadow-md mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="font-bold text-lg">{{ loop.index }}. {{ record.title | default('N/A') }}</h3>
+                                <span class="{{ record.status_style }} text-xs font-medium px-2.5 py-0.5 rounded">
+                                    {% if record.status == 'Completed' %}✅{% elif record.status == 'Pending' %}⏳{% elif record.status == 'Cancelled' %}❌{% endif %}
+                                    {{ record.status | default('N/A') }}
+                                </span>
+                            </div>
+                            <div class="mt-2 text-sm space-y-1">
+                                <p><span class="font-semibold text-gray-700">Category:</span>
+                                    <span class="ml-1 text-xs {{ record.category_style }} px-2 py-0.5 rounded-md">
+                                        {% if record.category == 'Lab Test' %}🩺{% elif record.category == 'Imaging' %}🏥{% elif record.category == 'Surgery' %}🔪{% elif record.category == 'Medication' %}💊{% elif record.category == 'Appointment' %}📅{% endif %}
+                                        {{ record.category | default('N/A') }}
+                                    </span>
+                                </p>
+                                <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">{{ record.formatted_date | default('N/A') }}</span></p>
+                                <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">{{ record.ordered_by | default('N/A') }}</span></p>
+                                {% if record.details %}
+                                    <p><span class="font-semibold text-gray-700">Details:</span> <span class="text-gray-600">{{ record.details }}</span></p>
+                                {% endif %}
+                                {% if record.notes %}
+                                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">{{ record.notes }}</span></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="mt-2 text-sm space-y-1">
-                    <p><span class="font-semibold text-gray-700">Category:</span>
-                        <span class="ml-1 text-xs {{ record.category_style }} px-2 py-0.5 rounded-md">
-                            {% if record.category == 'Lab Test' %}🩺{% elif record.category == 'Imaging' %}🏥{% elif
-                            record.category == 'Surgery' %}🔪{% elif record.category == 'Medication' %}💊{% elif
-                            record.category == 'Appointment' %}📅{% endif %}
-                            {{ record.category | default('N/A') }}
-                        </span>
-                    </p>
-                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">{{
-                            record.formatted_date | default('N/A') }}</span></p>
-                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">{{
-                            record.ordered_by | default('N/A') }}</span></p>
-                    {% if record.details %}
-                    <p><span class="font-semibold text-gray-700">Details:</span> <span class="text-gray-600">{{
-                            record.details }}</span></p>
-                    {% endif %}
-                    {% if record.notes %}
-                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">{{
-                            record.notes }}</span></p>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
             {% else %}
-            <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center text-gray-500">
-                No medical records found matching the selected filters.
-            </div>
+                <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center text-gray-500">
+                    No medical records found matching the selected filters.
+                </div>
             {% endif %}
         </div>
 
+        <!-- Right Column: AI Chatbox -->
         <div class="w-full md:w-1/4 px-2">
             <div class="sticky top-[90px] bg-gray-50 rounded-lg shadow-md p-4">
                 <h3 class="font-bold mb-6 text-2xl text-center">AI Assistant</h3>
@@ -265,6 +265,7 @@
 
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

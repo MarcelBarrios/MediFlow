@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Handles edit button on Patient Intake Page
 
 document.addEventListener("DOMContentLoaded", function () {
-  const editBtn = document.getElementById('edit-notes-btn')
-  const notesList = document.getElementById('patient-notes')
-  const editArea = document.getElementById('edit-notes-area')
+  const editBtn = document.getElementById('edit-info-btn')
+  const notesList = document.getElementById('info-notes-list')
+  const editArea = document.getElementById('info-notes-area')
 
   if (editBtn) {
       editBtn.addEventListener('click', () => {
@@ -56,6 +56,44 @@ document.addEventListener("DOMContentLoaded", function () {
       })
   }
 })
+
+// handles Save In-take Button on Patient Intake Page
+document.addEventListener('DOMContentLoaded', function() {
+  const saveBtn = document.getElementById('save-intake-btn');
+  const intakeNotes = document.getElementById('intake-notes-area');
+  const intakeForm = document.getElementById('intake-form');
+
+  if (saveBtn) {
+      saveBtn.addEventListener('click', function() {
+          if (intakeNotes.classList.contains('hidden')) {
+              const notesText = intakeNotes.value;
+              console.log('Saving notes:', notesText);
+
+              intakeNotes.classList.add('hidden');
+              saveBtn.textContent = 'Edit';
+          } else {
+              intakeNotes.classList.remove('hidden');
+              saveBtn.textContent = 'Save';
+          }
+      });
+  }
+
+  // Form validation for the intake form
+  if (intakeForm) {
+      intakeForm.addEventListener('submit', function(event) {
+          const weight = document.querySelector('input[name="weight"]').value;
+          const height = document.querySelector('input[name="height"]').value;
+          const temperature = document.querySelector('input[name="temperature"]').value;
+
+          if (!weight || !height || !temperature) {
+              alert('Please fill in required fields: weight, height, and temperature');
+              event.preventDefault();
+              return false;
+          }
+      });
+  }
+});
+
 
 
 // All Patients Page Search Bar: Handles finding patient
@@ -146,3 +184,57 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+// Edit button for Photo
+
+document.addEventListener('DOMContentLoaded', function () {
+  const editButton = document.getElementById('edit-photo-btn');
+  const photoInputContainer = document.getElementById('photo-url-input-container');
+  const photoInput = document.getElementById('photo-url-input');
+  const saveButton = document.getElementById('save-photo-btn');
+  const photoElement = document.getElementById('patient-photo');
+  const container = document.getElementById('patient-container');
+  const patientId = container ? container.getAttribute('data-patient-id') : null;
+
+
+  if (editButton && saveButton && photoInput && photoInputContainer && photoElement) {
+    editButton.addEventListener('click', function () {
+      photoInputContainer.style.display = 'block';
+      photoInput.focus();
+      editButton.style.display = 'none';
+    });
+
+    saveButton.addEventListener('click', function() {
+      if (!patientId) {
+          alert("Patient ID not found.");
+          return;
+      }
+  
+      const newPhotoUrl = photoInput.value.trim();
+  
+      fetch(`/patient/${patientId}/edit_photo`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ photo_url: newPhotoUrl })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              photoElement.src = newPhotoUrl;
+              photoInputContainer.style.display = 'none';
+              editButton.style.display = 'block';
+          } else {
+              alert('Failed to update the photo URL. Please try again.');
+          }
+      })
+      .catch(error => {
+          alert('Error updating photo URL: ' + error.message);
+      });
+    });
+  }
+});
+
+
+console.log(patientId)
