@@ -282,3 +282,28 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// Create New Patient
+document.addEventListener('DOMContentLoaded', function() {
+  const mrnField = document.getElementById('random_mrn');
+  if (mrnField) {
+    // Generate a random 8-digit number
+    const randomMRN = Math.floor(10000000 + Math.random() * 90000000);
+    mrnField.value = randomMRN;
+  }
+});
+
+// Create New Patient - Automatically calculate the age from the D.O.B
+
+document.getElementById('dob').addEventListener('change', function () {
+  const dob = new Date(this.value);
+  const today = new Date();
+
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--; // hasn't had birthday this year yet
+  }
+
+  document.getElementById('age').value = age;
+});

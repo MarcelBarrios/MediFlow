@@ -35,12 +35,12 @@
 
       <div>
         {{ form.dob.label(class="block text-gray-700 text-sm font-bold mb-2") }}
-        {{ form.dob(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {{ form.dob(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id="dob") }}
       </div>
 
       <div>
         {{ form.patient_age.label(class="block text-gray-700 text-sm font-bold mb-2") }}
-        {{ form.patient_age(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+        {{ form.patient_age(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id="age") }}
       </div>
 
       <div class="flex justify-end">
@@ -50,15 +50,5 @@
   </div>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const mrnField = document.getElementById('random_mrn');
-    if (mrnField) {
-      // Generate a random 8-digit number
-      const randomMRN = Math.floor(10000000 + Math.random() * 90000000);
-      mrnField.value = randomMRN;
-    }
-  });
-</script>
 
 {% endblock %}
