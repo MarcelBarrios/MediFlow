@@ -291,3 +291,19 @@ document.addEventListener('DOMContentLoaded', function() {
     mrnField.value = randomMRN;
   }
 });
+
+// Create New Patient - Automatically calculate the age from the D.O.B
+
+document.getElementById('dob').addEventListener('change', function () {
+  const dob = new Date(this.value);
+  const today = new Date();
+
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--; // hasn't had birthday this year yet
+  }
+
+  document.getElementById('age').value = age;
+});
