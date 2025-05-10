@@ -6,7 +6,7 @@
 
 
 <h1 class="text-2xl font-bold mb-4 flex justify-center mt-2">Appointments</h1>
-<div class="mt-10 px-4 md:px-10">
+<div class="mt-4 px-4 md:px-10">
     <!-- Appointments Table -->
     <table class="w-full table-auto border-collapse border border-gray-400 shadow-xl rounded-lg overflow-hidden">
         <colgroup>
@@ -39,9 +39,9 @@
                         </svg>
                     </div>
                 </th>
-
+                
                 <th class="border border-gray-400 px-4 py-2 text-center">Age</th>
-                <th class="border border-gray-400 px-4 py-2 text-center">Checked In</th>
+                <th class="border border-gray-400 px-4 py-2 text-center">Status</th>
                 <th class="border border-gray-400 px-4 py-2 text-center">Chief Complaint</th>
             </tr>
         </thead>
@@ -51,44 +51,85 @@
             <tr>
                 <td class="border border-gray-400 px-4 py-2">
                     <div class="flex items-center justify-between">
-                        <span>{{ appointment.get('date_time', 'N/A') }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-500 hover:text-blue-500 cursor-pointer" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <title>Edit</title>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
-                        </svg>
+                      <span>{{ appointment.get('date_time', 'N/A') }}</span>
+                      <svg 
+                        class="edit-icon h-5 w-5 min-w-[20px] min-h-[20px] text-gray-500 hover:text-blue-500 cursor-pointe"
+                        data-id="{{ appointment['_id'] }}"
+                        data-date="{{ appointment['date_time'] }}"
+                        data-complaint="{{ appointment['chief_complaint']|escape }}"
+                        data-name="{{ appointment['patient_name'] }}"
+                        data-mrn="{{ appointment['mrn'] }}"
+                        data-age="{{ appointment['age'] }}"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <title>Edit</title>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15.828 10 16.5V16l-.707-.707 1.414-1.414z" />
+                      </svg>
                     </div>
                 </td>
                 <!-- MRN -->
-                <td class="border border-gray-400 px-4 py-2">{{ appointment.get('mrn', 'N/A') }}</td>
+                <td class="border border-gray-400 px-4 py-2 text-center">{{ appointment.get('mrn', 'N/A') }}</td>
                 <!-- Patient name links to intake form -->
-                <td class="border border-gray-400 px-4 py-2">
+                <td class="border border-gray-400 px-4 py-2 text-center">
                     <!-- (new) changed 'mrn' to 'patient_id' -->
                     <a href="{{ url_for('patient_intake.patient_intake_form', patient_id=appointment.get('patient_id', '')) }}"
                         class="text-blue-600 hover:underline">{{ appointment.get('patient_name', 'N/A') }}</a>
                 </td>
                 <!-- Age -->
                 <td class="border border-gray-400 px-4 py-2 text-center">{{ appointment.get('age', 'N/A') }}</td>
-                <!-- Check In logic: ✅ if already checked in, otherwise show button -->
+                <!-- ✅ Appointment Status Dropdown -->
                 <td class="border border-gray-400 px-4 py-2 text-center">
-                    {% if appointment.get('checked_in') %}
-                        ✅
-                    {% else %}
-                        <form method="POST" action="{{ url_for('appointments.check_in_appointment', appointment_id=appointment['_id']) }}">
-                            <button type="submit" class="text-black border border-black bg-white px-2 py-1 rounded hover:bg-gray-100">
-                                Check In
-                            </button>
-                        </form>
-                    {% endif %}
-                </td>    
+                    <form method="POST" action="{{ url_for('appointments.update_status', appointment_id=appointment['_id']) }}">
+                      <select name="status" onchange="this.form.submit()" class="border border-gray-300 px-2 py-1 rounded">
+                        {% for option in ['Due for appointment', 'Checked in', 'Seeing doctor', 'Cancelled'] %}
+                          <option value="{{ option }}" {% if appointment.get('status') == option %}selected{% endif %}>
+                            {{ option }}
+                          </option>
+                        {% endfor %}
+                      </select>
+                    </form>
+                  </td>                    
                 <!-- Chief Complaint -->                  
                 <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">{{ appointment.get('chief_complaint', 'N/A') }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <!-- Edit Appointment Modal -->
+    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4 text-center">Edit Appointment</h2>
+        <form id="edit-form" method="POST" action="{{ url_for('appointments.update_appointment') }}">
+            <input type="hidden" name="appointment_id" id="edit-appointment-id">
+            <!-- Patient Name (Read-only) -->
+            <label class="block mb-2 text-sm font-semibold">Patient Name</label>
+            <input type="text" id="modal-patient-name" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
+
+            <!-- MRN (Read-only) -->
+            <label class="block mb-2 text-sm font-semibold">MRN</label>
+            <input type="text" id="modal-mrn" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
+
+            <!-- Age (Read-only) -->
+            <label class="block mb-2 text-sm font-semibold">Age</label>
+            <input type="text" id="modal-age" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
+    
+            <!-- Date/Time -->
+            <label class="block mb-2 text-sm font-semibold">Date/Time</label>
+            <input type="datetime-local" name="date_time" id="edit-date-time" class="border px-2 py-1 rounded w-full mb-4">
+    
+            <!-- Chief Complaint -->
+            <label class="block mb-2 text-sm font-semibold">Chief Complaint</label>
+            <textarea name="chief_complaint" id="edit-chief-complaint" class="border px-2 py-1 rounded w-full mb-4"></textarea>
+    
+            <!-- Buttons -->
+            <div class="flex justify-end space-x-2">
+            <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
+            </div>
+        </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
