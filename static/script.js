@@ -118,9 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 // Autocomplete for New Appointment
-
 document.addEventListener('DOMContentLoaded', function () {
   // Get patient data from hidden <script> tag
   const rawData = document.getElementById('patient-data');
@@ -160,7 +158,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // Show matching patients
       filtered.forEach(p => {
         const li = document.createElement('li');
-        li.textContent = `${p.first_name} ${p.last_name} (MRN: ${p.mrn})`;
+        // Show patient full name, age, and MRN in the dropdown
+
+        li.textContent = `${p.first_name} ${p.last_name} (Age: ${p.age}, MRN: ${p.mrn})`;
         li.className = 'p-2 hover:bg-blue-100 cursor-pointer';
 
         // On click, autofill form
@@ -184,6 +184,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+// When edit icon is clicked, open the modal and fill it with appointment info
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.edit-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+      const id = icon.dataset.id;
+      const date = icon.dataset.date;
+      const complaint = icon.dataset.complaint;
+      const name = icon.dataset.name;
+      const mrn = icon.dataset.mrn;
+      const age = icon.dataset.age;
+
+      openModal(id, date, complaint, name, mrn, age);
+    });
+  });
+});
+
+// Opens the Edit Appointment Modal and fills in the current values
+function openModal(id, date, complaint, name, mrn, age) {
+  document.getElementById("edit-appointment-id").value = id;
+  document.getElementById("edit-date-time").value = formatDateForInput(date);
+  document.getElementById("edit-chief-complaint").value = complaint;
+
+  // Populate read-only fields
+  document.getElementById("modal-patient-name").value = name;
+  document.getElementById("modal-mrn").value = mrn;
+  document.getElementById("modal-age").value = age;
+
+  document.getElementById("edit-modal").classList.remove("hidden");
+}
+
+// Closes the modal
+function closeModal() {
+  document.getElementById("edit-modal").classList.add("hidden");
+}
+
+// Helper function to convert formatted string into datetime-local input value
+function formatDateForInput(dateString) {
+  const date = new Date(dateString);
+  const pad = (num) => num.toString().padStart(2, '0');
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+
 
 // Edit button for Photo
 
