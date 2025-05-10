@@ -282,3 +282,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// Create New Patient
+document.addEventListener('DOMContentLoaded', function() {
+  const mrnField = document.getElementById('random_mrn');
+  if (mrnField) {
+    // Generate a random 8-digit number
+    const randomMRN = Math.floor(10000000 + Math.random() * 90000000);
+    mrnField.value = randomMRN;
+  }
+});
