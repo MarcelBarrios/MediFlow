@@ -46,7 +46,7 @@ def format_date(date_obj):
 
 @patient_bp.route("/patient", methods=["GET"])
 def patient_generic():
-    flash("Please select a patient first.", "info")
+    # flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
 

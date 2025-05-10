@@ -30,9 +30,10 @@ app.config["MONGO_URI"] = mongo_uri
 
 print("Loaded MONGO_URI:", os.getenv("MONGO_URI"))
 # Initialize PyMongo / For deployment
-mongo = PyMongo(app, tlsCAFile=certifi.where())
-# For testing locally, if not you'll get errors.
-# mongo = PyMongo(app)
+if "localhost" in mongo_uri or "127.0.0.1" in mongo_uri:
+    mongo = PyMongo(app)
+else:
+    mongo = PyMongo(app, tlsCAFile=certifi.where())
 app.mongo = mongo
 
 # Access collections (must go after PyMongo setup)
