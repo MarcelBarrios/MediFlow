@@ -32,22 +32,21 @@ FILTER_MAP = {
     "cancelled": {"field": "status", "value": "Cancelled"},
 }
 
+
 def format_date(date_obj):
     if isinstance(date_obj, datetime):
         return date_obj.strftime('%B %d, %Y')
-    if isinstance(date_obj, str):
-        try:
-            return datetime.strptime(date_obj, '%Y-%m-%d').strftime('%B %d, %Y')
-        except ValueError:
-            pass
-    return date_obj
+    return str(date_obj) if date_obj is not None else "N/A"
+
 
 @patient_bp.route("/patient", methods=["GET"])
 def patient_generic():
-    flash("Please select a patient first.", "info")
+    # flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
 # added Edit Photo option
+
+
 @patient_bp.route("/patient/<patient_id>/edit_photo", methods=["POST"])
 def edit_photo(patient_id):
     patient_collection = current_app.mongo.db.patients
@@ -76,6 +75,8 @@ def edit_photo(patient_id):
 
 # edited Patient Details in order for Save Intake to save to database and Records.
 # added /record for debugging of view patient record button'
+
+
 @patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
 def patient_detail(patient_id):
     try:
@@ -89,12 +90,13 @@ def patient_detail(patient_id):
         # Check if patient was found
         if not patient:
             flash('Patient not found', 'error')
-            return redirect(url_for('patient.patient_generic'))  # Redirect to a generic page or list
+            # Redirect to a generic page or list
+            return redirect(url_for('patient.patient_generic'))
 
     except Exception as e:
         flash(f'Error loading patient details: {str(e)}', 'error')
-        return redirect(url_for('patient.patient_generic'))  # Redirect to a generic page or list
-
+        # Redirect to a generic page or list
+        return redirect(url_for('patient.patient_generic'))
 
     active_category_filters = []
     active_status_filters = []
@@ -109,7 +111,7 @@ def patient_detail(patient_id):
                 active_status_filters.append(map_info["value"])
 
     records_collection = current_app.mongo.db.records
-    all_records = list(records_collection.find({"patient_id": str(patient_id)}))
+    all_records = list(records_collection.find({"patient_id": patient_id}))
     filtered_records = []
 
     filters_selected = bool(active_category_filters or active_status_filters)
@@ -130,16 +132,38 @@ def patient_detail(patient_id):
         status = record.get("status", "Unknown")
         category = record.get("category", "Unknown")
         record_copy = record.copy()
-        record_copy["status_style"] = STATUS_STYLES.get(status, DEFAULT_STATUS_STYLE)
-        record_copy["category_style"] = CATEGORY_STYLES.get(category, DEFAULT_CATEGORY_STYLE)
-        record_copy["formatted_date"] = format_date(record.get("date"))
+
+        original_date_val = record.get("date")
+        date_obj_for_sorting = None
+
+        if isinstance(original_date_val, str):
+            try:
+                date_obj_for_sorting = datetime.strptime(
+                    original_date_val, '%Y-%m-%d')
+            except ValueError:
+                pass
+        elif isinstance(original_date_val, datetime):
+            date_obj_for_sorting = original_date_val
+
+        record_copy["date_object_for_sorting"] = date_obj_for_sorting
+        record_copy["formatted_date"] = format_date(date_obj_for_sorting)
+
+        record_copy["status_style"] = STATUS_STYLES.get(
+            status, DEFAULT_STATUS_STYLE)
+        record_copy["category_style"] = CATEGORY_STYLES.get(
+            category, DEFAULT_CATEGORY_STYLE)
         records_for_template.append(record_copy)
 
-    records_for_template.sort(key=lambda r: r.get("date", ""), reverse=True)
+    min_datetime_for_sorting = datetime.min
+    records_for_template.sort(
+        key=lambda r: r.get("date_object_for_sorting",
+                            min_datetime_for_sorting),
+        reverse=True
+    )
 
     return render_template(
         "patient.html",
-        patient=patient,  
+        patient=patient,
         records=records_for_template,
         active_filters=filter_args
     )
