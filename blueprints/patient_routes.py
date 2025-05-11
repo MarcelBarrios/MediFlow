@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, current_app, request, abort, redirect, url_for, flash
+from flask import Blueprint, render_template, current_app, request, abort, redirect, url_for, flash, jsonify
 from bson import ObjectId
 from datetime import datetime
-
+from config import mongo
 
 patient_bp = Blueprint('patient', __name__, template_folder='../templates')
 
@@ -32,7 +32,6 @@ FILTER_MAP = {
     "cancelled": {"field": "status", "value": "Cancelled"},
 }
 
-
 def format_date(date_obj):
     if isinstance(date_obj, datetime):
         return date_obj.strftime('%B %d, %Y')
@@ -43,24 +42,59 @@ def format_date(date_obj):
             pass
     return date_obj
 
-
 @patient_bp.route("/patient", methods=["GET"])
 def patient_generic():
     # flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
-
-@patient_bp.route("/patient/<patient_id>", methods=["GET"])
-def patient_detail(patient_id):
-    try:
-        obj_id = ObjectId(patient_id)
-    except Exception:
-        abort(404, description="Invalid patient ID format.")
-
-    patient = current_app.mongo.db.patients.find_one({"_id": obj_id})
+# added Edit Photo option
+@patient_bp.route("/patient/<patient_id>/edit_photo", methods=["POST"])
+def edit_photo(patient_id):
+    patient_collection = current_app.mongo.db.patients
+    patient = patient_collection.find_one({"_id": ObjectId(patient_id)})
 
     if not patient:
-        abort(404, description="Patient not found.")
+        return jsonify({"success": False, "message": "Patient not found"}), 400
+
+    try:
+        # Get the new photo URL from the request body
+        data = request.get_json()
+        new_photo_url = data.get("photo_url")
+
+        if new_photo_url:
+            # Update the patient's photo URL in the database
+            patient_collection.update_one(
+                {"_id": ObjectId(patient_id)},
+                {"$set": {"photo_url": new_photo_url}}
+            )
+            return jsonify({"success": True, "message": "Photo updated successfully", "photo_url": new_photo_url})
+
+        return jsonify({"success": False, "message": "Invalid photo URL"}), 400
+
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
+# edited Patient Details in order for Save Intake to save to database and Records.
+# added /record for debugging of view patient record button'
+@patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
+def patient_detail(patient_id):
+    try:
+        # Define patient_collection using current_app
+        patient_collection = current_app.mongo.db.patients
+        obj_id = ObjectId(patient_id)
+
+        # Find the patient
+        patient = patient_collection.find_one({"_id": obj_id})
+
+        # Check if patient was found
+        if not patient:
+            flash('Patient not found', 'error')
+            return redirect(url_for('patient.patient_generic'))  # Redirect to a generic page or list
+
+    except Exception as e:
+        flash(f'Error loading patient details: {str(e)}', 'error')
+        return redirect(url_for('patient.patient_generic'))  # Redirect to a generic page or list
+
 
     active_category_filters = []
     active_status_filters = []
@@ -74,7 +108,8 @@ def patient_detail(patient_id):
             elif map_info["field"] == "status":
                 active_status_filters.append(map_info["value"])
 
-    all_records = patient.get("medical_records", [])
+    records_collection = current_app.mongo.db.records
+    all_records = list(records_collection.find({"patient_id": str(patient_id)}))
     filtered_records = []
 
     filters_selected = bool(active_category_filters or active_status_filters)
@@ -95,10 +130,8 @@ def patient_detail(patient_id):
         status = record.get("status", "Unknown")
         category = record.get("category", "Unknown")
         record_copy = record.copy()
-        record_copy["status_style"] = STATUS_STYLES.get(
-            status, DEFAULT_STATUS_STYLE)
-        record_copy["category_style"] = CATEGORY_STYLES.get(
-            category, DEFAULT_CATEGORY_STYLE)
+        record_copy["status_style"] = STATUS_STYLES.get(status, DEFAULT_STATUS_STYLE)
+        record_copy["category_style"] = CATEGORY_STYLES.get(category, DEFAULT_CATEGORY_STYLE)
         record_copy["formatted_date"] = format_date(record.get("date"))
         records_for_template.append(record_copy)
 
@@ -106,7 +139,7 @@ def patient_detail(patient_id):
 
     return render_template(
         "patient.html",
-        patient=patient,
+        patient=patient,  
         records=records_for_template,
         active_filters=filter_args
     )
