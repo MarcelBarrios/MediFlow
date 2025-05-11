@@ -75,6 +75,7 @@ def edit_photo(patient_id):
         return jsonify({"success": False, "message": str(e)}), 500
 
 # edited Patient Details in order for Save Intake to save to database and Records.
+# added /record for debugging of view patient record button'
 @patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
 def patient_detail(patient_id):
     try:
