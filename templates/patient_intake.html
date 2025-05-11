@@ -54,10 +54,14 @@
                 
                     <!-- View Patient Record Button -->
                     <div class="flex mt-6">
-                        <a href="{{ url_for('patient.patient_detail', patient_id=patient_id) }}" class="w-full">
+                        <!-- <a href="{{ url_for('patient.patient_detail', patient_id=patient_id) }}" class="w-full">
                             <button type="button" class="bg-white text-black p-2 rounded-md border border-black">
                                 View Patient Record
                             </button>
+                        </a> -->
+                        <!-- added new correct button route -->
+                        <a href="{{ url_for('patient.patient_detail', patient_id=patient._id) }}" class="w-full">
+                            <button type="button" class="bg-white text-black p-2 rounded-md border border-black">View Patient Record</button>
                         </a>
                     </div>
                 </div>
