@@ -17,14 +17,25 @@
 
                 <div class="flex flex-col items-center mb-8 mt-8">
                     <!-- Patient Photo -->
-                    <img src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
+                    <!-- <img src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
                         alt="Patient Photo for {{ patient.first_name }}"
-                        class="rounded-full mx-auto h-20 w-20 object-cover" />
+                        class="rounded-full mx-auto h-20 w-20 object-cover" /> -->
 
                     <!-- Edit Photo Button -->
-                    <form action="{{ url_for('patient_intake.edit_photo', patient_id=patient._id) }}" method="GET" class="mt-2">
+                    <!-- <form action="{{ url_for('patient_intake.edit_photo', patient_id=patient._id) }}" method="GET" class="mt-2">
                         <button type="submit" class="btn btn-primary">Edit Photo</button>
-                    </form>
+                    </form> -->
+
+                    <div class="flex flex-col items-center mb-3">
+                        <img id="patientPhotoImg"
+                            src="{{ patient.photo_url | default('https://via.placeholder.com/150/000000/FFFFFF?Text=No+Image', true) }}"
+                            alt="Patient Photo for {{ patient.first_name }}"
+                            class="rounded-full mx-auto h-24 w-24 object-cover border-2 border-gray-300" />
+                        <button id="editPhotoButton"
+                            class="mt-2 text-xs bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                            Edit Photo
+                        </button>
+                    </div>
 
                     <h2 class="text-2xl font-bold mb-2">{{ patient.first_name }} {{ patient.last_name }}</h2>
                     <div class="flex flex-col text-md text-center space-y-1">
