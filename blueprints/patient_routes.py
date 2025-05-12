@@ -85,9 +85,9 @@ def patient_generic():
     flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
-
-@patient_bp.route("/patient/<patient_id_from_url>/record", methods=["GET"])
-def patient_detail(patient_id_from_url):
+# edited Patient Details in order for Save Intake to save to database and Records.
+@patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
+def patient_detail(patient_id):
     try:
         patient_collection = current_app.mongo.db.patients
         obj_id = ObjectId(patient_id_from_url)
