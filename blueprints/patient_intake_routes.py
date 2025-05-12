@@ -14,8 +14,24 @@ def patient_intake_form(patient_id):
         patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
         
         if patient:
-            # (new) Convert ObjectId to string
+            # Convert ObjectId to string
             patient['_id'] = str(patient['_id'])
+
+            # (new) for appointment and chief complaint render:
+            appointments_collection = current_app.mongo.db.appointments
+            appointment = appointments_collection.find_one(
+                {'patient_id': patient_id},
+                sort=[('date_time', -1)] # sort by date in descending order to get the most recent
+            )
+
+            # (new) add appointment details to the patient object
+            if appointment:
+                patient['appointment_time'] = appointment.get('date_time', 'Not scheduled')
+                patient['chief_complaint'] = appointment.get('chief_complaint', 'None recorded')
+            
+            else:
+                patient['appointment_time'] = 'Not scheduled'
+                patient['chief_complaint'] = 'None recorded'
             
             return render_template('patient_intake.html', patient=patient)
         else:
