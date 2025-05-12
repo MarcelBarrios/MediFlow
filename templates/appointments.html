@@ -109,16 +109,15 @@
         <form id="edit-form" method="POST" action="{{ url_for('appointments.update_appointment') }}">
         <input type="hidden" name="appointment_id" id="edit-appointment-id">
 
-        <!-- Patient Name -->
+        <!-- Patient Name (Read-only)-->
         <label class="block text-sm font-medium mb-1">Patient Name:</label>
-        <input type="text" id="modal-patient-name"
-                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
+        <input type="text" id="modal-patient-name" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
 
-        <!-- MRN -->
+        <!-- MRN (Read-only)-->
         <label class="block text-sm font-medium mt-4 mb-1">MRN:</label>
         <input type="text" id="modal-mrn" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
 
-        <!-- Age -->
+        <!-- Age (Read-only)-->
         <label class="block text-sm font-medium mt-4 mb-1">Age:</label>
         <input type="text" id="modal-age" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
 
