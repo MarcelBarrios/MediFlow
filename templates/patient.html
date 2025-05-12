@@ -111,8 +111,8 @@
 
 <h1 class="text-2xl font-bold text-center mt-4 mb-4">Patient Records</h1>
 
-<form class="sticky top-0" id="filter-form"
-    action="{{ url_for('patient.patient_detail', patient_id=patient._id) }}" method="GET">
+<form class="sticky top-0" id="filter-form" action="{{ url_for('patient.patient_detail', patient_id=patient._id) }}"
+    method="GET">
     <div class="z-10 py-3 px-96 bg-gray-50 border-b border-gray-200">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-wrap items-center justify-center sm:justify-between gap-x-4 gap-y-2">
@@ -221,12 +221,15 @@
                     <div class="text-center mb-2">
                         <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age
                             }}</h2>
-                        <span class="text-gray-500 text-sm">MRN: {{ patient.mrn }}</span>
                     </div>
-                    <div class="mb-2 text-center sm:text-left">
-                        <p class="text-gray-500 text-sm">D.O.B: {{ patient.dob }}</p>
+                    <div class="text-gray-700 text-sm text-center sm:text-left">
+                        <span class="font-semibold">MRN: </span class="text-gray-600"><span>{{
+                            patient.mrn }}</span> <br>
+                        <span class="font-semibold">D.O.B: </span><span class="text-gray-600">{{ patient.dob
+                            }}</span> <br>
                         {% if patient.appointment_time %}
-                        <p class="text-gray-500 text-sm">Appointment Time: {{ patient.appointment_time }}</p>
+                        <span class="font-semibold">Appointment Time: </span> <span class="text-gray-600">{{
+                            patient.appointment_time }}</span>
                         {% endif %}
                     </div>
                     <div class="text-gray-700 text-sm text-center sm:text-left">
