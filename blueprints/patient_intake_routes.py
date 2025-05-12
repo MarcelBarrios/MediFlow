@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
 from datetime import datetime
 from bson import ObjectId
 
@@ -26,32 +26,6 @@ def patient_intake_form(patient_id):
         flash(f"Error loading patient intake form: {str(e)}", "error")
         return redirect(url_for('all_patients.all_patients'))
 
-# @patient_intake_bp.route('/patient/<patient_id>/edit_photo', methods=["GET", "POST"])
-# def edit_photo(patient_id):
-#     patient_intake_collection = current_app.mongo.db.patients
-#     patient_intake = patient_intake_collection.find_one({"_id": ObjectId(patient_id)})
-
-#     if not patient_intake:
-#         flash("Patient not found.", "error")
-#         return redirect(url_for('home'))  # Adjust this based on your routing setup
-
-#     if request.method == "POST":
-#         # Get the new photo URL from the form
-#         new_photo_url = request.form.get("photo_url")
-
-#         if new_photo_url:
-#             # Update the patient's photo URL in the database
-#             patient_intake_collection.update_one(
-#                 {"_id": ObjectId(patient_id)},
-#                 {"$set": {"photo_url": new_photo_url}}
-#             )
-#             flash("Photo updated successfully!", "success")
-#             return redirect(url_for('patient_intake.patient_intake_form', patient_id=patient_id))
-
-#         flash("Please provide a valid photo URL.", "error")
-
-#     # Render the form to edit the photo URL
-#     return render_template("edit_photo.html", patient_intake=patient_intake)
 @patient_intake_bp.route("/patient/<patient_id>/photo_edit", methods=["POST"])
 def edit_photo(patient_id):
     patient_collection = current_app.mongo.db.patients
