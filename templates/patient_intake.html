@@ -13,38 +13,29 @@
         <!-- Patient Info Card -->
          <div class="lg:col-span-1">
             <div class="sticky top-4 bg-gray-50 rounded-lg shadow md p-6 min-h-128">
-                <div id="patient-container" data-patient-id="{{ patient._id }}"></div>
-
-                <div class="flex flex-col items-center mb-8 mt-8">
+                <!-- (new) for edit photo mode -->
+                <div id="patient-container" data-patient-id="{{ patient._id }}" class="flex flex-col items-center mb-8 mt-8">
                     <div class="flex flex-col items-center mb-3">
-                        <img id="patientPhotoImg"
+                        <img id="patient-photo"
                             src="{{ patient.photo_url | default('https://via.placeholder.com/150/000000/FFFFFF?Text=No+Image', true) }}"
                             alt="Patient Photo for {{ patient.first_name }}"
                             class="rounded-full mx-auto h-24 w-24 object-cover border-2 border-gray-300" />
-                        <button id="editPhotoButton"
-                            class="mt-2 text-xs bg-sky-400 hover:bg-blue-700 text-white py-1 px-2 rounded">
-                            Edit Photo
+                        
+                        <button id="edit-photo-btn"
+                                class="mt-2 text-xs bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                        Edit Photo
                         </button>
-
-                        <div id="editPhotoForm" class="mt-3 hidden flex flex-col items-center">
-                            <label for="newPhotoUrl" class="block text-gray-700 text-sm font-bold mb-2">
-                                New Photo URL:
-                            </label>
-                            <input type="url" id="newPhotoUrl"
+                        
+                        <div id="photo-url-input-container" class="mt-3 hidden flex flex-col items-center">
+                        <input type="url" id="photo-url-input"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2"
-                                placeholder="Enter new photo URL">
-                            <button type="button" onclick="updatePhoto('{{ patient._id }}')"
-                                class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm">
-                                Save New Photo
-                            </button>
-                            <button type="button" onclick="toggleEditForm()"
-                                class="mt-2 text-xs text-gray-600 hover:text-gray-800">
-                                Cancel
-                            </button>
-                            <div id="photo-update-message" class="mt-2 text-sm"></div>
+                                placeholder="Enter new photo URL" />
+                        <button id="save-photo-btn"
+                                class="bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded text-sm">
+                            Save
+                        </button>
                         </div>
                     </div>
-
 
                     <h2 class="text-2xl font-bold mb-2">{{ patient.first_name }} {{ patient.last_name }}</h2>
                     <div class="flex flex-col text-md text-center space-y-1">
