@@ -1,9 +1,11 @@
-# [🩺 MediFlow](https://mediflow-50oj.onrender.com/appointments)
+# 🩺 MediFlow
 
 ### Team: Ceina, Jane, Lucila, Marcel
 
 ## Overview
 Mediflow is an electronic medical records (EMR) platform designed to help doctors and nurses efficiently manage patient information, appointments, and documentation. Built with ease-of-use and intelligent support in mind, MediFlow streamlines the clinical workflow from patient intake to follow-up, all within a centralized interface.
+
+### [Live Demo 🌐](https://mediflow-50oj.onrender.com/appointments)
 
 ## Features
 * 📆 Appointments Dashboard – View and manage daily appointments with quick access to patient visit details.
