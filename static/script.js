@@ -281,6 +281,49 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+const editPhotoButton = document.getElementById('editPhotoButton');
+const editPhotoForm = document.getElementById('editPhotoForm');
+const patientPhotoImg = document.getElementById('patientPhotoImg');
+const newPhotoUrlInput = document.getElementById('newPhotoUrl');
+const photoUpdateMessageDiv = document.getElementById('photo-update-message');
+
+editPhotoButton.addEventListener('click', toggleEditForm);
+
+function toggleEditForm() {
+    editPhotoForm.classList.toggle('hidden');
+}
+
+function updatePhoto(patientId) {
+    const newPhotoUrl = newPhotoUrlInput.value;
+
+    fetch(`/patient/${patientId}/photo_edit`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ photo_url: newPhotoUrl })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            photoUpdateMessageDiv.className = 'text-green-500';
+            photoUpdateMessageDiv.textContent = data.message;
+            patientPhotoImg.src = data.photo_url;
+            toggleEditForm(); // Hide the form after successful update
+            // Optionally clear the input field
+            newPhotoUrlInput.value = '';
+        } else {
+            photoUpdateMessageDiv.className = 'text-red-500';
+            photoUpdateMessageDiv.textContent = data.message;
+        }
+    })
+    .catch(error => {
+        console.error('Error updating photo:', error);
+        photoUpdateMessageDiv.className = 'text-red-500';
+        photoUpdateMessageDiv.textContent = 'An error occurred while updating the photo.';
+    });
+}
+
 
 // Create New Patient
 document.addEventListener('DOMContentLoaded', function() {
