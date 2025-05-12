@@ -235,5 +235,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
-
-

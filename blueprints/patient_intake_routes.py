@@ -9,29 +9,19 @@ patient_intake_bp = Blueprint('patient_intake', __name__)
 @patient_intake_bp.route('/patient/<patient_id>/intake', methods=['GET'])
 def patient_intake_form(patient_id):
     try:
+        # (new) Get patient data from patients collection (ObjectId got convereted to string)
         patients_collection = current_app.mongo.db.patients
-        appointments_collection = current_app.mongo.db.appointments  # ✅
-
         patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
-
+        
         if patient:
+            # (new) Convert ObjectId to string
             patient['_id'] = str(patient['_id'])
-
-            # ✅ Get the most recent appointment for the patient
-            latest_appointment = appointments_collection.find_one(
-                {"patient_id": patient_id},
-                sort=[("appointment_time", -1)]
-            )
-
-            return render_template(
-                'patient_intake.html',
-                patient=patient,
-                appointment=latest_appointment  # ✅ pass it to the template
-            )
+            
+            return render_template('patient_intake.html', patient=patient)
         else:
             flash("Patient not found.", "error")
             return redirect(url_for('all_patients.all_patients'))
-
+            
     except Exception as e:
         flash(f"Error loading patient intake form: {str(e)}", "error")
         return redirect(url_for('all_patients.all_patients'))
@@ -71,13 +61,6 @@ def save_intake():
         data = request.form
         patient_id = data.get("patient_id")
 
-        # ✅ Pull hidden patient info from the form
-        first_name = data.get("first_name")
-        last_name = data.get("last_name")
-        dob = data.get("dob")
-        age = data.get("age")
-        mrn = data.get("mrn")
-
         # Get the collection where patient records (like intake forms) are stored
         records_collection = current_app.mongo.db.records
 
@@ -90,34 +73,34 @@ def save_intake():
             "date": datetime.now(),
             "ordered_by": "Current User",  # Replace with actual user if available
             "details": f"Weight: {data.get('weight', 'N/A')} lbs, Height: {data.get('height', 'N/A')} inches, Temperature: {data.get('temperature', 'N/A')}°F",
-            "notes": data.get("doctor_notes", ""),
-            "first_name": first_name,
-            "last_name": last_name,
-            "dob": dob,
-            "age": age,
-            "mrn": mrn
+            "notes": data.get("doctor_notes", "")
         }
 
         # Add health behavior info
         health_info = []
 
+        # Alcohol
         if data.get('alcohol-use') == 'yes':
             health_info.append(f"Alcohol: Yes ({data.get('alcohol-frequency', 'N/A')} drinks/week)")
         else:
             health_info.append("Alcohol: No")
 
+        # Smoking
         if data.get('smoking') == 'yes':
             health_info.append(f"Smoking: Yes ({data.get('smoking-frequency', 'N/A')} cigarettes/day)")
         else:
             health_info.append("Smoking: No")
 
+        # Domestic violence
         dv_response = data.get('domestic-violence')
         if dv_response and dv_response != 'prefer not to answer':
             health_info.append(f"Domestic Violence: {dv_response.capitalize()}")
 
+        # Add to notes section
         if health_info:
             new_record["notes"] += "\n\nPatient Health Info: " + ", ".join(health_info)
 
+        # Insert the new record
         records_collection.insert_one(new_record)
 
         flash("Patient intake form saved successfully!", "success")
