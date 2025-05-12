@@ -85,17 +85,45 @@ def patient_generic():
     flash("Please select a patient first.", "info")
     return redirect(url_for('all_patients.all_patients'))
 
+# edit photo route
+@patient_bp.route("/patient/<patient_id>/edit_photo", methods=["POST"])
+def edit_photo(patient_id):
+    patient_collection = current_app.mongo.db.patients
+    patient = patient_collection.find_one({"_id": ObjectId(patient_id)})
+
+    if not patient:
+        return jsonify({"success": False, "message": "Patient not found"}), 400
+
+    try:
+        # Get the new photo URL from the request body
+        data = request.get_json()
+        new_photo_url = data.get("photo_url")
+
+        if new_photo_url:
+            # Update the patient's photo URL in the database
+            patient_collection.update_one(
+                {"_id": ObjectId(patient_id)},
+                {"$set": {"photo_url": new_photo_url}}
+            )
+            return jsonify({"success": True, "message": "Photo updated successfully", "photo_url": new_photo_url})
+
+        return jsonify({"success": False, "message": "Invalid photo URL"}), 400
+
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+
 # edited Patient Details in order for Save Intake to save to database and Records.
 @patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
 def patient_detail(patient_id):
     try:
         patient_collection = current_app.mongo.db.patients
-        obj_id = ObjectId(patient_id_from_url)
+        obj_id = ObjectId(patient_id)
         patient = patient_collection.find_one({"_id": obj_id})
 
         if not patient:
             flash('Patient not found', 'error')
             return redirect(url_for('patient.patient_generic'))
+        
     except Exception as e:
         flash(f'Error loading patient details: {str(e)}', 'error')
         return redirect(url_for('patient.patient_generic'))

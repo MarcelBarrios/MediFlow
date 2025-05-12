@@ -230,8 +230,85 @@ function formatDateForInput(dateString) {
 
 
 
-// Edit button for Photo
+// Edit button for Photo for patient.html
 
+document.addEventListener('DOMContentLoaded', function () {
+  const editButton = document.getElementById('edit-photo-btn');
+  const photoInputContainer = document.getElementById('photo-url-input-container');
+  const photoInput = document.getElementById('photo-url-input');
+  const saveButton = document.getElementById('save-photo-btn');
+  const photoElement = document.getElementById('patient-photo');
+  const container = document.getElementById('patient-container');
+  const patientId = container ? container.getAttribute('data-patient-id') : null;
+
+
+  if (editButton && saveButton && photoInput && photoInputContainer && photoElement) {
+    editButton.addEventListener('click', function () {
+      photoInputContainer.style.display = 'block';
+      photoInput.focus();
+      editButton.style.display = 'none';
+    });
+
+    saveButton.addEventListener('click', function() {
+      if (!patientId) {
+          alert("Patient ID not found.");
+          return;
+      }
+  
+      const newPhotoUrl = photoInput.value.trim();
+  
+      fetch(`/patient/${patientId}/edit_photo`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ photo_url: newPhotoUrl })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              photoElement.src = newPhotoUrl;
+              photoInputContainer.style.display = 'none';
+              editButton.style.display = 'block';
+          } else {
+              alert('Failed to update the photo URL. Please try again.');
+          }
+      })
+      .catch(error => {
+          alert('Error updating photo URL: ' + error.message);
+      });
+    });
+  }
+});
+
+
+// Create New Patient
+document.addEventListener('DOMContentLoaded', function() {
+  const mrnField = document.getElementById('random_mrn');
+  if (mrnField) {
+    // Generate a random 8-digit number
+    const randomMRN = Math.floor(10000000 + Math.random() * 90000000);
+    mrnField.value = randomMRN;
+  }
+});
+
+// Create New Patient - Automatically calculate the age from the D.O.B
+
+document.getElementById('dob').addEventListener('change', function () {
+  const dob = new Date(this.value);
+  const today = new Date();
+
+  let age = today.getFullYear() - dob.getFullYear();
+  const monthDiff = today.getMonth() - dob.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+    age--; // hasn't had birthday this year yet
+  }
+
+  document.getElementById('age').value = age;
+});
+
+// Edit button for Patient Intake Page
 document.addEventListener('DOMContentLoaded', function () {
   const editButton = document.getElementById('edit-photo-btn');
   const photoInputContainer = document.getElementById('photo-url-input-container');
