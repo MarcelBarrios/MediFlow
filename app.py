@@ -70,9 +70,11 @@ def test_db_connection():
             "message": str(e)
         }), 500
 
+
 @app.route("/show-db")
 def show_db():
     return f"Connected to MongoDB database: {mongo.db.name}"
+
 
 # Run app
 if __name__ == "__main__":

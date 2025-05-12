@@ -5,64 +5,118 @@
 {% block content %}
 
 <style>
-    /* Custom checkbox styles for patient records page */
+    /* Custom checkbox styles for patient records page - Embedded */
     #lab-test-checkbox:checked {
         background-color: #dc2626 !important;
+        /* Red */
         border-color: #dc2626 !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #imaging-checkbox:checked {
         background-color: #facc15 !important;
+        /* Yellow */
         border-color: #facc15 !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #surgery-checkbox:checked {
         background-color: #9333ea !important;
+        /* Purple */
         border-color: #9333ea !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #medications-checkbox:checked {
         background-color: #0d9488 !important;
+        /* Teal */
         border-color: #0d9488 !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #completed-checkbox:checked {
         background-color: #16a34a !important;
+        /* Green */
         border-color: #16a34a !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #pending-checkbox:checked {
         background-color: #f97316 !important;
+        /* Orange */
         border-color: #f97316 !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #cancelled-checkbox:checked {
         background-color: #991b1b !important;
+        /* Dark Red */
         border-color: #991b1b !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
     }
 
     #past-appointments-checkbox:checked {
+        /* For "Appointment" category */
         background-color: #2563eb !important;
+        /* Blue */
         border-color: #2563eb !important;
         background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    /* Added for Scheduled status */
+    #scheduled-checkbox:checked {
+        background-color: #3b82f6 !important;
+        /* A different Blue for Scheduled */
+        border-color: #3b82f6 !important;
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 100;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 0.5rem;
+    }
+
+    .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
     }
 </style>
 
 <h1 class="text-2xl font-bold text-center mt-4 mb-4">Patient Records</h1>
 
-<form class="sticky top-0 z-10 py-3 bg-gray-50 border-b border-gray-200" id="filter-form"
-    action="{{ url_for('patient.patient_detail', patient_id=patient._id) }}" method="GET">
-    <div>
+<form class="sticky top-0" id="filter-form"
+    action="{{ url_for('patient.patient_detail', patient_id_from_url=patient._id) }}" method="GET">
+    <div class="z-10 py-3 px-96 bg-gray-50 border-b border-gray-200">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-wrap items-center justify-center sm:justify-between gap-x-4 gap-y-2">
-
+                {# Category Filters - accent-* classes removed #}
                 <div class="flex items-center">
                     <input type="checkbox" name="filter" value="lab-test" id="lab-test-checkbox"
                         class="filter-checkbox w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-500"
@@ -94,7 +148,10 @@
                     <label for="past-appointments-checkbox"
                         class="ms-2 text-sm font-medium text-gray-900">Appointments</label>
                 </div>
-                <div class="hidden sm:block border-l border-gray-300 h-6 mx-2"></div>
+                {# Add more category filters if mapped in patient_routes.py (Specialist Consult, Cardiac, Visit Note) #}
+
+                <!-- <div class="hidden sm:block border-l border-gray-300 h-6 mx-2"></div> -->
+                {# Status Filters - accent-* classes removed #}
                 <div class="flex items-center">
                     <input type="checkbox" name="filter" value="completed" id="completed-checkbox"
                         class="filter-checkbox w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-green-500"
@@ -108,6 +165,12 @@
                     <label for="pending-checkbox" class="ms-2 text-sm font-medium text-gray-900">Pending</label>
                 </div>
                 <div class="flex items-center">
+                    <input type="checkbox" name="filter" value="scheduled" id="scheduled-checkbox"
+                        class="filter-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-600"
+                        {{ 'checked' if 'scheduled' in active_filters }}>
+                    <label for="scheduled-checkbox" class="ms-2 text-sm font-medium text-gray-900">Scheduled</label>
+                </div>
+                <div class="flex items-center">
                     <input type="checkbox" name="filter" value="cancelled" id="cancelled-checkbox"
                         class="filter-checkbox w-4 h-4 text-red-800 bg-gray-100 border-gray-300 rounded-sm focus:ring-red-800"
                         {{ 'checked' if 'cancelled' in active_filters }}>
@@ -118,12 +181,11 @@
     </div>
 </form>
 
-
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
 <div class="container mx-auto px-4 py-2">
     {% for category, message in messages %}
-    {% set alert_class = 'bg-blue-100 border-blue-500 text-blue-700' %}
+    {% set alert_class = 'bg-blue-100 border-blue-500 text-blue-700' %} {# Default: info #}
     {% if category == 'success' %}
     {% set alert_class = 'bg-green-100 border-green-500 text-green-700' %}
     {% elif category == 'warning' %}
@@ -131,7 +193,7 @@
     {% elif category == 'danger' or category == 'error' %}
     {% set alert_class = 'bg-red-100 border-red-500 text-red-700' %}
     {% endif %}
-    <div class="border-l-4 p-4 {{ alert_class }}" role="alert">
+    <div class="border-l-4 p-4 {{ alert_class }} mb-2 rounded-md" role="alert">
         <p class="font-bold capitalize">{{ category if category != 'message' else 'Info' }}</p>
         <p>{{ message }}</p>
     </div>
@@ -140,109 +202,123 @@
 {% endif %}
 {% endwith %}
 
-
 <div class="pt-4 pb-4">
-    <div class="flex flex-wrap mx-4 justify-between">
-
-        <!-- Left Column: Patient Info Card -->
+    <div class="flex flex-wrap mx-4">
         <div class="w-full md:w-1/4 px-2 mb-4 md:mb-0">
             <div class="sticky top-[90px] w-full">
-                <div class="bg-white p-4 rounded-lg shadow-md">
-                    <div class="flex justify-center items-center mb-3">
-                        <div id="patient-container" data-patient-id="{{ patient._id }}"></div>
-                        <!-- Patient Photo -->
-                        <div id="patient-photo-container">
-                            <img id="patient-photo" src="{{ patient.photo_url | default('https://via.placeholder.com/150', true) }}"
-                                alt="Patient Photo for {{ patient.first_name }}"
-                                class="rounded-full mx-auto h-20 w-20 object-cover" />
-
-                            <!-- Edit Photo Button -->
-                            <button id="edit-photo-btn" class="btn btn-primary mt-2">Edit Photo</button>
-
-                            <!-- Photo URL Input (Initially Hidden) -->
-                            <div id="photo-url-input-container" style="display: none;">
-                                <input type="text" id="photo-url-input" value="{{ patient.photo_url }}" placeholder="Enter new photo URL" class="mt-2">
-                                <button id="save-photo-btn" class="btn btn-success mt-2">Save</button>
-                            </div>
-                        </div>
+                <div class="bg-white p-4 rounded-lg shadow-md" data-patient-id="{{ patient._id }}"> {# Added patient_id
+                    here #}
+                    <div class="flex flex-col items-center mb-3">
+                        <img id="patientPhotoImg"
+                            src="{{ patient.photo_url | default('https://via.placeholder.com/150/000000/FFFFFF?Text=No+Image', true) }}"
+                            alt="Patient Photo for {{ patient.first_name }}"
+                            class="rounded-full mx-auto h-24 w-24 object-cover border-2 border-gray-300" />
+                        <button id="editPhotoButton"
+                            class="mt-2 text-xs bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded">
+                            Edit Photo
+                        </button>
                     </div>
                     <div class="text-center mb-2">
-                        <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age }}</h2>
-                        <span class="text-black-500 text-sm font-semibold">MRN: </span><span class="text-sm text-gray-600">{{ patient.mrn }}</span>
-                        <div>
-                            <span class="font-semibold">D.O.B:</span> <span class="text-gray-600">{{ patient.dob }}</span>
-                        </div>
+                        <h2 class="text-xl font-bold">{{ patient.first_name }} {{ patient.last_name }}, {{ patient.age
+                            }}</h2>
+                        <span class="text-gray-500 text-sm">MRN: {{ patient.mrn }}</span>
                     </div>
-                    <div class="text-gray-700 text-sm text-center sm:text-left mb-2">
+                    <div class="mb-2 text-center sm:text-left">
+                        <p class="text-gray-500 text-sm">D.O.B: {{ patient.dob }}</p>
                         {% if patient.appointment_time %}
-                            <div>
-                                <span class="font-semibold">Appointment Time:</span> <span class="text-gray-600">{{ patient.appointment_time }}</span>
-                            </div>
+                        <p class="text-gray-500 text-sm">Appointment Time: {{ patient.appointment_time }}</p>
                         {% endif %}
                     </div>
                     <div class="text-gray-700 text-sm text-center sm:text-left">
                         {% if patient.chief_complaint %}
-                            <div class="mb-1">
-                                <span class="font-semibold">Reason:</span> <span class="text-gray-600">{{ patient.chief_complaint }}</span>
-                            </div>
+                        <div class="mb-1">
+                            <span class="font-semibold">Reason:</span> <span class="text-gray-600">{{
+                                patient.chief_complaint }}</span>
+                        </div>
                         {% endif %}
                         {% if patient.notes %}
-                            <div>
-                                <span class="font-semibold">Notes:</span>
-                                <span class="text-gray-600">
-                                    {% if patient.notes is iterable and patient.notes is not string %}
-                                        {{ patient.notes | join(', ') }}
-                                    {% else %}
-                                        {{ patient.notes }}
-                                    {% endif %}
-                                </span>
-                            </div>
+                        <div>
+                            <span class="font-semibold">Notes:</span>
+                            <span class="text-gray-600">
+                                {% if patient.notes is iterable and patient.notes is not string %}
+                                {{ patient.notes | join(', ') }}
+                                {% else %}
+                                {{ patient.notes }}
+                                {% endif %}
+                            </span>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Middle Column: Labwork, MRI Scans, Medical Records -->
-        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0">
+        <div class="w-full md:w-2/4 px-2 mb-4 md:mb-0" id="records-container">
             {% if records %}
-                <div class="space-y-4">
-                    {% for record in records %}
-                        <div class="record-card bg-white p-4 rounded-lg shadow-md mb-4">
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-bold text-lg">{{ loop.index }}. {{ record.title | default('N/A') }}</h3>
-                                <span class="{{ record.status_style }} text-xs font-medium px-2.5 py-0.5 rounded">
-                                    {% if record.status == 'Completed' %}✅{% elif record.status == 'Pending' %}⏳{% elif record.status == 'Cancelled' %}❌{% endif %}
-                                    {{ record.status | default('N/A') }}
-                                </span>
-                            </div>
-                            <div class="mt-2 text-sm space-y-1">
-                                <p><span class="font-semibold text-gray-700">Category:</span>
-                                    <span class="ml-1 text-xs {{ record.category_style }} px-2 py-0.5 rounded-md">
-                                        {% if record.category == 'Lab Test' %}🩺{% elif record.category == 'Imaging' %}🏥{% elif record.category == 'Surgery' %}🔪{% elif record.category == 'Medication' %}💊{% elif record.category == 'Appointment' %}📅{% endif %}
-                                        {{ record.category | default('N/A') }}
-                                    </span>
-                                </p>
-                                <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">{{ record.formatted_date | default('N/A') }}</span></p>
-                                <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">{{ record.ordered_by | default('N/A') }}</span></p>
-                                {% if record.details %}
-                                    <p><span class="font-semibold text-gray-700">Details:</span> <span class="text-gray-600">{{ record.details }}</span></p>
-                                {% endif %}
-                                {% if record.notes %}
-                                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">{{ record.notes }}</span></p>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}
+            {% for record in records %}
+            <div class="record-card bg-white p-4 rounded-lg shadow-md mb-4"
+                data-category="{{ record.category | lower | replace(' ', '-') | replace('&', 'and') }}"
+                data-status="{{ record.status | lower }}" data-record-id="{{ record._id }}"> {# Added record_id here #}
+                <div class="flex justify-between items-start">
+                    <h3 class="font-bold text-lg">{{ loop.index }}. {{ record.title | default('N/A') }}</h3>
+                    <div> {# Container for status and edit button #}
+                        <span class="{{ record.status_style }} text-xs font-medium px-2.5 py-0.5 rounded">
+                            {% if record.status == 'Completed' %}✅{% elif record.status == 'Pending' %}⏳{% elif
+                            record.status == 'Cancelled' %}❌{% elif record.status == 'Scheduled' %}🗓️{% endif %}
+                            {{ record.status | default('N/A') }}
+                        </span>
+                        {# --- ADD EDIT BUTTON FOR APPOINTMENTS --- #}
+                        {% if record.category == 'Appointment' %}
+                        <button
+                            class="edit-appointment-btn ml-2 text-xs bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded"
+                            data-record-title="{{ record.title }}"
+                            data-record-details="{{ record.details | default('') }}"
+                            data-record-notes="{{ record.notes | default('') }}"
+                            data-record-date="{{ record.form_edit_date | default('') }}"
+                            data-record-status="{{ record.status | default('') }}"
+                            data-record-orderedby="{{ record.ordered_by | default('') }}">
+                            Edit
+                        </button>
+                        {% endif %}
+                    </div>
                 </div>
+                <div class="mt-2 text-sm space-y-1">
+                    <p><span class="font-semibold text-gray-700">Category:</span>
+                        <span class="ml-1 text-xs {{ record.category_style }} px-2 py-0.5 rounded-md">
+                            {% if record.category == 'Lab Test' %}🩺
+                            {% elif record.category == 'Imaging' %}🏥
+                            {% elif record.category == 'Surgery' %}🔪
+                            {% elif record.category == 'Medication' %}💊
+                            {% elif record.category == 'Appointment' %}📅
+                            {% elif record.category == 'Specialist Consult' %}🧑‍⚕️
+                            {% elif record.category == 'Cardiac' %}❤️
+                            {% elif record.category == 'Visit Note' %}📝
+                            {% endif %}
+                            {{ record.category | default('N/A') }}
+                        </span>
+                    </p>
+                    <p><span class="font-semibold text-gray-700">Date:</span> <span class="text-gray-600">{{
+                            record.formatted_date_for_display | default('N/A') }}</span></p>
+                    <p><span class="font-semibold text-gray-700">Ordered By:</span> <span class="text-gray-600">{{
+                            record.ordered_by | default('N/A') }}</span></p>
+                    {% if record.details %}
+                    <p><span class="font-semibold text-gray-700">Details:</span> <span class="text-gray-600">{{
+                            record.details }}</span></p>
+                    {% endif %}
+                    {% if record.notes %}
+                    <p><span class="font-semibold text-gray-700">Notes:</span> <span class="text-gray-600">{{
+                            record.notes }}</span></p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
             {% else %}
-                <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center text-gray-500">
-                    No medical records found matching the selected filters.
-                </div>
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4 text-center text-gray-500">
+                No medical records found matching the selected filters.
+            </div>
             {% endif %}
         </div>
 
-        <!-- Right Column: AI Chatbox -->
         <div class="w-full md:w-1/4 px-2">
             <div class="sticky top-[90px] bg-gray-50 rounded-lg shadow-md p-4">
                 <h3 class="font-bold mb-6 text-2xl text-center">AI Assistant</h3>
@@ -262,13 +338,86 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
+<div id="editPhotoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closePhotoModal">&times;</span>
+        <h3 class="text-lg font-semibold mb-4">Edit Patient Photo URL</h3>
+        <div>
+            <label for="newPhotoUrlInput" class="block text-sm font-medium text-gray-700">New Photo URL:</label>
+            <input type="url" id="newPhotoUrlInput"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="https://example.com/image.png">
+        </div>
+        <div class="mt-4 flex justify-end space-x-2">
+            <button id="cancelPhotoEdit" type="button"
+                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md border border-gray-300">Cancel</button>
+            <button id="saveNewPhotoButton" type="button"
+                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">Save
+                Photo</button>
+        </div>
+    </div>
+</div>
+
+<div id="editAppointmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="closeAppointmentModal">&times;</span>
+        <h3 class="text-lg font-semibold mb-4">Edit Appointment Record</h3>
+        <input type="hidden" id="editAppointmentRecordId"> {# To store the record ID being edited #}
+        <div class="space-y-3">
+            <div>
+                <label for="editAppointmentTitle" class="block text-sm font-medium text-gray-700">Title:</label>
+                <input type="text" id="editAppointmentTitle"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="editAppointmentDate" class="block text-sm font-medium text-gray-700">Date:</label>
+                <input type="datetime-local" id="editAppointmentDate"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="editAppointmentStatus" class="block text-sm font-medium text-gray-700">Status:</label>
+                <select id="editAppointmentStatus"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="Completed">Completed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div>
+                <label for="editAppointmentOrderedBy" class="block text-sm font-medium text-gray-700">Ordered
+                    By:</label>
+                <input type="text" id="editAppointmentOrderedBy"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            </div>
+            <div>
+                <label for="editAppointmentDetails" class="block text-sm font-medium text-gray-700">Details:</label>
+                <textarea id="editAppointmentDetails" rows="3"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+            </div>
+            <div>
+                <label for="editAppointmentNotes" class="block text-sm font-medium text-gray-700">Notes:</label>
+                <textarea id="editAppointmentNotes" rows="3"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+            </div>
+        </div>
+        <div class="mt-6 flex justify-end space-x-2">
+            <button id="cancelAppointmentEdit" type="button"
+                class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md border border-gray-300">Cancel</button>
+            <button id="saveAppointmentChangesButton" type="button"
+                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md">Save
+                Changes</button>
+        </div>
     </div>
 </div>
 
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Filter Checkbox Logic (Keep as is)
         const checkboxes = document.querySelectorAll('.filter-checkbox');
         const baseUrl = window.location.pathname;
 
@@ -279,9 +428,7 @@
                     params.append('filter', checkbox.value);
                 }
             });
-
             const newUrl = `${baseUrl}?${params.toString()}`;
-
             window.location.replace(newUrl);
         }
 
@@ -289,8 +436,152 @@
             checkbox.addEventListener('change', applyFilters);
         });
 
+        // --- Edit Photo Modal Logic ---
+        const editPhotoButton = document.getElementById('editPhotoButton');
+        const photoModal = document.getElementById('editPhotoModal');
+        const closePhotoModalButton = document.getElementById('closePhotoModal');
+        const cancelPhotoEditButton = document.getElementById('cancelPhotoEdit');
+        const saveNewPhotoButton = document.getElementById('saveNewPhotoButton');
+        const newPhotoUrlInput = document.getElementById('newPhotoUrlInput');
+        const patientPhotoImg = document.getElementById('patientPhotoImg');
+        const patientInfoCard = document.querySelector('[data-patient-id]'); // Assuming patient_id is on this card
+        const currentPatientId = patientInfoCard ? patientInfoCard.dataset.patientId : null;
+
+        if (editPhotoButton) {
+            editPhotoButton.addEventListener('click', () => {
+                newPhotoUrlInput.value = patientPhotoImg.src.startsWith('https://via.placeholder.com') ? '' : patientPhotoImg.src;
+                photoModal.style.display = 'block';
+            });
+        }
+
+        function closePhotoModal() {
+            photoModal.style.display = 'none';
+        }
+        if (closePhotoModalButton) closePhotoModalButton.addEventListener('click', closePhotoModal);
+        if (cancelPhotoEditButton) cancelPhotoEditButton.addEventListener('click', closePhotoModal);
+        window.addEventListener('click', (event) => { // Close if clicked outside modal content
+            if (event.target == photoModal) {
+                closePhotoModal();
+            }
+        });
+
+        if (saveNewPhotoButton && currentPatientId) {
+            saveNewPhotoButton.addEventListener('click', () => {
+                const newUrl = newPhotoUrlInput.value.trim();
+                if (!newUrl) {
+                    alert('Please enter a valid photo URL.');
+                    return;
+                }
+
+                fetch(`/patient/${currentPatientId}/update_photo_url`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add CSRF token header here if you implement CSRF for AJAX
+                    },
+                    body: JSON.stringify({ photo_url: newUrl })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            patientPhotoImg.src = data.new_photo_url;
+                            closePhotoModal();
+                            // Optionally, use a more sophisticated notification than alert
+                            alert(data.message || 'Photo updated successfully!');
+                            // No full page reload needed unless you want flashed messages to show
+                        } else {
+                            alert('Error: ' + (data.message || 'Could not update photo.'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating photo:', error);
+                        alert('An unexpected error occurred. Please try again.');
+                    });
+            });
+        }
+
+        // --- Edit Appointment Record Modal Logic ---
+        const appointmentModal = document.getElementById('editAppointmentModal');
+        const closeAppointmentModalButton = document.getElementById('closeAppointmentModal');
+        const cancelAppointmentEditButton = document.getElementById('cancelAppointmentEdit');
+        const saveAppointmentChangesButton = document.getElementById('saveAppointmentChangesButton');
+
+        // Input fields in the appointment modal
+        const editAppointmentRecordIdInput = document.getElementById('editAppointmentRecordId');
+        const editAppointmentTitleInput = document.getElementById('editAppointmentTitle');
+        const editAppointmentDateInput = document.getElementById('editAppointmentDate');
+        const editAppointmentStatusInput = document.getElementById('editAppointmentStatus');
+        const editAppointmentOrderedByInput = document.getElementById('editAppointmentOrderedBy');
+        const editAppointmentDetailsInput = document.getElementById('editAppointmentDetails');
+        const editAppointmentNotesInput = document.getElementById('editAppointmentNotes');
+
+        document.querySelectorAll('.edit-appointment-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const recordCard = this.closest('.record-card');
+                editAppointmentRecordIdInput.value = recordCard.dataset.recordId;
+                editAppointmentTitleInput.value = this.dataset.recordTitle;
+                editAppointmentDateInput.value = this.dataset.recordDate; // Should be YYYY-MM-DDTHH:MM
+                editAppointmentStatusInput.value = this.dataset.recordStatus;
+                editAppointmentOrderedByInput.value = this.dataset.recordOrderedby;
+                editAppointmentDetailsInput.value = this.dataset.recordDetails;
+                editAppointmentNotesInput.value = this.dataset.recordNotes;
+                appointmentModal.style.display = 'block';
+            });
+        });
+
+        function closeAppointmentModal() {
+            appointmentModal.style.display = 'none';
+        }
+        if (closeAppointmentModalButton) closeAppointmentModalButton.addEventListener('click', closeAppointmentModal);
+        if (cancelAppointmentEditButton) cancelAppointmentEditButton.addEventListener('click', closeAppointmentModal);
+        window.addEventListener('click', (event) => { // Close if clicked outside modal content
+            if (event.target == appointmentModal) {
+                closeAppointmentModal();
+            }
+        });
+
+        if (saveAppointmentChangesButton) {
+            saveAppointmentChangesButton.addEventListener('click', () => {
+                const recordId = editAppointmentRecordIdInput.value;
+                if (!recordId) {
+                    alert('Error: Record ID is missing.');
+                    return;
+                }
+
+                const updatedData = {
+                    title: editAppointmentTitleInput.value,
+                    date: editAppointmentDateInput.value, // Will be sent as string e.g., "2025-05-11T17:30"
+                    status: editAppointmentStatusInput.value,
+                    ordered_by: editAppointmentOrderedByInput.value,
+                    details: editAppointmentDetailsInput.value,
+                    notes: editAppointmentNotesInput.value
+                };
+
+                fetch(`/record/${recordId}/update_appointment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Add CSRF token header here if needed
+                    },
+                    body: JSON.stringify(updatedData)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            closeAppointmentModal();
+                            alert(data.message || 'Appointment record updated successfully!');
+                            window.location.reload(); // Reload to see changes and flashed messages
+                        } else {
+                            alert('Error: ' + (data.message || 'Could not update appointment record.'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating appointment record:', error);
+                        alert('An unexpected error occurred. Please try again.');
+                    });
+            });
+        }
     });
 </script>
-
 
 {% endblock %}
