@@ -220,6 +220,18 @@ function closeModal() {
   document.getElementById("edit-modal").classList.add("hidden");
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const closeXBtn = document.getElementById("close-edit-modal");
+  const modal = document.getElementById("edit-modal");
+
+  if (closeXBtn && modal) {
+    closeXBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+  }
+});
+
+
 // Helper function to convert formatted string into datetime-local input value
 function formatDateForInput(dateString) {
   const date = new Date(dateString);

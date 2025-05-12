@@ -89,7 +89,7 @@
                         {% endfor %}
                       </select>
                     </form>
-                  </td>                    
+                </td>                    
                 <!-- Chief Complaint -->                  
                 <td class="border border-gray-400 px-4 py-2 whitespace-normal break-words">{{ appointment.get('chief_complaint', 'N/A') }}</td>
             </tr>
@@ -98,38 +98,45 @@
     </table>
     <!-- Edit Appointment Modal -->
     <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-        <div class="bg-white p-6 rounded shadow-lg w-full max-w-md">
-        <h2 class="text-xl font-bold mb-4 text-center">Edit Appointment</h2>
+    <div class="relative bg-white px-6 py-4 rounded-lg shadow-lg w-full max-w-md">
+        <span
+        id="close-edit-modal"
+        class="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl cursor-pointer font-bold"
+        >
+        &times;
+        </span>
+        <h2 class="text-lg font-semibold mb-4 text-center">Edit Appointment</h2>
         <form id="edit-form" method="POST" action="{{ url_for('appointments.update_appointment') }}">
-            <input type="hidden" name="appointment_id" id="edit-appointment-id">
-            <!-- Patient Name (Read-only) -->
-            <label class="block mb-2 text-sm font-semibold">Patient Name</label>
-            <input type="text" id="modal-patient-name" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
+        <input type="hidden" name="appointment_id" id="edit-appointment-id">
 
-            <!-- MRN (Read-only) -->
-            <label class="block mb-2 text-sm font-semibold">MRN</label>
-            <input type="text" id="modal-mrn" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
+        <!-- Patient Name -->
+        <label class="block text-sm font-medium mb-1">Patient Name:</label>
+        <input type="text" id="modal-patient-name"
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
 
-            <!-- Age (Read-only) -->
-            <label class="block mb-2 text-sm font-semibold">Age</label>
-            <input type="text" id="modal-age" class="border px-2 py-1 rounded w-full mb-4 bg-gray-100" disabled>
-    
-            <!-- Date/Time -->
-            <label class="block mb-2 text-sm font-semibold">Date/Time</label>
-            <input type="datetime-local" name="date_time" id="edit-date-time" class="border px-2 py-1 rounded w-full mb-4">
-    
-            <!-- Chief Complaint -->
-            <label class="block mb-2 text-sm font-semibold">Chief Complaint</label>
-            <textarea name="chief_complaint" id="edit-chief-complaint" class="border px-2 py-1 rounded w-full mb-4"></textarea>
-    
-            <!-- Buttons -->
-            <div class="flex justify-end space-x-2">
-            <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
-            </div>
-        </form>
+        <!-- MRN -->
+        <label class="block text-sm font-medium mt-4 mb-1">MRN:</label>
+        <input type="text" id="modal-mrn" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
+
+        <!-- Age -->
+        <label class="block text-sm font-medium mt-4 mb-1">Age:</label>
+        <input type="text" id="modal-age" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm bg-gray-100" disabled>
+
+        <!-- Date/Time -->
+        <label class="block text-sm font-medium mt-4 mb-1">Date/Time:</label>
+        <input type="datetime-local" name="date_time" id="edit-date-time" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm">
+
+        <!-- Chief Complaint -->
+        <label class="block text-sm font-medium mt-4 mb-1">Chief Complaint:</label>
+        <textarea name="chief_complaint" id="edit-chief-complaint" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md text-sm shadow-sm"></textarea>
+
+        <!-- Buttons -->
+        <div class="flex justify-end space-x-2 mt-6">
+            <button type="button" onclick="closeModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md border border-gray-300"> Cancel </button>
+            <button type="submit" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md"> Save </button>
         </div>
+        </form>
     </div>
-</div>
+</div>  
 
 {% endblock %}
