@@ -72,14 +72,24 @@
 
         <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-8">
             <div class="text-gray-700 mb-4 text-base">
-                <p><span class="font-semibold">Appointment Time:</span> {{ patient.appointment_time }}</p>
-                <p><span class="font-semibold">Chief Complaint:</span> {{ patient.chief_complaint }}</p>
+                <p><span class="font-semibold">Appointment Time:</span> {{ appointment.get('date_time', 'N/A') }}</p>
+
+                <p><span class="font-semibold">Chief Complaint:</span> {{ appointment.chief_complaint if appointment else 'N/A' }}</p>
             </div>
+
 
         <!-- <form id="intake-form" action="{{ url_for('patient_intake.save_intake') }}" method="POST"> -->
         <form id="intake-form" action="{{ url_for('patient_intake.save_intake') }}" method="POST">
 
             <input type="hidden" name="patient_id" value="{{ patient._id }}">
+            <!-- added for rendering appointment time and chief complaint -->
+             <input type="hidden" name="patient_id" value="{{ patient._id }}">
+            <input type="hidden" name="first_name" value="{{ patient.first_name }}">
+            <input type="hidden" name="last_name" value="{{ patient.last_name }}">
+            <input type="hidden" name="dob" value="{{ patient.dob }}">
+            <input type="hidden" name="age" value="{{ patient.age }}">
+            <input type="hidden" name="mrn" value="{{ patient.mrn }}">
+
             <div class="mt-5">
                 <h3 class="font-semibold text-gray-700 text-1xl mb-4">Patient In-Take</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
