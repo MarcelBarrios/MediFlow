@@ -281,13 +281,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+//  Patient In-Take Page
 const editPhotoButton = document.getElementById('editPhotoButton');
 const editPhotoForm = document.getElementById('editPhotoForm');
 const patientPhotoImg = document.getElementById('patientPhotoImg');
 const newPhotoUrlInput = document.getElementById('newPhotoUrl');
 const photoUpdateMessageDiv = document.getElementById('photo-update-message');
 
-editPhotoButton.addEventListener('click', toggleEditForm);
+// editPhotoButton.addEventListener('click', toggleEditForm);
 
 function toggleEditForm() {
     editPhotoForm.classList.toggle('hidden');
