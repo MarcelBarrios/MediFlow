@@ -1,7 +1,7 @@
 # blueprints/patient_routes.py
 from flask import Blueprint, render_template, current_app, request, abort, redirect, url_for, flash, jsonify
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timezone
 # Removed: from config import mongo # Using current_app.mongo.db instead
 
 patient_bp = Blueprint('patient', __name__, template_folder='../templates')
@@ -46,38 +46,52 @@ FILTER_MAP = {
 }
 
 
-def format_date_for_display(date_obj):
-    """Formats a datetime object or a date string for display."""
-    if isinstance(date_obj, datetime):
-        return date_obj.strftime('%B %d, %Y')
-    if isinstance(date_obj, str):
-        try:
-            # Attempt to parse common ISO-like format first
-            dt = datetime.fromisoformat(date_obj.replace("Z", "+00:00"))
-            return dt.strftime('%B %d, %Y')
-        except ValueError:
-            try:
-                # Attempt to parse YYYY-MM-DD
-                dt = datetime.strptime(date_obj, '%Y-%m-%d')
-                return dt.strftime('%B %d, %Y')
-            except ValueError:
-                return date_obj  # Return original string if parsing fails
-    return str(date_obj) if date_obj is not None else "N/A"
-
-
-def get_datetime_object(date_val):
-    """Converts a date string (YYYY-MM-DD or ISO) or datetime object to a datetime object for DB storage/comparison."""
+def format_date_for_display(date_val):
+    """Formats a datetime object or various date string formats for display."""
     if isinstance(date_val, datetime):
-        return date_val
+        # If it's aware, you might want to convert to local time here for display
+        # For now, just format it
+        # Example: May 12, 2025 09:30 PM UTC
+        return date_val.strftime('%B %d, %Y %I:%M %p %Z')
     if isinstance(date_val, str):
-        try:  # Try ISO format first (common from datetime-local input)
-            return datetime.fromisoformat(date_val.replace("Z", "+00:00"))
+        try:
+            dt_obj = get_sortable_date_object(
+                date_val)  # Use the robust parser
+            if dt_obj and dt_obj != datetime.min:  # Check if parsing was successful
+                return dt_obj.strftime('%B %d, %Y %I:%M %p %Z')
+            return date_val  # Return original string if parsing failed
         except ValueError:
-            try:  # Try YYYY-MM-DD
-                return datetime.strptime(date_val, '%Y-%m-%d')
+            return date_val
+    return str(date_val) if date_val is not None else "N/A"
+
+
+def get_sortable_date_object(date_val):
+    """
+    Attempts to convert a date value (datetime, ISO string, YYYY-MM-DD string)
+    into an offset-aware UTC datetime object for sorting. Returns datetime.min (naive) on failure.
+    """
+    if isinstance(date_val, datetime):
+        if date_val.tzinfo is None or date_val.tzinfo.utcoffset(date_val) is None:
+            # If naive, assume UTC (or local and convert to UTC if appropriate for your app logic)
+            return date_val.replace(tzinfo=timezone.utc)
+        return date_val  # It's already aware
+
+    if isinstance(date_val, str):
+        try:  # Try ISO format (often includes 'Z' or offset)
+            dt = datetime.fromisoformat(date_val.replace("Z", "+00:00"))
+            if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+                # Make it UTC aware if parsed as naive
+                return dt.replace(tzinfo=timezone.utc)
+            return dt  # It was parsed as aware
+        except ValueError:
+            try:  # Try YYYY-MM-DD format (will be naive)
+                dt = datetime.strptime(date_val, '%Y-%m-%d')
+                return dt.replace(tzinfo=timezone.utc)  # Assume UTC
             except ValueError:
-                return None  # Or raise an error, or return a default
-    return None
+                # Fallback: aware min datetime
+                return datetime.min.replace(tzinfo=timezone.utc)
+    # Fallback for None or other types, make it aware min datetime
+    return datetime.min.replace(tzinfo=timezone.utc)
 
 
 @patient_bp.route("/patient", methods=["GET"])
@@ -86,6 +100,8 @@ def patient_generic():
     return redirect(url_for('all_patients.all_patients'))
 
 # edit photo route
+
+
 @patient_bp.route("/patient/<patient_id>/edit_photo", methods=["POST"])
 def edit_photo(patient_id):
     patient_collection = current_app.mongo.db.patients
@@ -113,6 +129,8 @@ def edit_photo(patient_id):
         return jsonify({"success": False, "message": str(e)}), 500
 
 # edited Patient Details in order for Save Intake to save to database and Records.
+
+
 @patient_bp.route("/patient/<patient_id>/record", methods=["GET"])
 def patient_detail(patient_id):
     try:
@@ -123,7 +141,7 @@ def patient_detail(patient_id):
         if not patient:
             flash('Patient not found', 'error')
             return redirect(url_for('patient.patient_generic'))
-        
+
     except Exception as e:
         flash(f'Error loading patient details: {str(e)}', 'error')
         return redirect(url_for('patient.patient_generic'))
@@ -170,45 +188,28 @@ def patient_detail(patient_id):
         record_copy["category_style"] = CATEGORY_STYLES.get(
             category, DEFAULT_CATEGORY_STYLE)
 
+        # Get the date value, which might be datetime or string
+        date_val = record_copy.get("date")
+        # Convert to aware datetime object for consistent handling
+        aware_dt_obj = get_sortable_date_object(date_val)
+
         # For display in template (string)
         record_copy["formatted_date_for_display"] = format_date_for_display(
-            record_copy.get("date"))
+            aware_dt_obj)
 
-        # For pre-filling edit form (YYYY-MM-DDTHH:MM if datetime, or YYYY-MM-DD if string)
-        date_val = record_copy.get("date")
-        if isinstance(date_val, datetime):
-            record_copy["form_edit_date"] = date_val.strftime('%Y-%m-%dT%H:%M')
-        elif isinstance(date_val, str):
-            try:  # if date is YYYY-MM-DD string
-                dt_obj = datetime.strptime(date_val, '%Y-%m-%d')
-                record_copy["form_edit_date"] = dt_obj.strftime(
-                    '%Y-%m-%dT%H:%M')  # Convert to datetime-local format
-            except ValueError:
-                # Keep as is if not parsable to YYYY-MM-DD
-                record_copy["form_edit_date"] = date_val
+        # For pre-filling edit form (YYYY-MM-DDTHH:MM)
+        if aware_dt_obj and aware_dt_obj != datetime.min.replace(tzinfo=timezone.utc):
+            record_copy["form_edit_date"] = aware_dt_obj.strftime(
+                '%Y-%m-%dT%H:%M')
         else:
+            # Or original string if preferred and not a date
             record_copy["form_edit_date"] = ""
 
         records_for_template.append(record_copy)
 
-    # Sorting: Convert dates to datetime objects for reliable sorting
-    min_datetime_for_sorting = datetime.min
-
-    def get_sortable_date(r):
-        date_val = r.get("date")
-        if isinstance(date_val, datetime):
-            return date_val
-        if isinstance(date_val, str):
-            try:
-                return datetime.fromisoformat(date_val.replace("Z", "+00:00"))
-            except ValueError:
-                try:
-                    return datetime.strptime(date_val, '%Y-%m-%d')
-                except ValueError:
-                    return min_datetime_for_sorting  # Fallback for unparsable strings
-        return min_datetime_for_sorting  # Fallback for other types or None
-
-    records_for_template.sort(key=get_sortable_date, reverse=True)
+    # Sort using the helper function that ensures all keys are aware datetime objects
+    records_for_template.sort(
+        key=lambda r: get_sortable_date_object(r.get("date")), reverse=True)
 
     return render_template(
         "patient.html",
