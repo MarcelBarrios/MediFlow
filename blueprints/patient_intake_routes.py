@@ -1,18 +1,20 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app, jsonify
-from datetime import datetime
+from datetime import datetime, timezone
 from bson import ObjectId
 
 # Blueprint setup
 patient_intake_bp = Blueprint('patient_intake', __name__)
 
 # (new) changed route to have /intake to be different from patient_routes
+
+
 @patient_intake_bp.route('/patient/<patient_id>/intake', methods=['GET'])
 def patient_intake_form(patient_id):
     try:
         # (new) Get patient data from patients collection (ObjectId got convereted to string)
         patients_collection = current_app.mongo.db.patients
         patient = patients_collection.find_one({"_id": ObjectId(patient_id)})
-        
+
         if patient:
             # Convert ObjectId to string
             patient['_id'] = str(patient['_id'])
@@ -21,26 +23,30 @@ def patient_intake_form(patient_id):
             appointments_collection = current_app.mongo.db.appointments
             appointment = appointments_collection.find_one(
                 {'patient_id': patient_id},
-                sort=[('date_time', -1)] # sort by date in descending order to get the most recent
+                # sort by date in descending order to get the most recent
+                sort=[('date_time', -1)]
             )
 
             # (new) add appointment details to the patient object
             if appointment:
-                patient['appointment_time'] = appointment.get('date_time', 'Not scheduled')
-                patient['chief_complaint'] = appointment.get('chief_complaint', 'None recorded')
-            
+                patient['appointment_time'] = appointment.get(
+                    'date_time', 'Not scheduled')
+                patient['chief_complaint'] = appointment.get(
+                    'chief_complaint', 'None recorded')
+
             else:
                 patient['appointment_time'] = 'Not scheduled'
                 patient['chief_complaint'] = 'None recorded'
-            
+
             return render_template('patient_intake.html', patient=patient)
         else:
             flash("Patient not found.", "error")
             return redirect(url_for('all_patients.all_patients'))
-            
+
     except Exception as e:
         flash(f"Error loading patient intake form: {str(e)}", "error")
         return redirect(url_for('all_patients.all_patients'))
+
 
 @patient_intake_bp.route("/patient/<patient_id>/photo_edit", methods=["POST"])
 def edit_photo(patient_id):
@@ -85,7 +91,7 @@ def save_intake():
             "title": "Patient Intake Assessment",
             "category": "Appointment",
             "status": "Completed",
-            "date": datetime.now(),
+            "date": datetime.now(timezone.utc),  # Store as offset-aware UTC
             "ordered_by": "Current User",  # Replace with actual user if available
             "details": f"Weight: {data.get('weight', 'N/A')} lbs, Height: {data.get('height', 'N/A')} inches, Temperature: {data.get('temperature', 'N/A')}°F",
             "notes": data.get("doctor_notes", "")
@@ -96,24 +102,28 @@ def save_intake():
 
         # Alcohol
         if data.get('alcohol-use') == 'yes':
-            health_info.append(f"Alcohol: Yes ({data.get('alcohol-frequency', 'N/A')} drinks/week)")
+            health_info.append(
+                f"Alcohol: Yes ({data.get('alcohol-frequency', 'N/A')} drinks/week)")
         else:
             health_info.append("Alcohol: No")
 
         # Smoking
         if data.get('smoking') == 'yes':
-            health_info.append(f"Smoking: Yes ({data.get('smoking-frequency', 'N/A')} cigarettes/day)")
+            health_info.append(
+                f"Smoking: Yes ({data.get('smoking-frequency', 'N/A')} cigarettes/day)")
         else:
             health_info.append("Smoking: No")
 
         # Domestic violence
         dv_response = data.get('domestic-violence')
         if dv_response and dv_response != 'prefer not to answer':
-            health_info.append(f"Domestic Violence: {dv_response.capitalize()}")
+            health_info.append(
+                f"Domestic Violence: {dv_response.capitalize()}")
 
         # Add to notes section
         if health_info:
-            new_record["notes"] += "\n\nPatient Health Info: " + ", ".join(health_info)
+            new_record["notes"] += "\n\nPatient Health Info: " + \
+                ", ".join(health_info)
 
         # Insert the new record
         records_collection.insert_one(new_record)
