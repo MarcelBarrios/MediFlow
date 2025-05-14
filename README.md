@@ -41,13 +41,13 @@ Mediflow is an electronic medical records (EMR) platform designed to help doctor
   ![Appointments Feed](static/screenshots/appointments.png)
 
   ### All Patient Page  
-  ![All Patient](static/screenshots/patient-record.png)
+  ![All Patient](static/screenshots/allpatients.png)
 
   ### Patient In-Take Page  
-  ![Patient In-Take](static/screenshots/patient-intake.png)
+  ![Patient In-Take](static/screenshots/patientintake.png)
 
   ### Patient Record Page  
-  ![Patient Record](static/screenshots/patient-record.png)
+  ![Patient Record](static/screenshots/patientrecord.png)
 
 </details>
 
